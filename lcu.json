@@ -1,0 +1,7 @@
+{ 
+    "templates": {
+        "repository": "lowcodeunit-devkit/lcu-cli-templates-core",
+        "scope": "@napkin-ide",
+        "workspace": "lcu-data-apps"
+    }
+}
