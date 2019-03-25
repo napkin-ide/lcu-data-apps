@@ -1,7 +1,17 @@
-{ 
+{
     "templates": {
         "repository": "lowcodeunit-devkit/lcu-cli-templates-core",
         "scope": "@napkin-ide",
         "workspace": "lcu-data-apps"
+    },
+    "config": {
+      "wc": ["wc/lcu-data-apps.lcu.js"],
+      "solutions": {
+        "config-manager": {
+          "element": "lcu-data-apps-config-manager-element"
+        }
+      },
+      "elements": {},
+      "flux": {}
     }
 }
