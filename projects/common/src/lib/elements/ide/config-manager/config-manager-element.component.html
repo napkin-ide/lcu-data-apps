@@ -33,10 +33,6 @@
     <mat-drawer-content>
       <div class="content">
         <ng-container *ngIf="!MainLoading">
-          <ng-container *ngIf="State.Loading">
-            <mat-progress-bar type="indeterminate"></mat-progress-bar>
-          </ng-container>
-
           <ng-container *ngIf="!State.ActiveApp && !State.AddingApp">
             <h2>Add or Select an Application to continue.</h2>
           </ng-container>
@@ -53,40 +49,62 @@
               use pre-existing templates. Get started below.
             </p>
 
-            <ng-container *ngIf="!State.VisibilityFlow">
-              <div fxLayout="row wrap" fxLayoutAlign="center center">
-                <div fxFlex="50%" fxFlex.lt-md="100%">
-                  <mat-card>
-                    <h2 class="mat-headline">Create a Public DA</h2>
+            <ng-container *ngIf="State.Loading">
+              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+            </ng-container>
 
-                    <p class="mat-subtitle">
-                      Looking to share your ideas and creations to users without a login? Start here.
-                    </p>
+            <ng-container *ngIf="!State.Loading">
+              <ng-container *ngIf="!State.VisibilityFlow">
+                <div fxLayout="row wrap" fxLayoutAlign="center center">
+                  <div fxFlex="50%" fxFlex.lt-md="100%">
+                    <mat-card>
+                      <h2 class="mat-headline">Create a Public DA</h2>
 
-                    <p class="mat-subtitle">
-                      You will be able to adjust the visibility later, click below to get started.
-                    </p>
+                      <p class="mat-subtitle">
+                        Looking to share your ideas and creations to users without a login? Start here.
+                      </p>
 
-                    <a mat-raised-button color="accent" (click)="SetVisibilityFlow('shared')">Create Public DA</a>
-                  </mat-card>
+                      <p class="mat-subtitle">
+                        You will be able to adjust the visibility later, click below to get started.
+                      </p>
+
+                      <a mat-raised-button color="accent" (click)="SetVisibilityFlow('public')">Create Public DA</a>
+                    </mat-card>
+                  </div>
+
+                  <div fxFlex="50%" fxFlex.lt-md="100%">
+                    <mat-card>
+                      <h2 class="mat-headline">Create a Private DA</h2>
+
+                      <p class="mat-subtitle">
+                        Build internal value for your Enterprise, control who has access, and other stuff.
+                      </p>
+
+                      <p class="mat-subtitle">
+                        You will be able to adjust the visibility later, click below to get started.
+                      </p>
+
+                      <a mat-raised-button color="primary" (click)="SetVisibilityFlow('private')">Create Private DA</a>
+                    </mat-card>
+                  </div>
                 </div>
+              </ng-container>
 
-                <div fxFlex="50%" fxFlex.lt-md="100%">
-                  <mat-card>
-                    <h2 class="mat-headline">Create a Private DA</h2>
+              <ng-container *ngIf="State.VisibilityFlow == 'public'">
+                <h3>Configure Public Application</h3>
 
-                    <p class="mat-subtitle">
-                      Build internal value for your Enterprise, control who has access, and other stuff.
-                    </p>
-
-                    <p class="mat-subtitle">
-                      You will be able to adjust the visibility later, click below to get started.
-                    </p>
-
-                    <a mat-raised-button color="primary" (click)="SetVisibilityFlow('private')">Create Private DA</a>
-                  </mat-card>
+                <div>
+                  <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
                 </div>
-              </div>
+              </ng-container>
+
+              <ng-container *ngIf="State.VisibilityFlow == 'private'">
+                <h3>Configure Private Application</h3>
+
+                <div>
+                  <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
+                </div>
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
