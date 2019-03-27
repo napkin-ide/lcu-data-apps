@@ -1,10 +1,32 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  MatButtonModule,
+  MatListModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatCardModule
+} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FathymSharedModule } from '@lcu-ide/common';
 import { DataAppsConfigManagerElementComponent } from './elements/ide/config-manager/config-manager-element.component';
 
 @NgModule({
   declarations: [DataAppsConfigManagerElementComponent],
-  imports: [CommonModule],
+  imports: [
+    FathymSharedModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatToolbarModule
+  ],
   exports: [DataAppsConfigManagerElementComponent],
   entryComponents: [DataAppsConfigManagerElementComponent]
 })

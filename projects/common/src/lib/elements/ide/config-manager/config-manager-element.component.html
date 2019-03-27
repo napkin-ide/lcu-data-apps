@@ -1,7 +1,290 @@
-<div class="spread">
-  <h2>Data Application Management</h2>
+<div class="lcu-data-apps-config-manager spread" *ngIf="State">
+  <mat-toolbar>
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-  <p>
-    Yup
-  </p>
+    <h2>Data Applications</h2>
+
+    <span class="filler"></span>
+  </mat-toolbar>
+
+  <mat-drawer-container class="drawer">
+    <mat-drawer mode="side" #drawer closed>
+      <mat-nav-list>
+        <mat-list-item [class.active]="app.ID == State.ActiveApp?.ID" *ngFor="let app of State.Applications">
+          <a matLine (click)="SetActiveApp(app)">{{ app }}</a>
+
+          <!-- <button mat-icon-button (click)="SelectStateSettings(app)">
+            <mat-icon>settings</mat-icon>
+          </button> -->
+        </mat-list-item>
+
+        <mat-list-item (click)="ToggleAddingApp()">
+          <a matLine>Add New Data App</a>
+
+          <button mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <div class="content">
+        <ng-container *ngIf="!MainLoading">
+          <ng-container *ngIf="State.Loading">
+            <mat-progress-bar type="indeterminate"></mat-progress-bar>
+          </ng-container>
+
+          <ng-container *ngIf="!State.ActiveApp && !State.AddingApp">
+            <h2>Add or Select an Application to continue.</h2>
+          </ng-container>
+
+          <ng-container *ngIf="State.ActiveApp">
+            <h2>Managing {{ State.ActiveApp.Name }}</h2>
+          </ng-container>
+
+          <ng-container *ngIf="State.AddingApp">
+            <h2>Create a new Data Application (DA)</h2>
+
+            <p class="mat-body-2">
+              Data applications are quick and easy ways to build and deliver value to your users. Create your own, configure your own, or
+              use pre-existing templates. Get started below.
+            </p>
+
+            <ng-container *ngIf="!State.VisibilityFlow">
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="50%" fxFlex.lt-md="100%">
+                  <mat-card>
+                    <h2 class="mat-headline">Create a Public DA</h2>
+
+                    <p class="mat-subtitle">
+                      Looking to share your ideas and creations to users without a login? Start here.
+                    </p>
+
+                    <p class="mat-subtitle">
+                      You will be able to adjust the visibility later, click below to get started.
+                    </p>
+
+                    <a mat-raised-button color="accent" (click)="SetVisibilityFlow('shared')">Create Public DA</a>
+                  </mat-card>
+                </div>
+
+                <div fxFlex="50%" fxFlex.lt-md="100%">
+                  <mat-card>
+                    <h2 class="mat-headline">Create a Private DA</h2>
+
+                    <p class="mat-subtitle">
+                      Build internal value for your Enterprise, control who has access, and other stuff.
+                    </p>
+
+                    <p class="mat-subtitle">
+                      You will be able to adjust the visibility later, click below to get started.
+                    </p>
+
+                    <a mat-raised-button color="primary" (click)="SetVisibilityFlow('private')">Create Private DA</a>
+                  </mat-card>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="MainLoading">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <!--
+          <ng-container *ngIf="State.ActiveState">
+            <ng-container *ngIf="!State.IsStateSettings">
+              <h2>Managing {{ State.ActiveState.Name }}</h2>
+            </ng-container>
+
+            <form *ngIf="State.IsStateSettings" (ngSubmit)="EmitSaveState()">
+              <h2>
+                Managing {{ State.ActiveState.Name }} <span *ngIf="State.IsStateSettings">Settings</span>
+
+                <span class="actions">
+                  <button type="submit" mat-raised-button color="primary">Save State</button>
+
+                  <a mat-button color="warn" (click)="SelectState(null)">Cancel</a>
+                </span>
+              </h2>
+
+              <mat-tab-group>
+                <mat-tab label="Actions">
+                  <mat-form-field class="mat-full-width spread" *ngIf="EnvironmentNames?.length > 0">
+                    <mat-select placeholder="Active Environment" [(ngModel)]="State.ActiveState.ActiveEnvironment" name="actEnv">
+                      <mat-option [value]="envName" *ngFor="let envName of EnvironmentNames">{{ envName }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-accordion>
+                    <ng-container *ngFor="let actionName of ActiveActionNames">
+                      <mat-expansion-panel *ngIf="State.ActiveState.Actions[actionName]; let action">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            {{ actionName }}
+                          </mat-panel-title>
+
+                          <mat-panel-description>
+                            {{ actionName }}
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="Action API" [(ngModel)]="action.APIRoot" [name]="'apiRoot' + actionName" />
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="API Security" [(ngModel)]="action.Security" [name]="'security' + actionName" />
+                        </mat-form-field>
+
+                        <div class="actions">
+                          <button type="button" mat-raised-button color="warn" (click)="RemoveAction(actionName)">
+                            <mat-icon>cancel</mat-icon>
+
+                            Remove Action
+                          </button>
+                        </div>
+                      </mat-expansion-panel>
+                    </ng-container>
+
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Create New Action
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <mat-form-field class="mat-full-width">
+                        <input matInput placeholder="Action Name" [(ngModel)]="NewActionName" name="newActionName" />
+                      </mat-form-field>
+
+                      <mat-form-field class="mat-full-width">
+                        <input matInput placeholder="Action API" [(ngModel)]="NewActionAPIRoot" name="newActionApiRoot" />
+                      </mat-form-field>
+
+                      <mat-form-field class="mat-full-width">
+                        <input matInput placeholder="API Security" [(ngModel)]="NewActionSecurity" name="newActionSecurity" />
+                      </mat-form-field>
+
+                      <div class="actions">
+                        <button type="button" mat-raised-button color="accent" (click)="AddNewAction()">Add New Action</button>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-tab>
+
+                <mat-tab label="Environments">
+                  <mat-accordion>
+                    <ng-container *ngFor="let envName of EnvironmentNames">
+                      <mat-expansion-panel *ngIf="State.ActiveState.Environments[envName]; let env">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            {{ envName }}
+                          </mat-panel-title>
+
+                          <mat-panel-description>
+                            {{ envName }}
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="Server API Root" [(ngModel)]="env.ServerAPIRoot" [name]="'root' + envName" />
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="Server API Security" [(ngModel)]="env.Security" [name]="'srvSec' + envName" />
+                        </mat-form-field>
+
+                        <div class="actions">
+                          <button type="button" mat-raised-button color="warn" (click)="RemoveEnv(envName)">
+                            <mat-icon>cancel</mat-icon>
+
+                            Remove Environment
+                          </button>
+                        </div>
+                      </mat-expansion-panel>
+                    </ng-container>
+
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Create New Environment
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <mat-form-field class="mat-full-width">
+                        <input matInput placeholder="Environment Name" [(ngModel)]="NewEnvName" name="newEnvName" />
+                      </mat-form-field>
+
+                      <div class="actions">
+                        <button type="button" mat-raised-button color="accent" (click)="AddNewEnv()">Add New Environment</button>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-tab>
+
+                <mat-tab label="Default Value">
+                  <mat-form-field class="mat-full-width">
+                    <textarea
+                      matInput
+                      placeholder="Default Value JSON"
+                      [ngModel]="State.ActiveState.DefaultValue | json"
+                      (ngModelChange)="DefaultValueChanged($event)"
+                      name="defaultValue"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="5"
+                    ></textarea>
+                  </mat-form-field>
+                </mat-tab>
+
+                <mat-tab label="Details">
+                  <mat-form-field class="mat-full-width">
+                    <input matInput placeholder="State Name" [(ngModel)]="State.ActiveState.Name" name="name" />
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-full-width">
+                    <input matInput placeholder="Lookup" [(ngModel)]="State.ActiveState.Lookup" name="lookup" />
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-full-width">
+                    <textarea matInput placeholder="Description" [(ngModel)]="State.ActiveState.Description" name="desc"></textarea>
+                  </mat-form-field>
+
+                  <mat-slide-toggle [(ngModel)]="State.ActiveState.UseUsername" name="useUsername">
+                    Use Username state containers?
+                  </mat-slide-toggle>
+                </mat-tab>
+              </mat-tab-group>
+            </form>
+          </ng-container>
+
+          <div fxFlex *ngIf="SavingState">
+            <form [formGroup]="SaveStateFormGroup" (ngSubmit)="EmitSaveState()">
+              <h2>Create new State Container</h2>
+
+              <mat-form-field class="mat-full-width">
+                <input matInput placeholder="State Name" formControlName="name" />
+              </mat-form-field>
+
+              <mat-form-field class="mat-full-width">
+                <input matInput placeholder="Lookup" formControlName="lookup" />
+              </mat-form-field>
+
+              <mat-form-field class="mat-full-width">
+                <textarea matInput placeholder="Description" formControlName="desc"></textarea>
+              </mat-form-field>
+
+              <div class="state-actions">
+                <button type="submit" mat-raised-button color="primary">Save State</button>
+
+                <a mat-button color="warn" (click)="ToggleSavingState()">Cancel</a>
+              </div>
+            </form>
+          </div>-->
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
