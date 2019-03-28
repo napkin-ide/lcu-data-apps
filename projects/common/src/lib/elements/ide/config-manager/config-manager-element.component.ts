@@ -3,6 +3,7 @@ import { LcuElementComponent, LCUElementContext, Application } from '@lcu-ide/co
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
 import { ConfigManagerState } from './../../../core/config-manager-state.model';
 import { MatDrawer } from '@angular/material';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 export class DataAppsConfigManagerElementState {}
 
@@ -24,6 +25,8 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     return this.State.Loading && (!this.State.Applications || this.State.Applications.length === 0) && !this.State.AddingApp;
   }
 
+  public SaveDataAppFormGroup: FormGroup;
+
   public get ShowContainer(): boolean {
     return !this.State.Loading || (this.State.Applications && this.State.Applications.length > 0);
   }
@@ -31,7 +34,7 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   public State: ConfigManagerState;
 
   //  Constructors
-  constructor(protected injector: Injector, protected state: ConfigManagerStateManagerContext) {
+  constructor(protected injector: Injector, protected formBldr: FormBuilder, protected state: ConfigManagerStateManagerContext) {
     super(injector);
   }
 
@@ -47,24 +50,30 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
       }
     });
 
-    // this.SaveStateFormGroup = this.formBldr.group({
-    //   name: ['', Validators.required],
-    //   desc: ['', Validators.required],
-    //   lookup: ['', Validators.required]
-    // });
+    this.SaveDataAppFormGroup = this.formBldr.group({
+      name: ['', Validators.required],
+      desc: ['', Validators.required],
+      path: ['', Validators.required]
+    });
   }
 
   //  API Methods
+  public SaveDataApp(visibility: string) {
+    this.State.Loading = true;
+
+    const app = <Application>{
+      Name: this.SaveDataAppFormGroup.controls.name.value,
+      Description: this.SaveDataAppFormGroup.controls.desc.value,
+      PathRegex: this.SaveDataAppFormGroup.controls.path.value
+    };
+
+    this.state.SaveDataApp(visibility, app);
+  }
+
   public SetActiveApp(app: Application) {
     this.State.Loading = true;
 
     this.state.SetActiveApp(app);
-  }
-
-  public SetVisibilityFlow(flow: string) {
-    this.State.Loading = true;
-
-    this.state.SetVisibilityFlow(flow);
   }
 
   public ToggleAddingApp() {

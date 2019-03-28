@@ -13,7 +13,7 @@
     <mat-drawer mode="side" #drawer closed>
       <mat-nav-list>
         <mat-list-item [class.active]="app.ID == State.ActiveApp?.ID" *ngFor="let app of State.Applications">
-          <a matLine (click)="SetActiveApp(app)">{{ app }}</a>
+          <a matLine (click)="SetActiveApp(app)">{{ app.Name }}</a>
 
           <!-- <button mat-icon-button (click)="SelectStateSettings(app)">
             <mat-icon>settings</mat-icon>
@@ -21,10 +21,16 @@
         </mat-list-item>
 
         <mat-list-item (click)="ToggleAddingApp()">
-          <a matLine>Add New Data App</a>
+          <a matLine>
+            <span *ngIf="!State.AddingApp">Add New Data App</span>
+
+            <span *ngIf="State.AddingApp">Cancel Add New</span>
+          </a>
 
           <button mat-icon-button>
-            <mat-icon>add</mat-icon>
+            <mat-icon *ngIf="!State.AddingApp">add</mat-icon>
+
+            <mat-icon *ngIf="State.AddingApp">cancel</mat-icon>
           </button>
         </mat-list-item>
       </mat-nav-list>
@@ -54,56 +60,70 @@
             </ng-container>
 
             <ng-container *ngIf="!State.Loading">
-              <ng-container *ngIf="!State.VisibilityFlow">
-                <div fxLayout="row wrap" fxLayoutAlign="center center">
-                  <div fxFlex="50%" fxFlex.lt-md="100%">
-                    <mat-card>
-                      <h2 class="mat-headline">Create a Public DA</h2>
+              <ng-container>
+                <form class="spread" [formGroup]="SaveDataAppFormGroup">
+                  <mat-form-field class="mat-full-width">
+                    <input matInput placeholder="Application Name" formControlName="name" />
+                  </mat-form-field>
 
-                      <p class="mat-subtitle">
-                        Looking to share your ideas and creations to users without a login? Start here.
-                      </p>
+                  <mat-form-field class="mat-full-width">
+                    <textarea matInput placeholder="Description" formControlName="desc"></textarea>
+                  </mat-form-field>
 
-                      <p class="mat-subtitle">
-                        You will be able to adjust the visibility later, click below to get started.
-                      </p>
+                  <mat-form-field class="mat-full-width">
+                    <input matInput placeholder="Path" formControlName="path" />
+                  </mat-form-field>
 
-                      <a mat-raised-button color="accent" (click)="SetVisibilityFlow('public')">Create Public DA</a>
-                    </mat-card>
+                  <div fxLayout="row wrap" fxLayoutAlign="center center">
+                    <div fxFlex="50%" fxFlex.lt-md="100%">
+                      <mat-card>
+                        <h2 class="mat-headline">Create a Public DA</h2>
+
+                        <p class="mat-subtitle">
+                          Looking to share your ideas and creations to users without a login? Start here.
+                        </p>
+
+                        <p class="mat-subtitle">
+                          You will be able to adjust the visibility later, click below to get started.
+                        </p>
+
+                        <a mat-raised-button color="accent" (click)="SaveDataApp('public')">Create Public DA</a>
+                      </mat-card>
+                    </div>
+
+                    <div fxFlex="50%" fxFlex.lt-md="100%">
+                      <mat-card>
+                        <h2 class="mat-headline">Create a Private DA</h2>
+
+                        <p class="mat-subtitle">
+                          Build internal value for your Enterprise, control who has access, and other stuff.
+                        </p>
+
+                        <p class="mat-subtitle">
+                          You will be able to adjust the visibility later, click below to get started.
+                        </p>
+
+                        <a mat-raised-button color="primary" (click)="SaveDataApp('private')">Create Private DA</a>
+                      </mat-card>
+                    </div>
                   </div>
-
-                  <div fxFlex="50%" fxFlex.lt-md="100%">
-                    <mat-card>
-                      <h2 class="mat-headline">Create a Private DA</h2>
-
-                      <p class="mat-subtitle">
-                        Build internal value for your Enterprise, control who has access, and other stuff.
-                      </p>
-
-                      <p class="mat-subtitle">
-                        You will be able to adjust the visibility later, click below to get started.
-                      </p>
-
-                      <a mat-raised-button color="primary" (click)="SetVisibilityFlow('private')">Create Private DA</a>
-                    </mat-card>
-                  </div>
-                </div>
+                </form>
               </ng-container>
 
               <ng-container *ngIf="State.VisibilityFlow == 'public'">
                 <h3>Configure Public Application</h3>
 
-                <div>
+                <!-- <div>
                   <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
-                </div>
+                </div> -->
               </ng-container>
 
               <ng-container *ngIf="State.VisibilityFlow == 'private'">
                 <h3>Configure Private Application</h3>
 
-                <div>
+                <!-- <div>
                   <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
-                </div>
+                </div> -->
               </ng-container>
             </ng-container>
           </ng-container>

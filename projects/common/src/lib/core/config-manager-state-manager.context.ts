@@ -14,6 +14,16 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
   }
 
   //  API Methods
+  public SaveDataApp(visibility: string, app: Application) {
+    this.Execute({
+      Arguments: {
+        App: app,
+        Visibility: visibility
+      },
+      Type: 'save-data-app'
+    });
+  }
+
   public SetActiveApp(app: Application) {
     this.Execute({
       Arguments: {
