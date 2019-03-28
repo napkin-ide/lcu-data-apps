@@ -41,10 +41,18 @@
         <ng-container *ngIf="!MainLoading">
           <ng-container *ngIf="!State.ActiveApp && !State.AddingApp">
             <h2>Add or Select an Application to continue.</h2>
+
+            <ng-container *ngIf="State.Loading">
+              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+            </ng-container>
           </ng-container>
 
           <ng-container *ngIf="State.ActiveApp">
             <h2>Managing {{ State.ActiveApp.Name }}</h2>
+
+            <ng-container *ngIf="State.Loading">
+              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+            </ng-container>
           </ng-container>
 
           <ng-container *ngIf="State.AddingApp">
