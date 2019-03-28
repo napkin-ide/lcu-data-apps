@@ -1,13 +1,13 @@
-import { Application } from '@lcu-ide/common';
+import { Application, DAFViewApplicationConfig } from '@lcu-ide/common';
 
 export class ConfigManagerState {
   public ActiveApp: Application;
 
-  public Applications: Application[];
+  public ActiveView: DAFViewApplicationConfig;
 
   public AddingApp: boolean;
 
-  public Loading?: boolean;
+  public Applications: Application[];
 
-  public VisibilityFlow?: string;
+  public Loading?: boolean;
 }

@@ -20,10 +20,13 @@
     background-color: transparent;
   }
 
+  .mat-chip-list {
+    display: inline-block;
+  }
+
   .content {
     ::ng-deep {
       .mat-form-field {
-        margin: 2rem;
         display: block;
       }
 

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { LcuDataAppsModule } from '@napkin-ide/lcu-data-apps-common';
+import { LcuDataAppsModule, NPMService } from '@napkin-ide/lcu-data-apps-common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { FathymSharedModule, LCUServiceSettings } from '@lcu-ide/common';
@@ -18,7 +18,8 @@ export const settings = FathymSharedModule.DefaultServiceSettings(environment);
     {
       provide: LCUServiceSettings,
       useValue: settings
-    }
+    },
+    NPMService
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,11 @@ import {
   MatIconModule,
   MatCardModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatChipsModule,
+  MatTabsModule,
+  MatExpansionModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FathymSharedModule } from '@lcu-ide/common';
@@ -23,8 +27,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatAutocompleteModule,
+    MatExpansionModule,
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -32,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
+    MatTabsModule,
     MatToolbarModule
   ],
   exports: [DataAppsConfigManagerElementComponent],

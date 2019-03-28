@@ -13,11 +13,13 @@
     <mat-drawer mode="side" #drawer closed>
       <mat-nav-list>
         <mat-list-item [class.active]="app.ID == State.ActiveApp?.ID" *ngFor="let app of State.Applications">
-          <a matLine (click)="SetActiveApp(app)">{{ app.Name }}</a>
+          <a matLine (click)="SetActiveApp(app)">
+            {{ app.Name }}
+          </a>
 
-          <!-- <button mat-icon-button (click)="SelectStateSettings(app)">
-            <mat-icon>settings</mat-icon>
-          </button> -->
+          <mat-icon *ngIf="app.IsPrivate" matListIcon>security</mat-icon>
+
+          <mat-icon *ngIf="!app.IsPrivate" matListIcon>public</mat-icon>
         </mat-list-item>
 
         <mat-list-item (click)="ToggleAddingApp()">
@@ -37,21 +39,104 @@
     </mat-drawer>
 
     <mat-drawer-content>
-      <div class="content">
+      <div class="content spread">
         <ng-container *ngIf="!MainLoading">
           <ng-container *ngIf="!State.ActiveApp && !State.AddingApp">
             <h2>Add or Select an Application to continue.</h2>
 
             <ng-container *ngIf="State.Loading">
-              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </ng-container>
           </ng-container>
 
           <ng-container *ngIf="State.ActiveApp">
-            <h2>Managing {{ State.ActiveApp.Name }}</h2>
+            <h2>
+              Managing {{ State.ActiveApp.Name }}
+
+              <a *ngIf="State.ActiveView?.BaseHref" mat-icon-button [href]="State.ActiveView.BaseHref" target="_blank">
+                <mat-icon>launch</mat-icon>
+              </a>
+
+              <mat-chip-list *ngIf="State.ActiveApp.IsPrivate">
+                <mat-chip color="accent" selected>private</mat-chip>
+              </mat-chip-list>
+            </h2>
 
             <ng-container *ngIf="State.Loading">
-              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </ng-container>
+
+            <ng-container *ngIf="!State.Loading">
+              <mat-tab-group mat-stretch-tabs>
+                <!-- <mat-tab label="First">
+                  Content 1
+                </mat-tab>
+
+                <mat-tab label="Second">
+                  Content 2
+                </mat-tab> -->
+
+                <mat-tab label="Configuration">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          View Application
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <ng-container *ngIf="State.Loading">
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                      </ng-container>
+
+                      <form [formGroup]="DAFViewAppFormGroup" (ngSubmit)="SaveAppView()" *ngIf="!State.Loading">
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="NPM Package" formControlName="npmPkg" [matAutocomplete]="npmPkg" required />
+
+                          <mat-autocomplete #npmPkg="matAutocomplete" (optionSelected)="PackageSelected($event)">
+                            <ng-container *ngFor="let pkg of NPMPackages">
+                              <mat-option [value]="pkg.Name">
+                                <span>{{ pkg.Name }}</span> |
+
+                                <small>(latest: {{ pkg.Version }})</small>
+                              </mat-option>
+                            </ng-container>
+                          </mat-autocomplete>
+                        </mat-form-field>
+
+                        <mat-form-field class="mat-full-width">
+                          <input matInput placeholder="Package Version" formControlName="pkgVer" required />
+
+                          <a
+                            mat-icon-button
+                            matSuffix
+                            [href]="'https://www.npmjs.com/package/' + DAFViewAppFormGroup.controls.npmPkg.value"
+                            target="_blank"
+                          >
+                            <mat-icon>help</mat-icon>
+                          </a>
+                        </mat-form-field>
+
+                        <div class="state-actions">
+                          <button type="submit" mat-raised-button color="accent" [disabled]="!DAFViewAppFormGroup.valid">
+                            Save View Config
+                          </button>
+                        </div>
+                      </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          State Setup
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <p>I'm visible because I am open</p>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-tab>
+              </mat-tab-group>
             </ng-container>
           </ng-container>
 
@@ -64,7 +149,7 @@
             </p>
 
             <ng-container *ngIf="State.Loading">
-              <mat-progress-bar type="indeterminate"></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </ng-container>
 
             <ng-container *ngIf="!State.Loading">
@@ -95,7 +180,7 @@
                           You will be able to adjust the visibility later, click below to get started.
                         </p>
 
-                        <a mat-raised-button color="accent" (click)="SaveDataApp('public')">Create Public DA</a>
+                        <a mat-raised-button color="accent" (click)="SaveDataApp(false)">Create Public DA</a>
                       </mat-card>
                     </div>
 
@@ -111,27 +196,11 @@
                           You will be able to adjust the visibility later, click below to get started.
                         </p>
 
-                        <a mat-raised-button color="primary" (click)="SaveDataApp('private')">Create Private DA</a>
+                        <a mat-raised-button color="primary" (click)="SaveDataApp(true)">Create Private DA</a>
                       </mat-card>
                     </div>
                   </div>
                 </form>
-              </ng-container>
-
-              <ng-container *ngIf="State.VisibilityFlow == 'public'">
-                <h3>Configure Public Application</h3>
-
-                <!-- <div>
-                  <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
-                </div> -->
-              </ng-container>
-
-              <ng-container *ngIf="State.VisibilityFlow == 'private'">
-                <h3>Configure Private Application</h3>
-
-                <!-- <div>
-                  <a mat-button (click)="SetVisibilityFlow(null)"><mat-icon>cancel</mat-icon> Back To Visibility Options</a>
-                </div> -->
               </ng-container>
             </ng-container>
           </ng-container>

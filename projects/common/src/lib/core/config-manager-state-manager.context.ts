@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { StateManagerContext, Application } from '@lcu-ide/common';
+import { StateManagerContext, Application, DAFViewApplicationConfig } from '@lcu-ide/common';
 import { ConfigManagerState } from './config-manager-state.model';
 
 @Injectable({
@@ -14,11 +14,19 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
   }
 
   //  API Methods
-  public SaveDataApp(visibility: string, app: Application) {
+  public SaveAppView(view: DAFViewApplicationConfig) {
     this.Execute({
       Arguments: {
-        App: app,
-        Visibility: visibility
+        View: view
+      },
+      Type: 'save-app-view'
+    });
+  }
+
+  public SaveDataApp(app: Application) {
+    this.Execute({
+      Arguments: {
+        App: app
       },
       Type: 'save-data-app'
     });
@@ -30,15 +38,6 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
         App: app
       },
       Type: 'set-active-app'
-    });
-  }
-
-  public SetVisibilityFlow(flow: string) {
-    this.Execute({
-      Arguments: {
-        Flow: flow
-      },
-      Type: 'set-visibility-flow'
     });
   }
 
