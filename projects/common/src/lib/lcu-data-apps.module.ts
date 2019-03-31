@@ -13,7 +13,8 @@ import {
   MatChipsModule,
   MatTabsModule,
   MatExpansionModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FathymSharedModule } from '@lcu-ide/common';
@@ -40,7 +41,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   exports: [DataAppsConfigManagerElementComponent],
   entryComponents: [DataAppsConfigManagerElementComponent]

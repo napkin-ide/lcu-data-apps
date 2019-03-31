@@ -3,7 +3,7 @@ import { LcuElementComponent, LCUElementContext, Application } from '@lcu-ide/co
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
 import { ConfigManagerState } from './../../../core/config-manager-state.model';
-import { MatDrawer, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatDrawer, MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
 
@@ -93,6 +93,40 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   }
 
   //  API Methods
+  public CopyAppIdToClipBoard(appId: string) {
+    let selected: any = false;
+
+    const el = document.createElement('textarea');
+
+    el.value = appId;
+
+    el.setAttribute('readonly', '');
+
+    el.style.position = 'absolute';
+
+    el.style.left = '-9999px';
+
+    el.style.opacity = '0';
+
+    document.body.appendChild(el);
+
+    if (document.getSelection().rangeCount > 0) {
+      selected = document.getSelection().getRangeAt(0);
+    }
+
+    el.select();
+
+    document.execCommand('copy', false);
+
+    document.body.removeChild(el);
+
+    if (selected) {
+      document.getSelection().removeAllRanges();
+
+      document.getSelection().addRange(selected);
+    }
+  }
+
   public PackageSelected(event: MatAutocompleteSelectedEvent) {
     const pkg = this.NPMPackages.find(p => p.Name === event.option.value);
 

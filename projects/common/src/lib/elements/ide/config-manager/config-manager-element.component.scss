@@ -24,6 +24,10 @@
     display: inline-block;
   }
 
+  .app-id {
+    width: 250px;
+  }
+
   .content {
     ::ng-deep {
       .mat-form-field {
