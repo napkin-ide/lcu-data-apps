@@ -25,7 +25,7 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   //  Properties
   public DAFViewAppFormGroup: FormGroup;
 
-  @ViewChild(MatDrawer)
+  @ViewChild(MatDrawer, { static: false })
   public Drawer: MatDrawer;
 
   public get MainLoading(): boolean {
