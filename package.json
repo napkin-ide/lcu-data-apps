@@ -51,7 +51,7 @@
 				"rxjs": "~6.4.0",
 				"tslib": "^1.9.0",
 				"zone.js": "~0.8.29",
-				"ngx-build-plus": "^7.7.6"
+        "ngx-build-plus": "^8.1.3",
 		},
 		"devDependencies": {
 				"@angular-devkit/build-angular": "^0.801.2",
