@@ -32,6 +32,8 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     return this.State.Loading && (!this.State.Applications || this.State.Applications.length === 0) && !this.State.AddingApp;
   }
 
+  public NewDataAppFormGroup: FormGroup;
+
   public NPMPackages: { Name: string; NPMLink: string; Version: string }[];
 
   public SaveDataAppFormGroup: FormGroup;
@@ -55,6 +57,12 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   //  Life Cycle
   public ngOnInit() {
     super.ngOnInit();
+
+    this.NewDataAppFormGroup = this.formBldr.group({
+      name: ['', Validators.required],
+      desc: ['', Validators.required],
+      path: ['', Validators.required]
+    });
 
     this.SaveDataAppFormGroup = this.formBldr.group({
       name: ['', Validators.required],
@@ -127,6 +135,23 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     }
   }
 
+  public NewDataApp(isPrivate: boolean) {
+    this.State.Loading = true;
+
+    const app = <Application>{
+      Name: this.NewDataAppFormGroup.controls.name.value,
+      Description: this.NewDataAppFormGroup.controls.desc.value,
+      PathRegex: this.NewDataAppFormGroup.controls.path.value,
+      IsPrivate: isPrivate
+    };
+
+    this.state.SaveDataApp(app);
+
+    if (this.State.ActiveView) {
+      this.SaveAppView();
+    }
+  }
+
   public PackageSelected(event: MatAutocompleteSelectedEvent) {
     const pkg = this.NPMPackages.find(p => p.Name === event.option.value);
 
@@ -156,6 +181,10 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     };
 
     this.state.SaveDataApp(app);
+
+    // if (this.State.ActiveView) {
+    //   this.SaveAppView();
+    // }
   }
 
   public SetActiveApp(app: Application) {
@@ -180,11 +209,13 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
     if (this.SaveDataAppFormGroup) {
       if (this.State.ActiveApp) {
-        this.SaveDataAppFormGroup.controls.name.setValue(this.State.ActiveApp.Name);
+        //  TODO: Why this isn't working?
 
-        this.SaveDataAppFormGroup.controls.path.setValue(this.State.ActiveApp.PathRegex);
-
-        this.SaveDataAppFormGroup.controls.desc.setValue(this.State.ActiveApp.Description);
+        this.SaveDataAppFormGroup.patchValue({
+          'name': this.State.ActiveApp.Name,
+          'path': this.State.ActiveApp.PathRegex.replace('*', ''),
+          'desc': this.State.ActiveApp.Description || ''
+        });
       } else {
         this.SaveDataAppFormGroup.reset();
       }
@@ -198,6 +229,10 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
       } else {
         this.SaveDataAppFormGroup.reset();
       }
+    }
+
+    if (this.NewDataAppFormGroup) {
+      this.NewDataAppFormGroup.reset();
     }
   }
 }

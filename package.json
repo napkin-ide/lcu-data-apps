@@ -40,7 +40,7 @@
 				"@angular/platform-browser-dynamic": "~8.1.2",
 				"@angular/router": "~8.1.2",
 				"@aspnet/signalr": "^1.1.4",
-				"@lcu-ide/common": "^0.15.589",
+				"@lcu-ide/common": "^0.21.9",
 				"@lowcodeunit-devkit/ng-lcu": "^0.1.20-integration",
 				"@webcomponents/custom-elements": "^1.2.1",
 				"@webcomponents/webcomponentsjs": "^2.2.7",
@@ -48,10 +48,10 @@
 				"core-js": "^2.5.4",
 				"dot-object": "^1.7.1",
 				"hammerjs": "^2.0.8",
+				"ngx-build-plus": "^8.1.3",
 				"rxjs": "~6.4.0",
 				"tslib": "^1.9.0",
-				"zone.js": "~0.8.29",
-				"ngx-build-plus": "^8.1.3"
+				"zone.js": "~0.8.29"
 		},
 		"devDependencies": {
 				"@angular-devkit/build-angular": "^0.801.2",
