@@ -78,16 +78,16 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     this.DAFViewAppFormGroup.controls.npmPkg.valueChanges
       .pipe(
         debounceTime(500),
-        switchMap(value => this.npm.Search(value.toString())),
-        map(val =>
-          val.Model.Items.map(i => {
+        switchMap(value => this.npm.Search(value ? value.toString() : '')),
+        map(val => {
+          return val.Model ? val.Model.Items.map(i => {
             return {
               Name: i.package.name,
               Version: i.package.version,
               NPMLink: i.package.links.npm
             };
-          })
-        )
+          }) : [];
+        })
       )
       .subscribe(packages => {
         this.NPMPackages = packages;
