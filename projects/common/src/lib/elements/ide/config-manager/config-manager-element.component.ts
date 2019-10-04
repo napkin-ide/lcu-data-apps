@@ -146,10 +146,6 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     };
 
     this.state.SaveDataApp(app);
-
-    if (this.State.ActiveView) {
-      this.SaveAppView();
-    }
   }
 
   public PackageSelected(event: MatAutocompleteSelectedEvent) {
@@ -182,9 +178,9 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
     this.state.SaveDataApp(app);
 
-    // if (this.State.ActiveView) {
-    //   this.SaveAppView();
-    // }
+    if (this.State.ActiveView) {
+      this.SaveAppView();
+    }
   }
 
   public SetActiveApp(app: Application) {
