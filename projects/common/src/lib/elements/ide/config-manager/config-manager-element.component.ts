@@ -223,7 +223,7 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
         this.DAFViewAppFormGroup.controls.pkgVer.setValue(this.State.ActiveView.PackageVersion);
       } else {
-        this.SaveDataAppFormGroup.reset();
+        this.DAFViewAppFormGroup.reset();
       }
     }
 
