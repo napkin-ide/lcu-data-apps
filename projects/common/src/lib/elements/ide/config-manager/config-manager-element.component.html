@@ -54,10 +54,10 @@
               Managing {{ State.ActiveApp.Name }}
 
               <a
-                *ngIf="State.ActiveView?.BaseHref"
+                *ngIf="State.ActiveDAFApp && State.ActiveDAFApp['BaseHref']"
                 matTooltip="Launch in Browser"
                 mat-icon-button
-                [href]="State.ActiveView.BaseHref"
+                [href]="State.ActiveDAFApp['BaseHref']"
                 target="_blank"
               >
                 <mat-icon>launch</mat-icon>
@@ -84,7 +84,7 @@
             <ng-container *ngIf="!State.Loading">
               <mat-tab-group mat-stretch-tabs>
                 <mat-tab label="View Configuration">
-                  <form [formGroup]="DAFViewAppFormGroup" (ngSubmit)="SaveAppView()" *ngIf="!State.Loading">
+                  <form [formGroup]="DAFViewAppFormGroup" (ngSubmit)="SaveAppView()" *ngIf="State.AppType == DAFAppTypes.View">
                     <mat-form-field class="mat-full-width">
                       <input matInput placeholder="NPM Package" formControlName="npmPkg" [matAutocomplete]="npmPkg" required />
 
@@ -116,6 +116,26 @@
                       <button type="submit" mat-raised-button color="accent" [disabled]="!DAFViewAppFormGroup.valid">
                         Save View Config
                       </button>
+
+                      <a mat-raised-button (click)="SetViewType(DAFAppTypes.Redirect)">
+                        Change to App Redirect
+                      </a>
+                    </div>
+                  </form>
+
+                  <form [formGroup]="DAFRedirectAppFormGroup" (ngSubmit)="SaveAppRedirect()" *ngIf="State.AppType == DAFAppTypes.Redirect">
+                    <mat-form-field class="mat-full-width">
+                      <input matInput placeholder="Redirect URL" formControlName="redirect" required />
+                    </mat-form-field>
+
+                    <div class="state-actions">
+                      <button type="submit" mat-raised-button color="accent" [disabled]="!DAFRedirectAppFormGroup.valid">
+                        Save Redirect Config
+                      </button>
+
+                      <a mat-raised-button (click)="SetViewType(DAFAppTypes.View)">
+                        Change to Data Application
+                      </a>
                     </div>
                   </form>
                 </mat-tab>

@@ -1,13 +1,21 @@
-import { Application, DAFViewApplicationConfig } from '@lcu-ide/common';
+import { Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu-ide/common';
 
 export class ConfigManagerState {
   public ActiveApp: Application;
 
-  public ActiveView: DAFViewApplicationConfig;
+  public ActiveDAFApp: DAFApplicationConfig;
 
   public AddingApp: boolean;
 
   public Applications: Application[];
 
+  public AppType: DAFAppTypes;
+
   public Loading?: boolean;
+}
+
+export enum DAFAppTypes {
+  View = 'View',
+  API = 'API',
+  Redirect = 'Redirect'
 }

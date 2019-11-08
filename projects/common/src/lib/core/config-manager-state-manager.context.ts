@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
-import { StateManagerContext, Application, DAFViewApplicationConfig } from '@lcu-ide/common';
-import { ConfigManagerState } from './config-manager-state.model';
+import { StateManagerContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu-ide/common';
+import { ConfigManagerState, DAFAppTypes } from './config-manager-state.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,10 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
   }
 
   //  API Methods
-  public SaveAppView(view: DAFViewApplicationConfig) {
+  public SaveDAFApp(dafApp: DAFApplicationConfig) {
     this.Execute({
       Arguments: {
-        View: view
+        DAFApp: dafApp
       },
       Type: 'save-app-view'
     });
@@ -38,6 +38,15 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
         App: app
       },
       Type: 'set-active-app'
+    });
+  }
+
+  public SetViewType(appType: DAFAppTypes) {
+    this.Execute({
+      Arguments: {
+        AppType: appType
+      },
+      Type: 'SetViewType'
     });
   }
 

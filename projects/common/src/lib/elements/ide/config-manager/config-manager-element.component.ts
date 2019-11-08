@@ -1,8 +1,8 @@
 import { Component, OnInit, Injector, ViewChild, SimpleChanges } from '@angular/core';
-import { LcuElementComponent, LCUElementContext, Application } from '@lcu-ide/common';
+import { LcuElementComponent, LCUElementContext, Application, DAFApplicationConfig } from '@lcu-ide/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
-import { ConfigManagerState } from './../../../core/config-manager-state.model';
+import { ConfigManagerState, DAFAppTypes } from './../../../core/config-manager-state.model';
 import { MatDrawer, MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
@@ -23,7 +23,11 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   protected initialized: boolean;
 
   //  Properties
+  public DAFAppTypes = DAFAppTypes;
+
   public DAFViewAppFormGroup: FormGroup;
+
+  public DAFRedirectAppFormGroup: FormGroup;
 
   @ViewChild(MatDrawer, { static: false })
   public Drawer: MatDrawer;
@@ -75,18 +79,24 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
       pkgVer: ['', Validators.required]
     });
 
+    this.DAFRedirectAppFormGroup = this.formBldr.group({
+      redirect: ['', Validators.required]
+    });
+
     this.DAFViewAppFormGroup.controls.npmPkg.valueChanges
       .pipe(
         debounceTime(500),
         switchMap(value => this.npm.Search(value ? value.toString() : '')),
         map(val => {
-          return val.Model ? val.Model.Items.map(i => {
-            return {
-              Name: i.package.name,
-              Version: i.package.version,
-              NPMLink: i.package.links.npm
-            };
-          }) : [];
+          return val.Model
+            ? val.Model.Items.map(i => {
+                return {
+                  Name: i.package.name,
+                  Version: i.package.version,
+                  NPMLink: i.package.links.npm
+                };
+              })
+            : [];
         })
       )
       .subscribe(packages => {
@@ -156,11 +166,20 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     }
   }
 
+  public SaveAppRedirect() {
+    this.State.Loading = true;
+
+    this.state.SaveDAFApp(<DAFApplicationConfig>{
+      ...this.State.ActiveDAFApp,
+      Redirect: this.DAFRedirectAppFormGroup.controls.redirect.value
+    });
+  }
+
   public SaveAppView() {
     this.State.Loading = true;
 
-    this.state.SaveAppView({
-      ...this.State.ActiveView,
+    this.state.SaveDAFApp(<DAFApplicationConfig>{
+      ...this.State.ActiveDAFApp,
       NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
       PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value
     });
@@ -178,7 +197,7 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
     this.state.SaveDataApp(app);
 
-    if (this.State.ActiveView) {
+    if (this.State.ActiveDAFApp) {
       this.SaveAppView();
     }
   }
@@ -187,6 +206,12 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     this.State.Loading = true;
 
     this.state.SetActiveApp(app);
+  }
+
+  public SetViewType(appType: DAFAppTypes) {
+    this.State.Loading = true;
+
+    this.state.SetViewType(appType);
   }
 
   public ToggleAddingApp() {
@@ -208,9 +233,9 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
         //  TODO: Why this isn't working?
 
         this.SaveDataAppFormGroup.patchValue({
-          'name': this.State.ActiveApp.Name,
-          'path': this.State.ActiveApp.PathRegex.replace('*', ''),
-          'desc': this.State.ActiveApp.Description || ''
+          name: this.State.ActiveApp.Name,
+          path: this.State.ActiveApp.PathRegex.replace('*', ''),
+          desc: this.State.ActiveApp.Description || ''
         });
       } else {
         this.SaveDataAppFormGroup.reset();
@@ -218,12 +243,20 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     }
 
     if (this.DAFViewAppFormGroup) {
-      if (this.State.ActiveView) {
-        this.DAFViewAppFormGroup.controls.npmPkg.setValue(this.State.ActiveView.NPMPackage);
+      if (this.State.ActiveDAFApp) {
+        this.DAFViewAppFormGroup.controls.npmPkg.setValue(this.State.ActiveDAFApp['NPMPackage']);
 
-        this.DAFViewAppFormGroup.controls.pkgVer.setValue(this.State.ActiveView.PackageVersion);
+        this.DAFViewAppFormGroup.controls.pkgVer.setValue(this.State.ActiveDAFApp['PackageVersion']);
       } else {
         this.DAFViewAppFormGroup.reset();
+      }
+    }
+
+    if (this.DAFRedirectAppFormGroup) {
+      if (this.State.ActiveDAFApp) {
+        this.DAFRedirectAppFormGroup.controls.redirect.setValue(this.State.ActiveDAFApp['Redirect']);
+      } else {
+        this.DAFRedirectAppFormGroup.reset();
       }
     }
 
