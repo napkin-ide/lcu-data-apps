@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { LcuDataAppsModule, NPMService } from '@napkin-ide/lcu-data-apps-common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
-import { FathymSharedModule, LCUServiceSettings } from '@lcu-ide/common';
+import { FathymSharedModule, LCUServiceSettings } from '@lcu/common';
 
 @NgModule({
   declarations: [AppComponent],

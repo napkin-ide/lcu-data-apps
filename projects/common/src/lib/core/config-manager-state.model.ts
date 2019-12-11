@@ -1,4 +1,4 @@
-import { Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu-ide/common';
+import { Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
 
 export class ConfigManagerState {
   public ActiveApp: Application;

@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { DAFService, BaseModeledResponse, Pageable } from '@lcu-ide/common';
+import { DAFService, BaseModeledResponse, Pageable } from '@lcu/common';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpBackend } from '@angular/common/http';
