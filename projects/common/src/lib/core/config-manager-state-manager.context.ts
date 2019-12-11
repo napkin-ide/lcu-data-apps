@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { StateManagerContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu-ide/common';
+import { StateManagerContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
 import { ConfigManagerState, DAFAppTypes } from './config-manager-state.model';
 
 @Injectable({

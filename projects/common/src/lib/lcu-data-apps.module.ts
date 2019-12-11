@@ -17,7 +17,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FathymSharedModule } from '@lcu-ide/common';
+import { FathymSharedModule } from '@lcu/common';
 import { DataAppsConfigManagerElementComponent } from './elements/ide/config-manager/config-manager-element.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

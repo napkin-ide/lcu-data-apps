@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, ViewChild, SimpleChanges } from '@angular/core';
-import { LcuElementComponent, LCUElementContext, Application, DAFApplicationConfig } from '@lcu-ide/common';
+import { LcuElementComponent, LCUElementContext, Application, DAFApplicationConfig } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
 import { ConfigManagerState, DAFAppTypes } from './../../../core/config-manager-state.model';
