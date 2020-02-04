@@ -1,29 +1,54 @@
-import { Component, OnInit, Injector, ViewChild, SimpleChanges } from '@angular/core';
-import { LcuElementComponent, LCUElementContext, Application, DAFApplicationConfig } from '@lcu/common';
+import {
+  Component,
+  OnInit,
+  Injector,
+  ViewChild,
+  SimpleChanges
+} from '@angular/core';
+import {
+  LcuElementComponent,
+  LCUElementContext,
+  Application,
+  DAFApplicationConfig
+} from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
-import { ConfigManagerState, DAFAppTypes } from './../../../core/config-manager-state.model';
-import { MatDrawer, MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
+import {
+  ConfigManagerState,
+  DAFAppTypes
+} from './../../../core/config-manager-state.model';
+import {
+  MatDrawer,
+  MatAutocompleteSelectedEvent,
+  MatInput
+} from '@angular/material';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
 
 export class DataAppsConfigManagerElementState {}
 
-export class DataAppsConfigManagerContext extends LCUElementContext<DataAppsConfigManagerElementState> {}
+export class DataAppsConfigManagerContext extends LCUElementContext<
+  DataAppsConfigManagerElementState
+> {}
 
-export const SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT = 'lcu-data-apps-config-manager-element';
+export const SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT =
+  'lcu-data-apps-config-manager-element';
 
 @Component({
   selector: SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT,
   templateUrl: './config-manager-element.component.html',
   styleUrls: ['./config-manager-element.component.scss']
 })
-export class DataAppsConfigManagerElementComponent extends LcuElementComponent<DataAppsConfigManagerContext> implements OnInit {
+export class DataAppsConfigManagerElementComponent
+  extends LcuElementComponent<DataAppsConfigManagerContext>
+  implements OnInit {
   //  Fields
   protected initialized: boolean;
 
   //  Properties
   public DAFAppTypes = DAFAppTypes;
+
+  public DAFAPIAppFormGroup: FormGroup;
 
   public DAFViewAppFormGroup: FormGroup;
 
@@ -33,7 +58,11 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   public Drawer: MatDrawer;
 
   public get MainLoading(): boolean {
-    return this.State.Loading && (!this.State.Applications || this.State.Applications.length === 0) && !this.State.AddingApp;
+    return (
+      this.State.Loading &&
+      (!this.State.Applications || this.State.Applications.length === 0) &&
+      !this.State.AddingApp
+    );
   }
 
   public NewDataAppFormGroup: FormGroup;
@@ -43,7 +72,10 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
   public SaveDataAppFormGroup: FormGroup;
 
   public get ShowContainer(): boolean {
-    return !this.State.Loading || (this.State.Applications && this.State.Applications.length > 0);
+    return (
+      !this.State.Loading ||
+      (this.State.Applications && this.State.Applications.length > 0)
+    );
   }
 
   public State: ConfigManagerState;
@@ -72,6 +104,13 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
       name: ['', Validators.required],
       desc: ['', Validators.required],
       path: ['', Validators.required]
+    });
+
+    this.DAFAPIAppFormGroup = this.formBldr.group({
+      apiRoot: ['', Validators.required],
+      inboundPath: ['', Validators.required],
+      methods: ['', Validators.required],
+      security: ['', Validators.required]
     });
 
     this.DAFViewAppFormGroup = this.formBldr.group({
@@ -166,6 +205,18 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
     }
   }
 
+  public SaveAppAPI() {
+    this.State.Loading = true;
+
+    this.state.SaveDAFApp(<DAFApplicationConfig>{
+      ...this.State.ActiveDAFApp,
+      APIRoot: this.DAFAPIAppFormGroup.controls.apiRoot.value,
+      InboundPath: this.DAFAPIAppFormGroup.controls.inboundPath.value,
+      Methods: this.DAFAPIAppFormGroup.controls.methods.value,
+      Security: this.DAFAPIAppFormGroup.controls.security.value
+    });
+  }
+
   public SaveAppRedirect() {
     this.State.Loading = true;
 
@@ -244,9 +295,13 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
     if (this.DAFViewAppFormGroup) {
       if (this.State.ActiveDAFApp) {
-        this.DAFViewAppFormGroup.controls.npmPkg.setValue(this.State.ActiveDAFApp['NPMPackage']);
+        this.DAFViewAppFormGroup.controls.npmPkg.setValue(
+          this.State.ActiveDAFApp['NPMPackage']
+        );
 
-        this.DAFViewAppFormGroup.controls.pkgVer.setValue(this.State.ActiveDAFApp['PackageVersion']);
+        this.DAFViewAppFormGroup.controls.pkgVer.setValue(
+          this.State.ActiveDAFApp['PackageVersion']
+        );
       } else {
         this.DAFViewAppFormGroup.reset();
       }
@@ -254,9 +309,33 @@ export class DataAppsConfigManagerElementComponent extends LcuElementComponent<D
 
     if (this.DAFRedirectAppFormGroup) {
       if (this.State.ActiveDAFApp) {
-        this.DAFRedirectAppFormGroup.controls.redirect.setValue(this.State.ActiveDAFApp['Redirect']);
+        this.DAFRedirectAppFormGroup.controls.redirect.setValue(
+          this.State.ActiveDAFApp['Redirect']
+        );
       } else {
         this.DAFRedirectAppFormGroup.reset();
+      }
+    }
+
+    if (this.DAFAPIAppFormGroup) {
+      if (this.State.ActiveDAFApp) {
+        this.DAFAPIAppFormGroup.controls.apiRoot.setValue(
+          this.State.ActiveDAFApp['APIRoot']
+        );
+
+        this.DAFAPIAppFormGroup.controls.inboundPath.setValue(
+          this.State.ActiveDAFApp['InboundPath']
+        );
+
+        this.DAFAPIAppFormGroup.controls.methods.setValue(
+          this.State.ActiveDAFApp['Methods']
+        );
+
+        this.DAFAPIAppFormGroup.controls.security.setValue(
+          this.State.ActiveDAFApp['Security']
+        );
+      } else {
+        this.DAFAPIAppFormGroup.reset();
       }
     }
 
