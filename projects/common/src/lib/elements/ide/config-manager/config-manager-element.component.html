@@ -212,66 +212,114 @@
                     (ngSubmit)="SaveAppAPI()"
                     *ngIf="State.AppType == DAFAppTypes.API"
                   >
-                    <mat-form-field class="mat-full-width">
-                      <input
-                        matInput
-                        placeholder="API Root"
-                        formControlName="apiRoot"
-                        required
-                      />
-                    </mat-form-field>
+                    <ng-container
+                      class="spread"
+                      *ngIf="State.ActiveDAFAPIs?.length > 0"
+                    >
+                      <mat-card>
+                        <div class="spread">
+                          <mat-form-field>
+                            <mat-label>API Config Environment</mat-label>
+                            <mat-select
+                              (selectionChange)="ActiveDAFAPIChanged($event)"
+                              [value]="State.ActiveDAFApp?.ID"
+                              [disabled]="State.Loading"
+                            >
+                              <mat-option
+                                *ngFor="let dafApi of State.ActiveDAFAPIs"
+                                [value]="dafApi.ID"
+                              >
+                                {{ dafApi.Lookup || "~default~" }} -
+                                {{ dafApi.InboundPath }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </mat-card>
+                    </ng-container>
 
-                    <mat-form-field class="mat-full-width">
-                      <input
-                        matInput
-                        placeholder="Inbound Path"
-                        formControlName="inboundPath"
-                        required
-                      />
-                    </mat-form-field>
+                    <ng-container
+                      *ngIf="!State.ActiveDAFAPIs || State.ActiveDAFApp"
+                    >
+                      <mat-form-field class="mat-full-width">
+                        <input
+                          matInput
+                          placeholder="API Root"
+                          formControlName="apiRoot"
+                          required
+                        />
+                      </mat-form-field>
 
-                    <mat-form-field class="mat-full-width">
-                      <input
-                        matInput
-                        placeholder="Methods (space separated)"
-                        formControlName="methods"
-                        required
-                      />
-                    </mat-form-field>
+                      <mat-form-field class="mat-full-width">
+                        <input
+                          matInput
+                          placeholder="Inbound Path"
+                          formControlName="inboundPath"
+                          required
+                        />
+                      </mat-form-field>
 
-                    <mat-form-field class="mat-full-width">
-                      <input
-                        matInput
-                        placeholder="Security"
-                        formControlName="security"
-                        required
-                      />
-                    </mat-form-field>
+                      <mat-form-field class="mat-full-width">
+                        <input
+                          matInput
+                          placeholder="Methods (space separated)"
+                          formControlName="methods"
+                          required
+                        />
+                      </mat-form-field>
 
-                    <div class="state-actions">
-                      <button
-                        type="submit"
-                        mat-raised-button
-                        color="accent"
-                        [disabled]="!DAFAPIAppFormGroup.valid"
+                      <mat-form-field class="mat-full-width">
+                        <input
+                          matInput
+                          placeholder="Security"
+                          formControlName="security"
+                          required
+                        />
+                      </mat-form-field>
+
+                      <mat-form-field
+                        class="mat-full-width"
+                        [fxShow]="State.ActiveDAFAPIs?.length > 0"
                       >
-                        Save API Config
-                      </button>
+                        <input
+                          matInput
+                          placeholder="Environment Lookup (Leave Empty for Default)"
+                          formControlName="lookup"
+                        />
+                      </mat-form-field>
 
-                      <a
-                        mat-raised-button
-                        (click)="SetViewType(DAFAppTypes.View)"
-                      >
-                        Change to Data Application
-                      </a>
+                      <div class="state-actions">
+                        <button
+                          type="submit"
+                          mat-raised-button
+                          color="accent"
+                          [disabled]="!DAFAPIAppFormGroup.valid"
+                        >
+                          Save API Config
+                        </button>
 
-                      <a
-                        mat-raised-button
-                        (click)="SetViewType(DAFAppTypes.Redirect)"
-                      >
-                        Change to App Redirect
-                      </a>
-                    </div>
+                        <a
+                          mat-raised-button
+                          (click)="AddAPIConfigEnvironment()"
+                        >
+                          Add API Config Environment
+                        </a>
+
+                        <a
+                          mat-raised-button
+                          (click)="SetViewType(DAFAppTypes.View)"
+                        >
+                          Change to Data Application
+                        </a>
+
+                        <a
+                          mat-raised-button
+                          (click)="SetViewType(DAFAppTypes.Redirect)"
+                        >
+                          Change to App Redirect
+                        </a>
+                      </div>
+                    </ng-container>
                   </form>
                 </mat-tab>
 
