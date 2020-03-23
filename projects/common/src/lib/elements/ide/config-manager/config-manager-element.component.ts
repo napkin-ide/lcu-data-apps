@@ -1,9 +1,11 @@
 import { Component, OnInit, Injector, ViewChild, SimpleChanges } from '@angular/core';
-import { LcuElementComponent, LCUElementContext, Application } from '@lcu-ide/common';
+import { LcuElementComponent, LCUElementContext, Application } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
 import { ConfigManagerState } from './../../../core/config-manager-state.model';
-import { MatDrawer, MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatInput } from '@angular/material/input';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
 
