@@ -5,7 +5,7 @@ import { ConfigManagerState } from './config-manager-state.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigManagerStateManagerContext extends StateManagerContext<ConfigManagerState> {
+export class ConfigManagerStateManagerContext extends StateContext<ConfigManagerState> {
   //  Properties
 
   //  Constructors
@@ -14,12 +14,12 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
   }
 
   //  API Methods
-  public SaveAppView(view: DAFViewApplicationConfig) {
+  public SaveDAFApp(dafApp: DAFApplicationConfig) {
     this.Execute({
       Arguments: {
-        View: view
+        DAFApp: dafApp
       },
-      Type: 'save-app-view'
+      Type: 'SaveDAFApp'
     });
   }
 
@@ -28,7 +28,7 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
       Arguments: {
         App: app
       },
-      Type: 'save-data-app'
+      Type: 'SaveDataApp'
     });
   }
 
@@ -37,14 +37,32 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
       Arguments: {
         App: app
       },
-      Type: 'set-active-app'
+      Type: 'SetActiveApp'
+    });
+  }
+
+  public SetActiveDAFAPIApp(dafApiAppId: string) {
+    this.Execute({
+      Arguments: {
+        DAFAPIAppID: dafApiAppId
+      },
+      Type: 'SetActiveDAFAPIApp'
+    });
+  }
+
+  public SetViewType(appType: DAFAppTypes) {
+    this.Execute({
+      Arguments: {
+        AppType: appType
+      },
+      Type: 'SetViewType'
     });
   }
 
   public ToggleAddingApp() {
     this.Execute({
       Arguments: {},
-      Type: 'toggle-adding-app'
+      Type: 'ToggleAddingApp'
     });
   }
 
@@ -53,11 +71,11 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
     return <ConfigManagerState>{ Loading: true };
   }
 
-  protected async loadStateKey() {
+  protected loadStateKey() {
     return 'main';
   }
 
-  protected async loadStateName() {
-    return 'data-apps-config-manager';
+  protected loadStateName() {
+    return 'applicationmanagement';
   }
 }
