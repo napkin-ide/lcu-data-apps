@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { DAFService, BaseModeledResponse, Pageable } from '@lcu/common';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class NPMService extends DAFService {
         })
       );
     } else {
-      return Observable.create((obs: any) => {
+      return Observable.create(obs => {
         obs.next(<BaseModeledResponse<Pageable<any>>>{
           Status: {
             Code: 0,

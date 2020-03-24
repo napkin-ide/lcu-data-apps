@@ -5,12 +5,12 @@
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
-		"downlevelIteration": true,
-		"experimentalDecorators": true,
-		"module": "esnext",
+		"module": "es2015",
 		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "es2015",
+		"target": "es5",
 		"typeRoots": [
 			"node_modules/@types"
 		],
@@ -19,20 +19,12 @@
 			"dom"
 		],
 		"paths": {
-				"@napkin-ide/lcu-data-apps-common": [
-					"dist/common"
-				],
-				"@napkin-ide/lcu-data-apps-common/*": [
-					"dist/common/*"
-				]
-			},
-		"noImplicitAny": true,
-		"suppressImplicitAnyIndexErrors": true
-	},
-	"angularCompilerOptions": {
-		"fullTemplateTypeCheck": true,
-		"strictInjectionParameters": true,
-		"enableIvy": false,
-		"strictTemplates": true
+			"@napkin-ide/lcu-data-apps-common": [
+				"dist/common"
+			],
+			"@napkin-ide/lcu-data-apps-common/*": [
+				"dist/common/*"
+			]
+		}
 	}
 }
