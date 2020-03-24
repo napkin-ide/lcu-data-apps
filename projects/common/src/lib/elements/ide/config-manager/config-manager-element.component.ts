@@ -1,69 +1,37 @@
-import {
-  Component,
-  OnInit,
-  Injector,
-  ViewChild,
-  SimpleChanges
-} from '@angular/core';
-import {
-  LcuElementComponent,
-  LCUElementContext,
-  Application,
-  DAFApplicationConfig
-} from '@lcu/common';
+import { Component, OnInit, Injector, ViewChild, SimpleChanges } from '@angular/core';
+import { LcuElementComponent, LCUElementContext, Application } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
-import {
-  ConfigManagerState,
-  DAFAppTypes
-} from './../../../core/config-manager-state.model';
-import {
-  MatDrawer,
-  MatAutocompleteSelectedEvent,
-  MatInput,
-  MatSelectChange
-} from '@angular/material';
+import { ConfigManagerState } from './../../../core/config-manager-state.model';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatInput } from '@angular/material/input';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
 
 export class DataAppsConfigManagerElementState {}
 
-export class DataAppsConfigManagerContext extends LCUElementContext<
-  DataAppsConfigManagerElementState
-> {}
+export class DataAppsConfigManagerContext extends LCUElementContext<DataAppsConfigManagerElementState> {}
 
-export const SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT =
-  'lcu-data-apps-config-manager-element';
+export const SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT = 'lcu-data-apps-config-manager-element';
 
 @Component({
   selector: SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT,
   templateUrl: './config-manager-element.component.html',
   styleUrls: ['./config-manager-element.component.scss']
 })
-export class DataAppsConfigManagerElementComponent
-  extends LcuElementComponent<DataAppsConfigManagerContext>
-  implements OnInit {
+export class DataAppsConfigManagerElementComponent extends LcuElementComponent<DataAppsConfigManagerContext> implements OnInit {
   //  Fields
   protected initialized: boolean;
 
   //  Properties
-  public DAFAppTypes = DAFAppTypes;
-
-  public DAFAPIAppFormGroup: FormGroup;
-
   public DAFViewAppFormGroup: FormGroup;
-
-  public DAFRedirectAppFormGroup: FormGroup;
 
   @ViewChild(MatDrawer, { static: false })
   public Drawer: MatDrawer;
 
   public get MainLoading(): boolean {
-    return (
-      this.State.Loading &&
-      (!this.State.Applications || this.State.Applications.length === 0) &&
-      !this.State.AddingApp
-    );
+    return this.State.Loading && (!this.State.Applications || this.State.Applications.length === 0) && !this.State.AddingApp;
   }
 
   public NewDataAppFormGroup: FormGroup;
@@ -73,10 +41,7 @@ export class DataAppsConfigManagerElementComponent
   public SaveDataAppFormGroup: FormGroup;
 
   public get ShowContainer(): boolean {
-    return (
-      !this.State.Loading ||
-      (this.State.Applications && this.State.Applications.length > 0)
-    );
+    return !this.State.Loading || (this.State.Applications && this.State.Applications.length > 0);
   }
 
   public State: ConfigManagerState;
@@ -107,21 +72,9 @@ export class DataAppsConfigManagerElementComponent
       path: ['', Validators.required]
     });
 
-    this.DAFAPIAppFormGroup = this.formBldr.group({
-      apiRoot: ['', Validators.required],
-      inboundPath: ['', Validators.required],
-      methods: ['', Validators.required],
-      security: ['', Validators.required],
-      lookup: ['']
-    });
-
     this.DAFViewAppFormGroup = this.formBldr.group({
       npmPkg: ['', Validators.required],
       pkgVer: ['', Validators.required]
-    });
-
-    this.DAFRedirectAppFormGroup = this.formBldr.group({
-      redirect: ['', Validators.required]
     });
 
     this.DAFViewAppFormGroup.controls.npmPkg.valueChanges
@@ -129,15 +82,13 @@ export class DataAppsConfigManagerElementComponent
         debounceTime(500),
         switchMap(value => this.npm.Search(value ? value.toString() : '')),
         map(val => {
-          return val.Model
-            ? val.Model.Items.map(i => {
-                return {
-                  Name: i.package.name,
-                  Version: i.package.version,
-                  NPMLink: i.package.links.npm
-                };
-              })
-            : [];
+          return val.Model ? val.Model.Items.map(i => {
+            return {
+              Name: i.package.name,
+              Version: i.package.version,
+              NPMLink: i.package.links.npm
+            };
+          }) : [];
         })
       )
       .subscribe(packages => {
@@ -152,29 +103,6 @@ export class DataAppsConfigManagerElementComponent
   }
 
   //  API Methods
-  public ActiveDAFAPIChanged(event: MatSelectChange) {
-    if (
-      !this.State.ActiveDAFApp ||
-      event.value !== this.State.ActiveDAFApp.ID
-    ) {
-      this.State.Loading = true;
-
-      this.state.SetActiveDAFAPIApp(event.value);
-    }
-  }
-
-  public AddAPIConfigEnvironment() {
-    this.State.Loading = true;
-
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
-      APIRoot: this.State.ActiveDAFApp['APIRoot'],
-      InboundPath: this.State.ActiveDAFApp['InboundPath'],
-      Lookup: this.State.ActiveDAFApp['Lookup'] + '-copy',
-      Methods: this.State.ActiveDAFApp['Methods'],
-      Security: this.State.ActiveDAFApp['Security']
-    });
-  }
-
   public CopyAppIdToClipBoard(appId: string) {
     let selected: any = false;
 
@@ -230,33 +158,11 @@ export class DataAppsConfigManagerElementComponent
     }
   }
 
-  public SaveAppAPI() {
-    this.State.Loading = true;
-
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
-      ...this.State.ActiveDAFApp,
-      APIRoot: this.DAFAPIAppFormGroup.controls.apiRoot.value,
-      InboundPath: this.DAFAPIAppFormGroup.controls.inboundPath.value,
-      Lookup: this.DAFAPIAppFormGroup.controls.lookup.value,
-      Methods: this.DAFAPIAppFormGroup.controls.methods.value,
-      Security: this.DAFAPIAppFormGroup.controls.security.value
-    });
-  }
-
-  public SaveAppRedirect() {
-    this.State.Loading = true;
-
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
-      ...this.State.ActiveDAFApp,
-      Redirect: this.DAFRedirectAppFormGroup.controls.redirect.value
-    });
-  }
-
   public SaveAppView() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
-      ...this.State.ActiveDAFApp,
+    this.state.SaveAppView({
+      ...this.State.ActiveView,
       NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
       PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value
     });
@@ -266,7 +172,6 @@ export class DataAppsConfigManagerElementComponent
     this.State.Loading = true;
 
     const app = <Application>{
-      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : '',
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
@@ -275,7 +180,7 @@ export class DataAppsConfigManagerElementComponent
 
     this.state.SaveDataApp(app);
 
-    if (this.State.ActiveDAFApp) {
+    if (this.State.ActiveView) {
       this.SaveAppView();
     }
   }
@@ -284,12 +189,6 @@ export class DataAppsConfigManagerElementComponent
     this.State.Loading = true;
 
     this.state.SetActiveApp(app);
-  }
-
-  public SetViewType(appType: DAFAppTypes) {
-    this.State.Loading = true;
-
-    this.state.SetViewType(appType);
   }
 
   public ToggleAddingApp() {
@@ -311,9 +210,9 @@ export class DataAppsConfigManagerElementComponent
         //  TODO: Why this isn't working?
 
         this.SaveDataAppFormGroup.patchValue({
-          name: this.State.ActiveApp.Name,
-          path: this.State.ActiveApp.PathRegex.replace('*', ''),
-          desc: this.State.ActiveApp.Description || ''
+          'name': this.State.ActiveApp.Name,
+          'path': this.State.ActiveApp.PathRegex.replace('*', ''),
+          'desc': this.State.ActiveApp.Description || ''
         });
       } else {
         this.SaveDataAppFormGroup.reset();
@@ -321,53 +220,17 @@ export class DataAppsConfigManagerElementComponent
     }
 
     if (this.DAFViewAppFormGroup) {
-      if (this.State.ActiveDAFApp) {
-        this.DAFViewAppFormGroup.controls.npmPkg.setValue(
-          this.State.ActiveDAFApp['NPMPackage']
-        );
+      if (this.State.ActiveView) {
+        this.DAFViewAppFormGroup.controls.npmPkg.setValue(this.State.ActiveView.NPMPackage);
 
-        this.DAFViewAppFormGroup.controls.pkgVer.setValue(
-          this.State.ActiveDAFApp['PackageVersion']
-        );
+        this.DAFViewAppFormGroup.controls.pkgVer.setValue(this.State.ActiveView.PackageVersion);
       } else {
         this.DAFViewAppFormGroup.reset();
-      }
-    }
-
-    if (this.DAFRedirectAppFormGroup) {
-      if (this.State.ActiveDAFApp) {
-        this.DAFRedirectAppFormGroup.controls.redirect.setValue(
-          this.State.ActiveDAFApp['Redirect']
-        );
-      } else {
-        this.DAFRedirectAppFormGroup.reset();
-      }
-    }
-
-    if (this.DAFAPIAppFormGroup) {
-      if (this.State.ActiveDAFApp) {
-        this.setDAFAPIForm(this.State.ActiveDAFApp);
-      } else {
-        this.DAFAPIAppFormGroup.reset();
       }
     }
 
     if (this.NewDataAppFormGroup) {
       this.NewDataAppFormGroup.reset();
     }
-  }
-
-  protected setDAFAPIForm(dafApp: DAFApplicationConfig) {
-    this.DAFAPIAppFormGroup.controls.apiRoot.setValue(dafApp['APIRoot']);
-
-    this.DAFAPIAppFormGroup.controls.inboundPath.setValue(
-      dafApp['InboundPath']
-    );
-
-    this.DAFAPIAppFormGroup.controls.lookup.setValue(dafApp['Lookup']);
-
-    this.DAFAPIAppFormGroup.controls.methods.setValue(dafApp['Methods']);
-
-    this.DAFAPIAppFormGroup.controls.security.setValue(dafApp['Security']);
   }
 }
