@@ -17,12 +17,10 @@ import {
   ConfigManagerState,
   DAFAppTypes
 } from './../../../core/config-manager-state.model';
-import {
-  MatDrawer,
-  MatAutocompleteSelectedEvent,
-  MatInput,
-  MatSelectChange
-} from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatInput } from '@angular/material/input';
+import { MatSelectChange } from '@angular/material/select';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../core/npm.service';
 

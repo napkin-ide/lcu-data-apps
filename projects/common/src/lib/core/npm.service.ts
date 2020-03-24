@@ -36,7 +36,7 @@ export class NPMService extends DAFService {
         })
       );
     } else {
-      return Observable.create(obs => {
+      return Observable.create( (obs: any) => {
         obs.next(<BaseModeledResponse<Pageable<any>>>{
           Status: {
             Code: 0,
