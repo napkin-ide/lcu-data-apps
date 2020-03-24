@@ -318,5 +318,8 @@
       }
     }
   },
-  "defaultProject": "lcu"
+  "defaultProject": "lcu",
+  "cli": {
+    "analytics": "33e752c4-5c59-4841-abc8-118068bc4506"
+  }
 }
