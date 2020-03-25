@@ -115,7 +115,8 @@ export class DataAppsConfigManagerElementComponent
 
     this.DAFViewAppFormGroup = this.formBldr.group({
       npmPkg: ['', Validators.required],
-      pkgVer: ['', Validators.required]
+      pkgVer: ['', Validators.required],
+      stateCfg: ['']
     });
 
     this.DAFRedirectAppFormGroup = this.formBldr.group({
@@ -256,7 +257,8 @@ export class DataAppsConfigManagerElementComponent
     this.state.SaveDAFApp(<DAFApplicationConfig>{
       ...this.State.ActiveDAFApp,
       NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
-      PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value
+      PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value,
+      StateConfig: JSON.parse(this.DAFViewAppFormGroup.controls.stateCfg.value ?? {})
     });
   }
 
@@ -326,6 +328,10 @@ export class DataAppsConfigManagerElementComponent
 
         this.DAFViewAppFormGroup.controls.pkgVer.setValue(
           this.State.ActiveDAFApp['PackageVersion']
+        );
+
+        this.DAFViewAppFormGroup.controls.stateCfg.setValue(
+          this.State.ActiveDAFApp['StateConfig']
         );
       } else {
         this.DAFViewAppFormGroup.reset();
