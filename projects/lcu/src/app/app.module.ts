@@ -10,17 +10,13 @@ import {
 import { environment } from '../environments/environment';
 import { FathymSharedModule, LCUServiceSettings } from '@lcu/common';
 
-const settings = FathymSharedModule.DefaultServiceSettings(environment);
-
-settings.StateConfig.Root = '/api/state';
-
 @NgModule({
   declarations: [],
   imports: [BrowserModule, BrowserAnimationsModule, FathymSharedModule, LcuDataAppsModule],
   providers: [
     {
       provide: LCUServiceSettings,
-      useValue: settings
+      useValue: FathymSharedModule.DefaultServiceSettings(environment)
     },
   ],
   exports: [LcuDataAppsModule]
