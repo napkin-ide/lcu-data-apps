@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { StateContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
-import { ConfigManagerState, DAFAppTypes } from './config-manager-state.model';
+import { ConfigManagerState, DAFAppTypes } from './config-manager.state';
 
 @Injectable({
   providedIn: 'root'

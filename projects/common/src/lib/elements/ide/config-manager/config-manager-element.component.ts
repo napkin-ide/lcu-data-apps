@@ -12,11 +12,11 @@ import {
   DAFApplicationConfig
 } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ConfigManagerStateManagerContext } from './../../../core/config-manager-state-manager.context';
+import { ConfigManagerStateManagerContext } from '../../../core/config-manager-state.context';
 import {
   ConfigManagerState,
   DAFAppTypes
-} from './../../../core/config-manager-state.model';
+} from '../../../core/config-manager.state';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatInput } from '@angular/material/input';
@@ -142,7 +142,7 @@ export class DataAppsConfigManagerElementComponent
         this.NPMPackages = packages;
       });
 
-    this.state.Context.subscribe(state => {
+    this.state.Context.subscribe((state: ConfigManagerState) => {
       this.State = state;
 
       this.handleStateChanged();
