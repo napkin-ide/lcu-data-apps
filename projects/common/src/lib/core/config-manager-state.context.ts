@@ -66,6 +66,15 @@ export class ConfigManagerStateManagerContext extends StateContext<ConfigManager
     });
   }
 
+  public ToggleAppAsDefault(appId: string) {
+    this.Execute({
+      Arguments: {
+        AppID: appId
+      },
+      Type: 'ToggleAppAsDefault'
+    });
+  }
+
   //  Helpers
   protected defaultValue() {
     return <ConfigManagerState>{ Loading: true };

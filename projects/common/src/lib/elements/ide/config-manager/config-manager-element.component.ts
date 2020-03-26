@@ -208,6 +208,10 @@ export class DataAppsConfigManagerElementComponent
     }
   }
 
+  public IsDefaultApp(appId: string) {
+    return this.State.DefaultApps && this.State.DefaultApps.some(da => da.ID === appId);
+  }
+
   public NewDataApp(isPrivate: boolean) {
     this.State.Loading = true;
 
@@ -296,6 +300,12 @@ export class DataAppsConfigManagerElementComponent
     this.State.Loading = true;
 
     this.state.ToggleAddingApp();
+  }
+
+  public ToggleAppAsDefault(appId: string) {
+    this.State.Loading = true;
+
+    this.state.ToggleAppAsDefault(appId);
   }
 
   //  Helpers
