@@ -1,11 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
-import { StateManagerContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
-import { ConfigManagerState, DAFAppTypes } from './config-manager-state.model';
+import { StateContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
+import { ConfigManagerState, DAFAppTypes } from './config-manager.state';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigManagerStateManagerContext extends StateManagerContext<ConfigManagerState> {
+export class ConfigManagerStateManagerContext extends StateContext<ConfigManagerState> {
   //  Properties
 
   //  Constructors
@@ -19,7 +19,7 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
       Arguments: {
         DAFApp: dafApp
       },
-      Type: 'save-app-view'
+      Type: 'SaveDAFApp'
     });
   }
 
@@ -28,7 +28,7 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
       Arguments: {
         App: app
       },
-      Type: 'save-data-app'
+      Type: 'SaveDataApp'
     });
   }
 
@@ -37,7 +37,16 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
       Arguments: {
         App: app
       },
-      Type: 'set-active-app'
+      Type: 'SetActiveApp'
+    });
+  }
+
+  public SetActiveDAFAPIApp(dafApiAppId: string) {
+    this.Execute({
+      Arguments: {
+        DAFAPIAppID: dafApiAppId
+      },
+      Type: 'SetActiveDAFAPIApp'
     });
   }
 
@@ -53,7 +62,16 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
   public ToggleAddingApp() {
     this.Execute({
       Arguments: {},
-      Type: 'toggle-adding-app'
+      Type: 'ToggleAddingApp'
+    });
+  }
+
+  public ToggleAppAsDefault(appId: string) {
+    this.Execute({
+      Arguments: {
+        AppID: appId
+      },
+      Type: 'ToggleAppAsDefault'
     });
   }
 
@@ -62,11 +80,11 @@ export class ConfigManagerStateManagerContext extends StateManagerContext<Config
     return <ConfigManagerState>{ Loading: true };
   }
 
-  protected async loadStateKey() {
+  protected loadStateKey() {
     return 'main';
   }
 
-  protected async loadStateName() {
-    return 'data-apps-config-manager';
+  protected loadStateName() {
+    return 'applicationmanagement';
   }
 }
