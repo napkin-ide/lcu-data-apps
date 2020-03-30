@@ -262,7 +262,7 @@ export class DataAppsConfigManagerElementComponent
       ...this.State.ActiveDAFApp,
       NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
       PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value,
-      StateConfig: JSON.parse(this.DAFViewAppFormGroup.controls.stateCfg.value ?? {})
+      StateConfig: JSON.parse(this.DAFViewAppFormGroup.controls.stateCfg.value || {})
     });
   }
 
@@ -341,7 +341,7 @@ export class DataAppsConfigManagerElementComponent
         );
 
         this.DAFViewAppFormGroup.controls.stateCfg.setValue(
-          this.State.ActiveDAFApp['StateConfig']
+          this.State.ActiveDAFApp['StateConfig'] || {}
         );
       } else {
         this.DAFViewAppFormGroup.reset();
