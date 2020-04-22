@@ -95,7 +95,7 @@ export class DataAppsConfigManagerElementComponent
       name: ['', Validators.required],
       desc: ['', Validators.required],
       path: ['', Validators.required],
-      accRights: ['', Validators.required]
+      accRights: ['']
     });
 
     this.DAFAPIAppFormGroup = this.formBldr.group({
