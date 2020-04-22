@@ -76,16 +76,29 @@
               </a>
 
               <mat-chip-list>
-                <mat-chip color="accent" selected *ngIf="State.ActiveApp.IsPrivate">private</mat-chip>
+                <mat-chip
+                  color="accent"
+                  selected
+                  *ngIf="State.ActiveApp.IsPrivate"
+                  >private</mat-chip
+                >
 
-                <mat-chip color="accent" *ngIf="State.DefaultAppsEnabled && IsDefaultApp(State.ActiveApp.ID)">
+                <mat-chip
+                  color="accent"
+                  *ngIf="
+                    State.DefaultAppsEnabled && IsDefaultApp(State.ActiveApp.ID)
+                  "
+                >
                   Default App
                 </mat-chip>
               </mat-chip-list>
             </h2>
 
             <div class="spread" *ngIf="State.DefaultAppsEnabled">
-              <mat-checkbox [checked]="IsDefaultApp(State.ActiveApp.ID)" (change)="ToggleAppAsDefault(State.ActiveApp.ID)">
+              <mat-checkbox
+                [checked]="IsDefaultApp(State.ActiveApp.ID)"
+                (change)="ToggleAppAsDefault(State.ActiveApp.ID)"
+              >
                 Is an Enterprise Default Application?
               </mat-checkbox>
             </div>
@@ -340,7 +353,7 @@
                     </ng-container>
                   </form>
                 </mat-tab>
-<!--
+                <!--
                 <mat-tab label="State Configuration">
                   <h2>Coming Soon</h2>
                 </mat-tab> -->
@@ -371,6 +384,21 @@
                       />
                     </mat-form-field>
 
+                    <mat-form-field class="mat-full-width">
+                      <mat-select
+                        multiple
+                        placeholder="Access Rights"
+                        formControlName="accRights"
+                      >
+                        <mat-option
+                          *ngFor="let accessRight of State.AccessRightOptions"
+                          [value]="accessRight"
+                        >
+                          {{ accessRight }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
                     <a
                       mat-raised-button
                       color="accent"
@@ -399,7 +427,7 @@
 
             <ng-container *ngIf="!State.Loading">
               <ng-container>
-                <form class="spread" [formGroup]="NewDataAppFormGroup">
+                <form class="spread" [formGroup]="SaveDataAppFormGroup">
                   <mat-form-field class="mat-full-width">
                     <input
                       matInput
@@ -420,6 +448,21 @@
                     <input matInput placeholder="Path" formControlName="path" />
                   </mat-form-field>
 
+                  <mat-form-field class="mat-full-width">
+                    <mat-select
+                      multiple
+                      placeholder="Access Rights"
+                      formControlName="accRights"
+                    >
+                      <mat-option
+                        *ngFor="let accessRight of State.AccessRightOptions"
+                        [value]="accessRight"
+                      >
+                        {{ accessRight }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                   <div fxLayout="row wrap" fxLayoutAlign="center center">
                     <div fxFlex="50%" fxFlex.lt-md="100%">
                       <mat-card>
@@ -438,7 +481,7 @@
                         <a
                           mat-raised-button
                           color="accent"
-                          (click)="NewDataApp(false)"
+                          (click)="SaveDataApp(false)"
                           >Create Public DA</a
                         >
                       </mat-card>
@@ -461,7 +504,7 @@
                         <a
                           mat-raised-button
                           color="primary"
-                          (click)="NewDataApp(true)"
+                          (click)="SaveDataApp(true)"
                           >Create Private DA</a
                         >
                       </mat-card>

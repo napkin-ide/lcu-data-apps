@@ -64,8 +64,6 @@ export class DataAppsConfigManagerElementComponent
     );
   }
 
-  public NewDataAppFormGroup: FormGroup;
-
   public NPMPackages: { Name: string; NPMLink: string; Version: string }[];
 
   public SaveDataAppFormGroup: FormGroup;
@@ -93,16 +91,11 @@ export class DataAppsConfigManagerElementComponent
   public ngOnInit() {
     super.ngOnInit();
 
-    this.NewDataAppFormGroup = this.formBldr.group({
-      name: ['', Validators.required],
-      desc: ['', Validators.required],
-      path: ['', Validators.required]
-    });
-
     this.SaveDataAppFormGroup = this.formBldr.group({
       name: ['', Validators.required],
       desc: ['', Validators.required],
-      path: ['', Validators.required]
+      path: ['', Validators.required],
+      accRights: ['', Validators.required]
     });
 
     this.DAFAPIAppFormGroup = this.formBldr.group({
@@ -212,19 +205,6 @@ export class DataAppsConfigManagerElementComponent
     return this.State.DefaultApps && this.State.DefaultApps.some(da => da.ID === appId);
   }
 
-  public NewDataApp(isPrivate: boolean) {
-    this.State.Loading = true;
-
-    const app = <Application>{
-      Name: this.NewDataAppFormGroup.controls.name.value,
-      Description: this.NewDataAppFormGroup.controls.desc.value,
-      PathRegex: this.NewDataAppFormGroup.controls.path.value,
-      IsPrivate: isPrivate
-    };
-
-    this.state.SaveDataApp(app);
-  }
-
   public PackageSelected(event: MatAutocompleteSelectedEvent) {
     const pkg = this.NPMPackages.find(p => p.Name === event.option.value);
 
@@ -274,6 +254,7 @@ export class DataAppsConfigManagerElementComponent
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
+      AccessRights: this.SaveDataAppFormGroup.controls.accRights.value,
       IsPrivate: isPrivate
     };
 
@@ -364,10 +345,6 @@ export class DataAppsConfigManagerElementComponent
       } else {
         this.DAFAPIAppFormGroup.reset();
       }
-    }
-
-    if (this.NewDataAppFormGroup) {
-      this.NewDataAppFormGroup.reset();
     }
   }
 
