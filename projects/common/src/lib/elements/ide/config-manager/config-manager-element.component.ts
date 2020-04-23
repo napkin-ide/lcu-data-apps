@@ -249,7 +249,7 @@ export class DataAppsConfigManagerElementComponent
 
   public SaveDataApp(isPrivate: boolean) {
     this.State.Loading = true;
-debugger;
+
     const app = <Application>{
       ...(this.State.ActiveApp || <Application>{}),
       ID: this.State.ActiveApp ? this.State.ActiveApp.ID : '',
