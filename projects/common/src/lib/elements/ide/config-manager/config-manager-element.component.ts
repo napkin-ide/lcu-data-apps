@@ -95,6 +95,7 @@ export class DataAppsConfigManagerElementComponent
       name: ['', Validators.required],
       desc: ['', Validators.required],
       path: ['', Validators.required],
+      priority: [''],
       accRights: ['']
     });
 
@@ -248,13 +249,15 @@ export class DataAppsConfigManagerElementComponent
 
   public SaveDataApp(isPrivate: boolean) {
     this.State.Loading = true;
-
+debugger;
     const app = <Application>{
+      ...(this.State.ActiveApp || <Application>{}),
       ID: this.State.ActiveApp ? this.State.ActiveApp.ID : '',
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
       AccessRights: this.SaveDataAppFormGroup.controls.accRights.value,
+      Priority: this.SaveDataAppFormGroup.controls.priority.value,
       IsPrivate: isPrivate
     };
 
@@ -304,7 +307,9 @@ export class DataAppsConfigManagerElementComponent
         this.SaveDataAppFormGroup.patchValue({
           name: this.State.ActiveApp.Name,
           path: this.State.ActiveApp.PathRegex.replace('*', ''),
-          desc: this.State.ActiveApp.Description || ''
+          desc: this.State.ActiveApp.Description || '',
+          accRights: this.State.ActiveApp.AccessRights || [],
+          priority: this.State.ActiveApp.Priority
         });
       } else {
         this.SaveDataAppFormGroup.reset();

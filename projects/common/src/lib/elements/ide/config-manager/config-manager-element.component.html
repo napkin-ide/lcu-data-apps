@@ -399,10 +399,27 @@
                       </mat-select>
                     </mat-form-field>
 
+                    <mat-form-field class="mat-full-width">
+                      <input
+                        matInput
+                        type="number"
+                        placeholder="Priority"
+                        formControlName="priority"
+                      />
+                    </mat-form-field>
+
+                    <div class="spread">
+                      <mat-slide-toggle
+                        [checked]="State.ActiveApp.IsPrivate"
+                        #isPrivate
+                        >Is Secured Application?</mat-slide-toggle
+                      >
+                    </div>
+
                     <a
                       mat-raised-button
                       color="accent"
-                      (click)="SaveDataApp(false)"
+                      (click)="SaveDataApp(isPrivate.checked)"
                       >Save Data App</a
                     >
                   </form>
@@ -463,53 +480,20 @@
                     </mat-select>
                   </mat-form-field>
 
-                  <div fxLayout="row wrap" fxLayoutAlign="center center">
-                    <div fxFlex="50%" fxFlex.lt-md="100%">
-                      <mat-card>
-                        <h2 class="mat-headline">Create a Public DA</h2>
-
-                        <p class="mat-subtitle">
-                          Looking to share your ideas and creations to users
-                          without a login? Start here.
-                        </p>
-
-                        <p class="mat-subtitle">
-                          You will be able to adjust the visibility later, click
-                          below to get started.
-                        </p>
-
-                        <a
-                          mat-raised-button
-                          color="accent"
-                          (click)="SaveDataApp(false)"
-                          >Create Public DA</a
-                        >
-                      </mat-card>
-                    </div>
-
-                    <div fxFlex="50%" fxFlex.lt-md="100%">
-                      <mat-card>
-                        <h2 class="mat-headline">Create a Private DA</h2>
-
-                        <p class="mat-subtitle">
-                          Build internal value for your Enterprise, control who
-                          has access, and other stuff.
-                        </p>
-
-                        <p class="mat-subtitle">
-                          You will be able to adjust the visibility later, click
-                          below to get started.
-                        </p>
-
-                        <a
-                          mat-raised-button
-                          color="primary"
-                          (click)="SaveDataApp(true)"
-                          >Create Private DA</a
-                        >
-                      </mat-card>
-                    </div>
+                  <div class="spread">
+                    <mat-slide-toggle
+                      [checked]="State.ActiveApp.IsPrivate"
+                      #isPrivateNew
+                      >Is Secured Application?</mat-slide-toggle
+                    >
                   </div>
+
+                  <a
+                    mat-raised-button
+                    color="accent"
+                    (click)="SaveDataApp(isPrivateNew.checked)"
+                    >Create Public DA</a
+                  >
                 </form>
               </ng-container>
             </ng-container>
