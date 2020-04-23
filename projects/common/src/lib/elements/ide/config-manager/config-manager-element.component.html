@@ -481,19 +481,19 @@
                   </mat-form-field>
 
                   <div class="spread">
-                    <mat-slide-toggle
-                      [checked]="State.ActiveApp.IsPrivate"
-                      #isPrivateNew
+                    <mat-slide-toggle #isPrivateNew
                       >Is Secured Application?</mat-slide-toggle
                     >
                   </div>
 
-                  <a
-                    mat-raised-button
-                    color="accent"
-                    (click)="SaveDataApp(isPrivateNew.checked)"
-                    >Create Public DA</a
-                  >
+                  <div>
+                    <a
+                      mat-raised-button
+                      color="accent"
+                      (click)="SaveDataApp(isPrivateNew.checked)"
+                      >Create {{ isPrivateNew.checked ? 'Secured' : 'Public' }} Data Application</a
+                    >
+                  </div>
                 </form>
               </ng-container>
             </ng-container>
