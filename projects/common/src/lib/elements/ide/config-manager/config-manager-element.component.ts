@@ -252,7 +252,7 @@ export class DataAppsConfigManagerElementComponent
 
     const app = <Application>{
       ...(this.State.ActiveApp || <Application>{}),
-      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : '',
+      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : null,
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
