@@ -263,9 +263,9 @@ export class DataAppsConfigManagerElementComponent
 
     this.state.SaveDataApp(app);
 
-    if (this.State.ActiveDAFApp) {
-      this.SaveAppView();
-    }
+    // if (this.State.ActiveDAFApp) {
+    //   this.SaveAppView();
+    // }
   }
 
   public SetActiveApp(app: Application) {
