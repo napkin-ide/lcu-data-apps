@@ -253,12 +253,11 @@ export class DataAppsConfigManagerElementComponent
 
     const app = <Application>{
       ...(this.State.ActiveApp || <Application>{}),
-      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : Guid.Empty,
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
-      AccessRights: this.SaveDataAppFormGroup.controls.accRights.value,
-      Priority: this.SaveDataAppFormGroup.controls.priority.value,
+      AccessRights: this.SaveDataAppFormGroup.controls.accRights.value || [],
+      Priority: this.SaveDataAppFormGroup.controls.priority.value || 0,
       IsPrivate: isPrivate
     };
 
