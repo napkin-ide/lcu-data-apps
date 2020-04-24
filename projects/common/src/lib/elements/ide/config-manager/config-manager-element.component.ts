@@ -9,7 +9,8 @@ import {
   LcuElementComponent,
   LCUElementContext,
   Application,
-  DAFApplicationConfig
+  DAFApplicationConfig,
+  Guid
 } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfigManagerStateManagerContext } from '../../../core/config-manager-state.context';
@@ -252,7 +253,7 @@ export class DataAppsConfigManagerElementComponent
 
     const app = <Application>{
       ...(this.State.ActiveApp || <Application>{}),
-      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : null,
+      ID: this.State.ActiveApp ? this.State.ActiveApp.ID : Guid.Empty,
       Name: this.SaveDataAppFormGroup.controls.name.value,
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
