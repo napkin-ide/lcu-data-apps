@@ -385,21 +385,6 @@
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
-                      <mat-select
-                        multiple
-                        placeholder="Access Rights"
-                        formControlName="accRights"
-                      >
-                        <mat-option
-                          *ngFor="let accessRight of State.AccessRightOptions"
-                          [value]="accessRight"
-                        >
-                          {{ accessRight }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field class="mat-full-width">
                       <input
                         matInput
                         type="number"
@@ -415,6 +400,24 @@
                         >Is Secured Application?</mat-slide-toggle
                       >
                     </div>
+
+                    <mat-form-field
+                      class="mat-full-width"
+                      *ngIf="isPrivate.checked"
+                    >
+                      <mat-select
+                        multiple
+                        placeholder="Access Rights"
+                        formControlName="accRights"
+                      >
+                        <mat-option
+                          *ngFor="let accessRight of State.AccessRightOptions"
+                          [value]="accessRight"
+                        >
+                          {{ accessRight }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
                     <a
                       mat-raised-button
@@ -465,7 +468,16 @@
                     <input matInput placeholder="Path" formControlName="path" />
                   </mat-form-field>
 
-                  <mat-form-field class="mat-full-width">
+                  <div class="spread">
+                    <mat-slide-toggle #isPrivateNew
+                      >Is Secured Application?</mat-slide-toggle
+                    >
+                  </div>
+
+                  <mat-form-field
+                    class="mat-full-width"
+                    *ngIf="isPrivateNew.checked"
+                  >
                     <mat-select
                       multiple
                       placeholder="Access Rights"
@@ -480,18 +492,14 @@
                     </mat-select>
                   </mat-form-field>
 
-                  <div class="spread">
-                    <mat-slide-toggle #isPrivateNew
-                      >Is Secured Application?</mat-slide-toggle
-                    >
-                  </div>
-
                   <div>
                     <a
                       mat-raised-button
                       color="accent"
                       (click)="SaveDataApp(isPrivateNew.checked)"
-                      >Create {{ isPrivateNew.checked ? 'Secured' : 'Public' }} Data Application</a
+                      >Create
+                      {{ isPrivateNew.checked ? "Secured" : "Public" }} Data
+                      Application</a
                     >
                   </div>
                 </form>
