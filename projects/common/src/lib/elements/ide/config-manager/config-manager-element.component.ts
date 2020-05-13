@@ -111,7 +111,7 @@ export class DataAppsConfigManagerElementComponent
     this.DAFViewAppFormGroup = this.formBldr.group({
       npmPkg: ['', Validators.required],
       pkgVer: ['', Validators.required],
-      stateCfg: ['']
+      stateCfg: ['{}']
     });
 
     this.DAFRedirectAppFormGroup = this.formBldr.group({
@@ -294,6 +294,7 @@ export class DataAppsConfigManagerElementComponent
 
   //  Helpers
   protected handleStateChanged() {
+    console.log("State: ", this.State)
     if (!this.initialized && this.Drawer) {
       this.Drawer.open();
 
