@@ -94,7 +94,11 @@
               </mat-chip-list>
             </h2>
 
-            <div class="spread" *ngIf="State.DefaultAppsEnabled" fxLayoutAlign="start center">
+            <div
+              class="spread"
+              *ngIf="State.DefaultAppsEnabled"
+              fxLayoutAlign="start center"
+            >
               <!-- Checkbox disabled until Enterprise White Labeling concept is in place -->
               <mat-checkbox
                 [checked]="IsDefaultApp(State.ActiveApp.ID)"
@@ -103,14 +107,16 @@
               >
                 Is an Enterprise Default Application?
               </mat-checkbox>
-              <mat-icon matSuffix 
-              matTooltip="Every enterprise registered under your enterprise 
-              (created through the new workspace process through your domain) 
-              is a child of your enterprise.  Checking this box means making this application 
-              available to all child applications as well. Currently, every enterprise is a 
-              child of Fathym.">
-              info_outline
-            </mat-icon>
+              <mat-icon
+                matSuffix
+                matTooltip="Every enterprise registered under your enterprise
+              (created through the new workspace process through your domain)
+              is a child of your enterprise.  Checking this box means making this application
+              available to all child applications as well. Currently, every enterprise is a
+              child of Fathym."
+              >
+                info_outline
+              </mat-icon>
             </div>
 
             <!-- <mat-form-field class="app-id"> -->
@@ -151,11 +157,13 @@
                           </mat-option>
                         </ng-container>
                       </mat-autocomplete>
-                      <mat-icon matSuffix
-                      mat-icon-button 
-                      matTooltip="Enter the name of your NPM node package.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        mat-icon-button
+                        matTooltip="Enter the name of your NPM node package."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
@@ -169,7 +177,7 @@
                       <a
                         mat-icon-button
                         matSuffix
-                        matTooltip="Enter any current or previous version of your package. 
+                        matTooltip="Enter any current or previous version of your package.
                       Click here to access the package version in NPM."
                         [href]="
                           'https://www.npmjs.com/package/' +
@@ -178,9 +186,8 @@
                         target="_blank"
                         id="npm-package-button"
                       >
-                        <mat-icon >info_outline</mat-icon>
+                        <mat-icon>info_outline</mat-icon>
                       </a>
-                      
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
@@ -188,12 +195,13 @@
                         matInput
                         placeholder="State Config (json)"
                         formControlName="stateCfg"
-                        
                       />
-                      <mat-icon matSuffix 
-                      matTooltip=" This needs to be an empty JSON object to start for many apps.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip=" This needs to be an empty JSON object to start for many apps."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <div class="state-actions">
@@ -234,13 +242,15 @@
                         formControlName="redirect"
                         required
                       />
-                      <mat-icon matSuffix 
-                      matTooltip="This is where you define the URL to which you want the application 
-                      to redirect.  A redirect may be used when you have moved domains or have multiple 
-                      domains that you want to go to the same location or you may have changed pages or 
-                      re-organized your site.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="This is where you define the URL to which you want the application
+                      to redirect.  A redirect may be used when you have moved domains or have multiple
+                      domains that you want to go to the same location or you may have changed pages or
+                      re-organized your site."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <div class="state-actions">
@@ -310,10 +320,12 @@
                           formControlName="apiRoot"
                           required
                         />
-                        <mat-icon matSuffix 
-                      matTooltip="The root-endpoint is the starting point of the API you're requesting from.">
-                      info_outline
-                    </mat-icon>
+                        <mat-icon
+                          matSuffix
+                          matTooltip="The root-endpoint is the starting point of the API you're requesting from."
+                        >
+                          info_outline
+                        </mat-icon>
                       </mat-form-field>
 
                       <mat-form-field class="mat-full-width">
@@ -323,10 +335,12 @@
                           formControlName="inboundPath"
                           required
                         />
-                        <mat-icon matSuffix 
-                      matTooltip="This is the path where your API receives a request and you process it and acknowledge it">
-                      info_outline
-                    </mat-icon>
+                        <mat-icon
+                          matSuffix
+                          matTooltip="This is the path where your API receives a request and you process it and acknowledge it"
+                        >
+                          info_outline
+                        </mat-icon>
                       </mat-form-field>
 
                       <mat-form-field class="mat-full-width">
@@ -336,15 +350,17 @@
                           formControlName="methods"
                           required
                         />
-                        <mat-icon matSuffix 
-                      matTooltip="GET. GET requests are the most common and widely used methods
-                       (verbs) in APIs and websites. Simply put, the GET method is used to 
-                       retrieve data from a server at the specified resource. For example, 
-                       say you have an API with a /users endpoint. Making a GET request to 
-                       that endpoint should return a list of all available users. Other methods 
-                       are POST, PUT, HEAD, DELETE, PATCH and OPTIONS">
-                      info_outline
-                    </mat-icon>
+                        <mat-icon
+                          matSuffix
+                          matTooltip="GET. GET requests are the most common and widely used methods
+                       (verbs) in APIs and websites. Simply put, the GET method is used to
+                       retrieve data from a server at the specified resource. For example,
+                       say you have an API with a /users endpoint. Making a GET request to
+                       that endpoint should return a list of all available users. Other methods
+                       are POST, PUT, HEAD, DELETE, PATCH and OPTIONS"
+                        >
+                          info_outline
+                        </mat-icon>
                       </mat-form-field>
 
                       <mat-form-field class="mat-full-width">
@@ -354,10 +370,12 @@
                           formControlName="security"
                           required
                         />
-                        <mat-icon matSuffix 
-                      matTooltip="This is where you would add security headers to the payload proxy.">
-                      info_outline
-                    </mat-icon>
+                        <mat-icon
+                          matSuffix
+                          matTooltip="This is where you would add security headers to the payload proxy."
+                        >
+                          info_outline
+                        </mat-icon>
                       </mat-form-field>
 
                       <mat-form-field
@@ -418,11 +436,13 @@
                         placeholder="Application Name"
                         formControlName="name"
                       />
-                      <mat-icon matSuffix 
-                      matTooltip="This is the name of the Application that will show in 
-                      the drop-down list of Data Applications.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="This is the name of the Application that will show in
+                      the drop-down list of Data Applications."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
@@ -431,11 +451,13 @@
                         placeholder="Description"
                         formControlName="desc"
                       ></textarea>
-                      <mat-icon matSuffix 
-                      matTooltip="This field, along with Application Name, is to help maintain 
-                      understanding and context of what an application container is there for.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="This field, along with Application Name, is to help maintain
+                      understanding and context of what an application container is there for."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
@@ -444,11 +466,13 @@
                         placeholder="Path"
                         formControlName="path"
                       />
-                      <mat-icon matSuffix 
-                      matTooltip="The path is the URL where your application is hosted.  
-                      It must be a valid URL structure.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="The path is the URL where your application is hosted.
+                      It must be a valid URL structure."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
@@ -458,11 +482,13 @@
                         placeholder="Priority"
                         formControlName="priority"
                       />
-                      <mat-icon matSuffix 
-                      matTooltip="This is the order in which our system processes the 
-                      lookup grid of applications to determine which application to render.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="This is the order in which our system processes the
+                      lookup grid of applications to determine which application to render."
+                      >
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <div class="spread" fxLayoutAlign="start center">
@@ -471,11 +497,13 @@
                         #isPrivate
                         >Is Secured Application?</mat-slide-toggle
                       >
-                      <mat-icon matSuffix 
-                      matTooltip="A Secured Application is one that requires the user to be 
-                      authenticated to use the application. The application is hosted behind an identity wall.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="A Secured Application is one that requires the user to be
+                      authenticated to use the application. The application is hosted behind an identity wall."
+                      >
+                        info_outline
+                      </mat-icon>
                     </div>
 
                     <mat-form-field
@@ -494,11 +522,36 @@
                           {{ accessRight }}
                         </mat-option>
                       </mat-select>
-                      <mat-icon matSuffix 
-                      matTooltip="Access rights only matter if this is a Secured Application (not public).
-                       This is the level of access the user has in the system.">
-                      info_outline
-                    </mat-icon>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="Access rights only matter if this is a Secured Application (not public).
+                       This is the level of access the user has in the system."
+                      >
+                        info_outline
+                      </mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field
+                      class="mat-full-width"
+                      *ngIf="isPrivate.checked"
+                    >
+                      <mat-select
+                        multiple
+                        placeholder="Licenses"
+                        formControlName="licenses"
+                      >
+                        <mat-option value="LCU">
+                          Low-Code Unit™
+                        </mat-option>
+
+                        <mat-option value="forecaster">
+                          Forecaster
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-icon matSuffix matTooltip="...">
+                        info_outline
+                      </mat-icon>
                     </mat-form-field>
 
                     <a
@@ -517,11 +570,12 @@
             <h2>Create a new Data Application (DA)</h2>
 
             <p class="mat-body-2">
-              Data Applications enable you to build and deliver powerful data-driven web 
-              applications and sites that are easily managed for multiple end users.  
-              You can host and manage apps that automatically integrate with NPM node 
-              packages and GitHub repositories, enabling you to organize and deploy any 
-              previous or current version of your application to your custom domain. .
+              Data Applications enable you to build and deliver powerful
+              data-driven web applications and sites that are easily managed for
+              multiple end users. You can host and manage apps that
+              automatically integrate with NPM node packages and GitHub
+              repositories, enabling you to organize and deploy any previous or
+              current version of your application to your custom domain. .
             </p>
 
             <ng-container *ngIf="State.Loading">
@@ -537,9 +591,11 @@
                       placeholder="Application Name"
                       formControlName="name"
                     />
-                    <mat-icon matSuffix 
-                      matTooltip="This is the name of the Application that will 
-                      show in the drop-down list of Data Applications.">
+                    <mat-icon
+                      matSuffix
+                      matTooltip="This is the name of the Application that will
+                      show in the drop-down list of Data Applications."
+                    >
                       info_outline
                     </mat-icon>
                   </mat-form-field>
@@ -550,18 +606,22 @@
                       placeholder="Description"
                       formControlName="desc"
                     ></textarea>
-                    <mat-icon matSuffix 
-                      matTooltip="This field, along with Application Name, is to help maintain understanding 
-                      and context of what an application container is there for.">
+                    <mat-icon
+                      matSuffix
+                      matTooltip="This field, along with Application Name, is to help maintain understanding
+                      and context of what an application container is there for."
+                    >
                       info_outline
                     </mat-icon>
                   </mat-form-field>
 
                   <mat-form-field class="mat-full-width">
                     <input matInput placeholder="Path" formControlName="path" />
-                    <mat-icon matSuffix 
-                      matTooltip="The path is the URL where your application is hosted.  
-                      It must be a valid URL structure.">
+                    <mat-icon
+                      matSuffix
+                      matTooltip="The path is the URL where your application is hosted.
+                      It must be a valid URL structure."
+                    >
                       info_outline
                     </mat-icon>
                   </mat-form-field>
@@ -570,11 +630,13 @@
                     <mat-slide-toggle #isPrivateNew
                       >Is Secured Application?</mat-slide-toggle
                     >
-                    <mat-icon matSuffix 
-                    matTooltip="A Secured Application is one that requires the user to be authenticated to 
-                    use the application. The application is hosted behind an identity wall">
-                    info_outline
-                  </mat-icon>
+                    <mat-icon
+                      matSuffix
+                      matTooltip="A Secured Application is one that requires the user to be authenticated to
+                    use the application. The application is hosted behind an identity wall"
+                    >
+                      info_outline
+                    </mat-icon>
                   </div>
 
                   <mat-form-field
@@ -593,11 +655,13 @@
                         {{ accessRight }}
                       </mat-option>
                     </mat-select>
-                    <mat-icon matSuffix 
-                    matTooltip="Access rights only matter if this is a Secured Application (not public).
-                    This is the level of access the user has in the system.">
-                    info_outline
-                  </mat-icon>
+                    <mat-icon
+                      matSuffix
+                      matTooltip="Access rights only matter if this is a Secured Application (not public).
+                    This is the level of access the user has in the system."
+                    >
+                      info_outline
+                    </mat-icon>
                   </mat-form-field>
 
                   <div>

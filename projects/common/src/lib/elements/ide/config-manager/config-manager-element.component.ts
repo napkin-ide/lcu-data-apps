@@ -97,7 +97,8 @@ export class DataAppsConfigManagerElementComponent
       desc: ['', Validators.required],
       path: ['', Validators.required],
       priority: [''],
-      accRights: ['']
+      accRights: [''],
+      licenses: ['']
     });
 
     this.DAFAPIAppFormGroup = this.formBldr.group({
@@ -257,6 +258,7 @@ export class DataAppsConfigManagerElementComponent
       Description: this.SaveDataAppFormGroup.controls.desc.value,
       PathRegex: this.SaveDataAppFormGroup.controls.path.value,
       AccessRights: this.SaveDataAppFormGroup.controls.accRights.value || [],
+      Licenses: this.SaveDataAppFormGroup.controls.licenses.value || [],
       Priority: this.SaveDataAppFormGroup.controls.priority.value || 0,
       IsPrivate: isPrivate
     };
@@ -294,7 +296,7 @@ export class DataAppsConfigManagerElementComponent
 
   //  Helpers
   protected handleStateChanged() {
-    console.log("State: ", this.State)
+    console.log('State: ', this.State);
     if (!this.initialized && this.Drawer) {
       this.Drawer.open();
 
@@ -310,6 +312,7 @@ export class DataAppsConfigManagerElementComponent
           path: this.State.ActiveApp.PathRegex.replace('*', ''),
           desc: this.State.ActiveApp.Description || '',
           accRights: this.State.ActiveApp.AccessRights || [],
+          licenses: this.State.ActiveApp.Licenses || [],
           priority: this.State.ActiveApp.Priority
         });
       } else {
