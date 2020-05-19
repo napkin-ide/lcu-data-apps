@@ -664,6 +664,29 @@
                     </mat-icon>
                   </mat-form-field>
 
+                  <mat-form-field
+                    class="mat-full-width"
+                    *ngIf="isPrivate.checked"
+                  >
+                    <mat-select
+                      multiple
+                      placeholder="Licenses"
+                      formControlName="licenses"
+                    >
+                      <mat-option value="LCU">
+                        Low-Code Unit™
+                      </mat-option>
+
+                      <mat-option value="forecaster">
+                        Forecaster
+                      </mat-option>
+                    </mat-select>
+
+                    <mat-icon matSuffix matTooltip="...">
+                      info_outline
+                    </mat-icon>
+                  </mat-form-field>
+
                   <div>
                     <a
                       mat-raised-button
