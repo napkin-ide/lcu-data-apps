@@ -96,7 +96,7 @@
 
             <div
               class="spread"
-              *ngIf="State.DefaultAppsEnabled"
+              *ngIf="State.DefaultAppsEnabled && State.DefaultAppsEnabled.Code == 0"
               fxLayoutAlign="start center"
             >
               <!-- Checkbox disabled until Enterprise White Labeling concept is in place -->
