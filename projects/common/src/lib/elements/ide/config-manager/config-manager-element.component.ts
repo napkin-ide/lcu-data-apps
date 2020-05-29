@@ -112,7 +112,7 @@ export class DataAppsConfigManagerElementComponent
     this.DAFViewAppFormGroup = this.formBldr.group({
       npmPkg: ['', Validators.required],
       pkgVer: ['', Validators.required],
-      stateCfg: ['{}']
+      stateCfg: ['']
     });
 
     this.DAFRedirectAppFormGroup = this.formBldr.group({
@@ -144,6 +144,7 @@ export class DataAppsConfigManagerElementComponent
 
       this.handleStateChanged();
     });
+
   }
 
   //  API Methods
@@ -335,6 +336,7 @@ export class DataAppsConfigManagerElementComponent
         );
       } else {
         this.DAFViewAppFormGroup.reset();
+        this.DAFViewAppFormGroup.controls.stateCfg.setValue('{}');
       }
     }
 

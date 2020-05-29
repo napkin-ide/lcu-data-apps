@@ -188,12 +188,13 @@
                         <mat-icon>info_outline</mat-icon>
                       </a>
                     </mat-form-field>
-
+                    <!-- State Config (json) -->
                     <mat-form-field class="mat-full-width">
                       <input
                         matInput
                         placeholder="State Config (json)"
                         formControlName="stateCfg"
+                        [value]="DAFViewAppFormGroup.controls.stateCfg.value"
                       />
                       <mat-icon
                         matSuffix
