@@ -335,6 +335,8 @@ export class DataAppsConfigManagerElementComponent
         );
       } else {
         this.DAFViewAppFormGroup.reset();
+        this.DAFViewAppFormGroup.controls.stateCfg.setValue('{}');
+
       }
     }
 
