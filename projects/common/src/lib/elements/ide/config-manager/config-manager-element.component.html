@@ -25,7 +25,7 @@
           <mat-icon *ngIf="!app.IsPrivate" matListIcon>public</mat-icon>
         </mat-list-item>
 
-        <mat-list-item (click)="ToggleAddingApp()">
+        <mat-list-item id="dataAppsToggleAddingAppBtn" (click)="ToggleAddingApp()">
           <a matLine>
             <span *ngIf="!State.AddingApp">Add New Data App</span>
 
