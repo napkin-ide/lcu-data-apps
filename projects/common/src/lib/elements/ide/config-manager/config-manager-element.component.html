@@ -25,7 +25,7 @@
           <mat-icon *ngIf="!app.IsPrivate" matListIcon>public</mat-icon>
         </mat-list-item>
 
-        <mat-list-item (click)="ToggleAddingApp()">
+        <mat-list-item id="dataAppsToggleAddingAppBtn" (click)="ToggleAddingApp()">
           <a matLine>
             <span *ngIf="!State.AddingApp">Add New Data App</span>
 
@@ -627,7 +627,7 @@
                   </mat-form-field>
 
                   <div class="spread" fxLayoutAlign="start center">
-                    <mat-slide-toggle #isPrivateNew
+                    <mat-slide-toggle #isPrivateNew id="isSecuredAppSlideToggle"
                       >Is Secured Application?</mat-slide-toggle
                     >
                     <mat-icon
