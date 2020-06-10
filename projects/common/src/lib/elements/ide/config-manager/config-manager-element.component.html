@@ -25,17 +25,23 @@
           <mat-icon *ngIf="!app.IsPrivate" matListIcon>public</mat-icon>
         </mat-list-item>
 
-        <mat-list-item id="dataAppsToggleAddingAppBtn" (click)="ToggleAddingApp()">
+        <mat-list-item *ngIf="!State.AddingApp" id="dataAppsAddNewAppBtn" (click)="ToggleAddingApp()">
           <a matLine>
-            <span *ngIf="!State.AddingApp">Add New Data App</span>
-
-            <span *ngIf="State.AddingApp">Cancel Add New</span>
+            <span>Add New Data App</span>
           </a>
 
           <button mat-icon-button>
-            <mat-icon *ngIf="!State.AddingApp">add</mat-icon>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-list-item>
 
-            <mat-icon *ngIf="State.AddingApp">cancel</mat-icon>
+        <mat-list-item *ngIf="State.AddingApp" id="dataAppsCancelAddNewAppBtn" (click)="ToggleAddingApp()">
+          <a matLine>
+            <span>Cancel Add New</span>
+          </a>
+
+          <button mat-icon-button>
+            <mat-icon>cancel</mat-icon>
           </button>
         </mat-list-item>
       </mat-nav-list>
