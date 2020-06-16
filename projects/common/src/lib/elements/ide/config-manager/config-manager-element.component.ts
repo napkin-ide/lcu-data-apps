@@ -239,6 +239,15 @@ export class DataAppsConfigManagerElementComponent
     });
   }
 
+  public SaveAppDAFPointer() {
+    this.State.Loading = true;
+
+    this.state.SaveDAFApp(<DAFApplicationConfig>{
+      ...this.State.ActiveDAFApp,
+      DAFApplicationID: this.DAFPointerAppFormGroup.controls.dafAppId.value
+    });
+  }
+
   public SaveAppRedirect() {
     this.State.Loading = true;
 
@@ -347,6 +356,16 @@ export class DataAppsConfigManagerElementComponent
         this.DAFViewAppFormGroup.reset();
         this.DAFViewAppFormGroup.controls.stateCfg.setValue('{}');
 
+      }
+    }
+
+    if (this.DAFPointerAppFormGroup) {
+      if (this.State.ActiveDAFApp) {
+        this.DAFPointerAppFormGroup.controls.dafAppId.setValue(
+          this.State.ActiveDAFApp['DAFApplicationID']
+        );
+      } else {
+        this.DAFPointerAppFormGroup.reset();
       }
     }
 
