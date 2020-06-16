@@ -233,6 +233,13 @@
                       >
                         Change to App API
                       </a>
+
+                      <a
+                        mat-raised-button
+                        (click)="SetViewType(DAFAppTypes.DAFApp)"
+                      >
+                        Change to App Pointer
+                      </a>
                     </div>
                   </form>
 
@@ -281,6 +288,13 @@
                         (click)="SetViewType(DAFAppTypes.API)"
                       >
                         Change to App API
+                      </a>
+
+                      <a
+                        mat-raised-button
+                        (click)="SetViewType(DAFAppTypes.DAFApp)"
+                      >
+                        Change to App Pointer
                       </a>
                     </div>
                   </form>
@@ -425,8 +439,74 @@
                         >
                           Change to App Redirect
                         </a>
+
+                        <a
+                          mat-raised-button
+                          (click)="SetViewType(DAFAppTypes.DAFApp)"
+                        >
+                          Change to App Pointer
+                        </a>
                       </div>
                     </ng-container>
+                  </form>
+
+                  <form
+                    [formGroup]="DAFPointerAppFormGroup"
+                    (ngSubmit)="SaveAppRedirect()"
+                    *ngIf="State.AppType == DAFAppTypes.DAFApp"
+                  >
+                    <mat-form-field class="mat-full-width">
+                      <mat-select
+                        placeholder="DAF Application ID"
+                        formControlName="dafAppId"
+                        required
+                      >
+                        <mat-option
+                          *ngFor="let daoKey of DAFAppOptionKeys"
+                          [value]="daoKey"
+                        >
+                          {{ State.DAFAppOptions[daoKey] }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-icon
+                        matSuffix
+                        matTooltip="The ID of the DAF Application to point to."
+                      >
+                        info_outline
+                      </mat-icon>
+                    </mat-form-field>
+
+                    <div class="state-actions">
+                      <button
+                        type="submit"
+                        mat-raised-button
+                        color="accent"
+                        [disabled]="!DAFPointerAppFormGroup.valid"
+                      >
+                        Save DAF Application Config
+                      </button>
+
+                      <a
+                        mat-raised-button
+                        (click)="SetViewType(DAFAppTypes.View)"
+                      >
+                        Change to Data Application
+                      </a>
+
+                      <a
+                        mat-raised-button
+                        (click)="SetViewType(DAFAppTypes.API)"
+                      >
+                        Change to App API
+                      </a>
+
+                      <a
+                        mat-raised-button
+                        (click)="SetViewType(DAFAppTypes.Redirect)"
+                      >
+                        Change to App Redirect
+                      </a>
+                    </div>
                   </form>
                 </mat-tab>
                 <!--

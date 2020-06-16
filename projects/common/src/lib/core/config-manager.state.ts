@@ -17,6 +17,8 @@ export class ConfigManagerState {
 
   public AppType: DAFAppTypes;
 
+  public DAFAppOptions: { [key: string]: string };
+
   public DefaultApps: Application[];
 
   public DefaultAppsEnabled: Status;
@@ -29,7 +31,8 @@ export class ConfigManagerState {
 export enum DAFAppTypes {
   View = 'View',
   API = 'API',
-  Redirect = 'Redirect'
+  Redirect = 'Redirect',
+  DAFApp = 'DAFApp'
 }
 
 export enum AddNewTypes {

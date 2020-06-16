@@ -46,13 +46,19 @@ export class DataAppsConfigManagerElementComponent
   protected initialized: boolean;
 
   //  Properties
+  public get DAFAppOptionKeys(): string[] {
+    return this.State.DAFAppOptions ? Object.keys(this.State.DAFAppOptions) : [];
+  }
+
   public DAFAppTypes = DAFAppTypes;
 
   public DAFAPIAppFormGroup: FormGroup;
 
-  public DAFViewAppFormGroup: FormGroup;
+  public DAFPointerAppFormGroup: FormGroup;
 
   public DAFRedirectAppFormGroup: FormGroup;
+
+  public DAFViewAppFormGroup: FormGroup;
 
   @ViewChild(MatDrawer, { static: false })
   public Drawer: MatDrawer;
@@ -109,14 +115,18 @@ export class DataAppsConfigManagerElementComponent
       lookup: ['']
     });
 
-    this.DAFViewAppFormGroup = this.formBldr.group({
-      npmPkg: ['', Validators.required],
-      pkgVer: ['', Validators.required],
-      stateCfg: ['{}']
+    this.DAFPointerAppFormGroup = this.formBldr.group({
+      dafAppId: ['', Validators.required]
     });
 
     this.DAFRedirectAppFormGroup = this.formBldr.group({
       redirect: ['', Validators.required]
+    });
+
+    this.DAFViewAppFormGroup = this.formBldr.group({
+      npmPkg: ['', Validators.required],
+      pkgVer: ['', Validators.required],
+      stateCfg: ['{}']
     });
 
     this.DAFViewAppFormGroup.controls.npmPkg.valueChanges
