@@ -63,10 +63,10 @@
               Managing {{ State.ActiveApp.Name }}
 
               <a
-                *ngIf="State.ActiveDAFApp && State.AppType != DAFAppTypes.API"
+                *ngIf="State.ActiveApp && State.AppType != DAFAppTypes.API"
                 matTooltip="Launch in Browser"
                 mat-icon-button
-                [href]="State.ActiveDAFApp['BaseHref']"
+                [href]="State.ActiveApp.PathRegex.replace('*', '')"
                 target="_blank"
               >
                 <mat-icon>launch</mat-icon>
