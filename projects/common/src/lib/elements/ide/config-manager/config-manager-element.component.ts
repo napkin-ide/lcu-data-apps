@@ -13,11 +13,11 @@ import {
   Guid,
 } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ConfigManagerStateManagerContext } from '../../../core/config-manager-state.context';
+import { ConfigManagerStateManagerContext } from '../../../state/config-manager-state.context';
 import {
   ConfigManagerState,
   DAFAppTypes,
-} from '../../../core/config-manager.state';
+} from '../../../state/config-manager.state';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatInput } from '@angular/material/input';
