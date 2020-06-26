@@ -2,4 +2,19 @@
   .data-app-header {
     margin-bottom: 2em;
   }
+
+  .application-flow {
+    .data-app-actions {
+      float: right;
+    }
+
+    .application-configs {
+      .application-config {
+        margin: 1em;
+      }
+    }
+  }
+
+  .insights {
+  }
 }

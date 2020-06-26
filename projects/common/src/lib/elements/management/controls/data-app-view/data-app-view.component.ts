@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
+import { DAFApplicationConfig } from '@lcu/common';
 
 @Component({
   selector: 'lcu-data-app-view',
@@ -11,12 +12,20 @@ export class DataAppViewComponent implements OnInit {
   @Input('application')
   public Application: DataAppDetails;
 
+  @Input('daf-applications')
+  public DAFApplications: DAFApplicationConfig[];
+
   @Output('back-click')
   public BackClicked: EventEmitter<{}>;
+
+  @Output('daf-settings-click')
+  public DAFSettingsClicked: EventEmitter<DAFApplicationConfig>;
 
   //  Constructors
   constructor() {
     this.BackClicked = new EventEmitter<DataAppDetails>();
+
+    this.DAFSettingsClicked = new EventEmitter<DAFApplicationConfig>();
   }
 
   //  Life Cycle
@@ -25,6 +34,10 @@ export class DataAppViewComponent implements OnInit {
   //  API Methods
   public BackClick() {
     this.BackClicked.emit(this.Application);
+  }
+
+  public DAFAppSettingsClick(dafApp: DAFApplicationConfig) {
+    this.DAFSettingsClicked.emit(dafApp);
   }
 
   //  Helpers

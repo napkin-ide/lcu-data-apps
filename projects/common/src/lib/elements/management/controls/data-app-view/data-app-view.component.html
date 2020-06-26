@@ -15,11 +15,32 @@
 
   <mat-tab-group mat-stretch-tabs>
     <mat-tab label="Insights">
-      <div class="spread"><h2>Coming to a Sprint near you!</h2></div>
+      <div class="spread insight"><h2>Coming to a Sprint near you!</h2></div>
     </mat-tab>
 
     <mat-tab label="Application Flow">
-      <div class="spread"></div>
+      <div class="spread application-flow">
+        <div>
+          <span class="data-app-actions">
+            <button mat-raised-button>
+              <mat-icon color="primary">add</mat-icon> Create New
+            </button>
+          </span>
+        </div>
+
+        <div class="application-configs">
+          <ng-container *ngFor="let dafApp of DAFApplications">
+            <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
+              <div class="application-config">
+                <lcu-daf-app-card
+                  [daf-application]="dafApp"
+                  (daf-settings-click)="DAFAppSettingsClick($event)"
+                ></lcu-daf-app-card>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

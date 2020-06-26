@@ -1,0 +1,52 @@
+:host ::ng-deep {
+  .mat-card {
+    height: 100px;
+
+    .mat-card-header {
+      border-bottom: 1px solid black;
+
+      .mat-card-header-text {
+        margin: 0;
+        padding-right: 1em;
+        width: calc(100% - 100px);
+
+        .mat-card-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .mat-card-content {
+      margin: 0.5em;
+      height: calc(100% - 60px - 48px);
+    }
+
+    .mat-card-actions {
+      &:after {
+        content: " · · · ";
+        font-size: 40px;
+        float: right;
+        margin-right: 5px;
+        letter-spacing: 8px;
+      }
+
+      .data-app-actions {
+        display: none !important;
+      }
+    }
+
+    &:hover {
+      .mat-card-actions {
+        &:after {
+          content: none;
+        }
+
+        .data-app-actions {
+          display: flex !important;
+        }
+      }
+    }
+  }
+}

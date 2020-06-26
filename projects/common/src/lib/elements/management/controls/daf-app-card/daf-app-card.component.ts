@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { DAFApplicationConfig } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./daf-app-card.component.scss']
 })
 export class DafAppCardComponent implements OnInit {
+  //  Properties
+  @Input('daf-application')
+  public DAFApplication: DAFApplicationConfig;
 
-  constructor() { }
+  @Output('daf-settings-click')
+  public DAFSettingsClicked: EventEmitter<DAFApplicationConfig>;
 
-  ngOnInit(): void {
+  //  Constructors
+  constructor() {
+    this.DAFSettingsClicked = new EventEmitter<DAFApplicationConfig>();
   }
 
+  //  Life Cycle
+  public ngOnInit(): void {}
+
+  //  API Methods
+  public DAFAppSettingsClick() {
+    this.DAFSettingsClicked.emit(this.DAFApplication);
+  }
+
+  //  Helpers
 }

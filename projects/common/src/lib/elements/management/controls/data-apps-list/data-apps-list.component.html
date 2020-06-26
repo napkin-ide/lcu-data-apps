@@ -1,4 +1,10 @@
 <div class="spread">
+  <span class="data-apps-actions">
+    <button mat-raised-button>
+      <mat-icon color="primary">add</mat-icon> Create New
+    </button>
+  </span>
+
   <h1 class="mat-headline">Application Management</h1>
 
   <p class="mat-subheading-2">
@@ -15,7 +21,10 @@
       <ng-container *ngFor="let app of Applications">
         <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
           <div class="app-card">
-            <lcu-data-app-card [application]="app" (settings-click)="AppSettingsClick($event)"></lcu-data-app-card>
+            <lcu-data-app-card
+              [application]="app"
+              (settings-click)="AppSettingsClick($event)"
+            ></lcu-data-app-card>
           </div>
         </div>
       </ng-container>

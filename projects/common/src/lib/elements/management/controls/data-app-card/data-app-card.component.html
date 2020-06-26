@@ -1,8 +1,13 @@
 <mat-card>
   <mat-card-header>
-    <lcu-data-app-stati [application-stati]="Application.AppStati"></lcu-data-app-stati>
+    <lcu-data-app-stati
+      [application-stati]="Application.AppStati"
+    ></lcu-data-app-stati>
 
-    <mat-card-title class="mat-subheading-1" [matTooltip]="Application.PathGroup">
+    <mat-card-title
+      class="mat-subheading-1"
+      [matTooltip]="Application.PathGroup"
+    >
       {{ Application.PathGroup }}
     </mat-card-title>
   </mat-card-header>
@@ -12,10 +17,16 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <div fxFlex></div>
+    <div class="data-app-actions">
+      <div fxFlex></div>
 
-    <button mat-icon-button><mat-icon>launch</mat-icon></button>
+      <button mat-icon-button><mat-icon>fiber_manual_record</mat-icon></button>
 
-    <button mat-icon-button (click)="AppSettingsClick()"><mat-icon>settings</mat-icon></button>
+      <button mat-icon-button (click)="AppSettingsClick()">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      <button mat-icon-button><mat-icon>delete</mat-icon></button>
+    </div>
   </mat-card-actions>
 </mat-card>

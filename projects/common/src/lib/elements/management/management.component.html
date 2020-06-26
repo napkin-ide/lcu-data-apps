@@ -5,7 +5,7 @@
     </ng-container>
 
     <ng-container *ngIf="ActiveApp">
-      <lcu-data-app-view [application]="ActiveApp" (back-click)="BackClick()"></lcu-data-app-view>
+      <lcu-data-app-view [application]="ActiveApp" [daf-applications]="State.DAFApplications" (back-click)="BackClick()"></lcu-data-app-view>
     </ng-container>
   </ng-container>
 
