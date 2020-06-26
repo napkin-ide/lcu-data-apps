@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {
   LcuDataAppsModule,
   DataAppsConfigManagerElementComponent,
-  SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT
+  SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT, LcuDataAppsDataAppsManagementElementComponent, SELECTOR_LCU_DATA_APPS_DATA_APPS_MANAGEMENT_ELEMENT
 } from '@napkin-ide/lcu-data-apps-common';
 import { environment } from '../environments/environment';
 import { FathymSharedModule, LCUServiceSettings } from '@lcu/common';
@@ -30,5 +30,9 @@ export class AppModule implements DoBootstrap {
     const cfgMgr = createCustomElement(DataAppsConfigManagerElementComponent, { injector: this.injector });
 
     customElements.define(SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT, cfgMgr);
-  }
+  
+		const dataAppsManagement = createCustomElement(LcuDataAppsDataAppsManagementElementComponent, { injector: this.injector });
+
+		customElements.define(SELECTOR_LCU_DATA_APPS_DATA_APPS_MANAGEMENT_ELEMENT, dataAppsManagement);
+	}
 }
