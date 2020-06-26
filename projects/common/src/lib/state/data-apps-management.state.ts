@@ -25,11 +25,15 @@ export class DataAppDetails {
 
   public AppStati: DAFAppStatus[];
 
+  public PathGroup: string;
+}
+
+export class DataAppDAFDetails {
   public Description: string;
 
   public Name: string;
 
-  public PathGroup: string;
+  public Path: string;
 }
 
 export class DAFAppStatus extends Status {

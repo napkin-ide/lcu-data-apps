@@ -15,7 +15,7 @@
       <ng-container *ngFor="let app of Applications">
         <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
           <div class="app-card">
-            <lcu-data-app-card [application]="app"></lcu-data-app-card>
+            <lcu-data-app-card [application]="app" (settings-click)="AppSettingsClick($event)"></lcu-data-app-card>
           </div>
         </div>
       </ng-container>

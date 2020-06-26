@@ -1,11 +1,11 @@
 <div class="spread">
   <ng-container *ngIf="!State.Loading">
-    <ng-container *ngIf="!State.ActiveAppPathGroup">
-      <lcu-data-apps-list [applications]="State.Applications"></lcu-data-apps-list>
+    <ng-container *ngIf="!ActiveApp">
+      <lcu-data-apps-list [applications]="State.Applications" (settings-click)="AppSettingsClick($event)"></lcu-data-apps-list>
     </ng-container>
 
-    <ng-container *ngIf="State.ActiveAppPathGroup">
-      <lcu-data-app-view></lcu-data-app-view>
+    <ng-container *ngIf="ActiveApp">
+      <lcu-data-app-view [application]="ActiveApp" (back-click)="BackClick()"></lcu-data-app-view>
     </ng-container>
   </ng-container>
 

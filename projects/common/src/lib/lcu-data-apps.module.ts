@@ -25,6 +25,7 @@ import { DataAppCardComponent } from './elements/management/controls/data-app-ca
 import { DataAppViewComponent } from './elements/management/controls/data-app-view/data-app-view.component';
 import { DataAppsListComponent } from './elements/management/controls/data-apps-list/data-apps-list.component';
 import { LcuDataAppsManagementElementComponent } from './elements/management/management.component';
+import { DataAppStatiComponent } from './elements/management/controls/data-app-stati/data-app-stati.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { LcuDataAppsManagementElementComponent } from './elements/management/man
     DataAppCardComponent,
     DataAppViewComponent,
     DataAppsListComponent,
+    DataAppStatiComponent,
   ],
   imports: [
     FathymSharedModule,
@@ -49,6 +51,7 @@ import { LcuDataAppsManagementElementComponent } from './elements/management/man
     DataAppCardComponent,
     DataAppViewComponent,
     DataAppsListComponent,
+    DataAppStatiComponent,
   ],
 entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
 })

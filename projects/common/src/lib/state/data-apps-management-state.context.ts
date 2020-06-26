@@ -14,14 +14,14 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
   }
 
   //  API Methods
-  // public SaveDAFApp(dafApp: DAFApplicationConfig) {
-  //   this.Execute({
-  //     Arguments: {
-  //       DAFApp: dafApp
-  //     },
-  //     Type: 'SaveDAFApp'
-  //   });
-  // }
+  public SetActiveDataApp(appPathGroup: string) {
+    this.Execute({
+      Arguments: {
+        AppPathGroup: appPathGroup
+      },
+      Type: 'SetActiveDataApp'
+    });
+  }
 
   //  Helpers
   protected defaultValue() {

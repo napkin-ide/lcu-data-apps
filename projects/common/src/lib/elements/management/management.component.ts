@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
-import { DataAppsManagementState } from './../../state/data-apps-management.state';
+import { DataAppsManagementState, DataAppDetails } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
 export class LcuDataAppsManagementElementState {}
@@ -23,6 +23,10 @@ export class LcuDataAppsManagementElementComponent
   //  Fields
 
   //  Properties
+  public get ActiveApp(): DataAppDetails {
+    return this.State.ActiveAppPathGroup ? this.State.Applications.find(app => app.PathGroup === this.State.ActiveAppPathGroup) : null;
+  }
+
   public State: DataAppsManagementState;
 
   //  Constructors
@@ -47,6 +51,17 @@ export class LcuDataAppsManagementElementComponent
   }
 
   //  API Methods
+  public AppSettingsClick(appDetails: DataAppDetails) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SetActiveDataApp(appDetails.PathGroup);
+  }
+
+  public BackClick() {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SetActiveDataApp(null);
+  }
 
   //  Helpers
   protected handleStateChanged() {

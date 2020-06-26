@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
 import { DAFAppStatus } from './../../../../state/data-apps-management.state';
 
@@ -12,37 +12,20 @@ export class DataAppCardComponent implements OnInit {
   @Input('application')
   public Application: DataAppDetails;
 
+  @Output('settings-click')
+  public SettingsClicked: EventEmitter<DataAppDetails>;
+
   //  Constructors
-  constructor() {}
+  constructor() {
+    this.SettingsClicked = new EventEmitter<DataAppDetails>();
+  }
 
   //  Life Cycle
   public ngOnInit(): void {}
 
   //  API Methods
-  public LoadAppStatusKey(appStatus: DAFAppStatus) {
-    switch (appStatus.Code) {
-      case 0:
-        return 'success';
-
-      case 1:
-        return 'error';
-
-      case 100:
-        return 'update';
-
-      case 101:
-        return 'warning';
-    }
-  }
-
-  public LoadAppStatusIconCSS(appStatus: DAFAppStatus) {
-    const key = this.LoadAppStatusKey(appStatus);
-
-    const css = {};
-
-    css[`app-status-${key}`] = true;
-
-    return css;
+  public AppSettingsClick() {
+    this.SettingsClicked.emit(this.Application);
   }
 
   //  Helpers

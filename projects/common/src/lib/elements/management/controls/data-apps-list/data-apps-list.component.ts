@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
 
 @Component({
@@ -11,14 +11,22 @@ export class DataAppsListComponent implements OnInit {
   @Input('applications')
   public Applications: DataAppDetails[];
 
+  @Output('settings-click')
+  public SettingsClicked: EventEmitter<DataAppDetails>;
+
   //  Constructors
-  constructor() { }
+  constructor() {
+    this.SettingsClicked = new EventEmitter<DataAppDetails>();
+  }
 
   //  Life Cycle
   public ngOnInit(): void {
   }
 
   //  API Methods
+  public AppSettingsClick(appDetails: DataAppDetails) {
+    this.SettingsClicked.emit(appDetails);
+  }
 
   //  Helpers
 }

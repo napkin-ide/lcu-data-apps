@@ -1,27 +1,14 @@
 <mat-card>
   <mat-card-header>
-    <div class="app-stati">
-      <ng-container *ngFor="let appStatus of Application.AppStati">
-        <mat-icon
-          class="app-status"
-          [ngClass]="LoadAppStatusIconCSS(appStatus)"
-          [matBadge]="appStatus.AppCount"
-          matBadgeColor="primary"
-        >
-          {{ appStatus.Icon.Icon }}
-        </mat-icon>
-      </ng-container>
-    </div>
+    <lcu-data-app-stati [application-stati]="Application.AppStati"></lcu-data-app-stati>
 
-    <mat-card-title class="mat-subheading-1" [matTooltip]="Application.Name">
-      {{ Application.Name }}
+    <mat-card-title class="mat-subheading-1" [matTooltip]="Application.PathGroup">
+      {{ Application.PathGroup }}
     </mat-card-title>
-
-    <mat-card-subtitle>{{ Application.PathGroup }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    {{ Application.Description }}
+    <!-- Maybe instead of a description since that doesn't make sense here, we choose a default set of analytics to show here?  or just nothing?-->
   </mat-card-content>
 
   <mat-card-actions>
@@ -29,6 +16,6 @@
 
     <button mat-icon-button><mat-icon>launch</mat-icon></button>
 
-    <button mat-icon-button><mat-icon>settings</mat-icon></button>
+    <button mat-icon-button (click)="AppSettingsClick()"><mat-icon>settings</mat-icon></button>
   </mat-card-actions>
 </mat-card>

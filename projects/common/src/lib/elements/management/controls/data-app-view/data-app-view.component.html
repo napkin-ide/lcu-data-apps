@@ -1,1 +1,25 @@
-<p>data-app-view works!</p>
+<div class="spread">
+  <div class="data-app-header">
+    <h1 class="mat-headline">
+      <lcu-data-app-stati
+        [application-stati]="Application.AppStati"
+      ></lcu-data-app-stati>
+
+      <button mat-icon-button (click)="BackClick()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+
+      Application Management for Area: {{ Application.PathGroup }}
+    </h1>
+  </div>
+
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Insights">
+      <div class="spread"><h2>Coming to a Sprint near you!</h2></div>
+    </mat-tab>
+
+    <mat-tab label="Application Flow">
+      <div class="spread"></div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

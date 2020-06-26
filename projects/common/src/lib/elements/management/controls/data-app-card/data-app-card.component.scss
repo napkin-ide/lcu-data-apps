@@ -1,6 +1,6 @@
 :host ::ng-deep {
   .mat-card {
-    height: 150px;
+    height: 100px;
 
     .mat-card-header {
       border-bottom: 1px solid black;
@@ -24,34 +24,6 @@
     }
 
     .mat-card-actions {
-    }
-  }
-
-  .app-stati {
-    float: right;
-    width: 100px;
-
-    .app-status {
-      width: 28px;
-      height: 28px;
-      font-size: 28px;
-      margin: 4px;
-
-      &.app-status-success {
-        color: green;
-      }
-
-      &.app-status-error {
-        color: red;
-      }
-
-      &.app-status-update {
-        color: blue;
-      }
-
-      &.app-status-warn {
-        color: yellow;
-      }
     }
   }
 }
