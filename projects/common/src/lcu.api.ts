@@ -9,3 +9,4 @@ export * from './lib/elements/data-apps-management/controls/data-app-card/data-a
 export * from './lib/elements/data-apps-management/controls/data-app-view/data-app-view.component';
 export * from './lib/elements/data-apps-management/controls/data-apps-list/data-apps-list.component';
 export * from './lib/lcu-data-apps.module';
+export * from './lib/elements/data-apps-management/data-apps-management.component';

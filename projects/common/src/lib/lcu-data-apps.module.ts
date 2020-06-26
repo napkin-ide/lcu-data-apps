@@ -24,10 +24,12 @@ import { DafAppCardComponent } from './elements/data-apps-management/controls/da
 import { DataAppCardComponent } from './elements/data-apps-management/controls/data-app-card/data-app-card.component';
 import { DataAppViewComponent } from './elements/data-apps-management/controls/data-app-view/data-app-view.component';
 import { DataAppsListComponent } from './elements/data-apps-management/controls/data-apps-list/data-apps-list.component';
+import { LcuDataAppsDataAppsManagementElementComponent } from './elements/data-apps-management/data-apps-management.component';
 
 @NgModule({
   declarations: [
     DataAppsConfigManagerElementComponent,
+    LcuDataAppsDataAppsManagementElementComponent,
     DafAppCardComponent,
     DataAppCardComponent,
     DataAppViewComponent,
@@ -42,11 +44,12 @@ import { DataAppsListComponent } from './elements/data-apps-management/controls/
   ],
   exports: [
     DataAppsConfigManagerElementComponent,
+    LcuDataAppsDataAppsManagementElementComponent,
     DafAppCardComponent,
     DataAppCardComponent,
     DataAppViewComponent,
     DataAppsListComponent,
   ],
-  entryComponents: [DataAppsConfigManagerElementComponent],
+entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsDataAppsManagementElementComponent]
 })
 export class LcuDataAppsModule {}
