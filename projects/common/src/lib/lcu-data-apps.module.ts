@@ -20,16 +20,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FathymSharedModule, MaterialModule } from '@lcu/common';
 import { DataAppsConfigManagerElementComponent } from './elements/ide/config-manager/config-manager-element.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DafAppCardComponent } from './elements/data-apps-management/controls/daf-app-card/daf-app-card.component';
-import { DataAppCardComponent } from './elements/data-apps-management/controls/data-app-card/data-app-card.component';
-import { DataAppViewComponent } from './elements/data-apps-management/controls/data-app-view/data-app-view.component';
-import { DataAppsListComponent } from './elements/data-apps-management/controls/data-apps-list/data-apps-list.component';
-import { LcuDataAppsDataAppsManagementElementComponent } from './elements/data-apps-management/data-apps-management.component';
+import { DafAppCardComponent } from './elements/management/controls/daf-app-card/daf-app-card.component';
+import { DataAppCardComponent } from './elements/management/controls/data-app-card/data-app-card.component';
+import { DataAppViewComponent } from './elements/management/controls/data-app-view/data-app-view.component';
+import { DataAppsListComponent } from './elements/management/controls/data-apps-list/data-apps-list.component';
+import { LcuDataAppsManagementElementComponent } from './elements/management/management.component';
 
 @NgModule({
   declarations: [
     DataAppsConfigManagerElementComponent,
-    LcuDataAppsDataAppsManagementElementComponent,
+    LcuDataAppsManagementElementComponent,
     DafAppCardComponent,
     DataAppCardComponent,
     DataAppViewComponent,
@@ -44,12 +44,12 @@ import { LcuDataAppsDataAppsManagementElementComponent } from './elements/data-a
   ],
   exports: [
     DataAppsConfigManagerElementComponent,
-    LcuDataAppsDataAppsManagementElementComponent,
+    LcuDataAppsManagementElementComponent,
     DafAppCardComponent,
     DataAppCardComponent,
     DataAppViewComponent,
     DataAppsListComponent,
   ],
-entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsDataAppsManagementElementComponent]
+entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
 })
 export class LcuDataAppsModule {}

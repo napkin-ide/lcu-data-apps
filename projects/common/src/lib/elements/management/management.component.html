@@ -1,0 +1,15 @@
+<div class="spread">
+  <ng-container *ngIf="!State.Loading">
+    <ng-container *ngIf="!State.ActiveAppPathGroup">
+      <lcu-data-apps-list [applications]="State.Applications"></lcu-data-apps-list>
+    </ng-container>
+
+    <ng-container *ngIf="State.ActiveAppPathGroup">
+      <lcu-data-app-view></lcu-data-app-view>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="State.Loading">
+    <mat-spinner></mat-spinner>
+  </ng-container>
+</div>

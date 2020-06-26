@@ -1,0 +1,24 @@
+<div class="spread">
+  <h1 class="mat-headline">Application Management</h1>
+
+  <p class="mat-subheading-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.
+  </p>
+
+  <div class="data-app-filters"></div>
+
+  <div class="data-app-list">
+    <div fxLayout="row wrap" fxLayoutAlign="left center">
+      <ng-container *ngFor="let app of Applications">
+        <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
+          <div class="app-card">
+            <lcu-data-app-card [application]="app"></lcu-data-app-card>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+:host ::ng-deep {
+  .mat-card {
+    height: 150px;
+
+    .mat-card-header {
+      border-bottom: 1px solid black;
+
+      .mat-card-header-text {
+        margin: 0;
+        padding-right: 1em;
+        width: calc(100% - 100px);
+
+        .mat-card-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .mat-card-content {
+      margin: .5em;
+      height: calc(100% - 60px - 48px);
+    }
+
+    .mat-card-actions {
+    }
+  }
+
+  .app-stati {
+    float: right;
+    width: 100px;
+
+    .app-status {
+      width: 28px;
+      height: 28px;
+      font-size: 28px;
+      margin: 4px;
+
+      &.app-status-success {
+        color: green;
+      }
+
+      &.app-status-error {
+        color: red;
+      }
+
+      &.app-status-update {
+        color: blue;
+      }
+
+      &.app-status-warn {
+        color: yellow;
+      }
+    }
+  }
+}

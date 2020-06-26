@@ -13,7 +13,7 @@ export class DataAppsManagementState {
 
   public Applications: DataAppDetails[];
 
-  public DAFApplications: { [appId: string]: DAFApplicationConfig[] };
+  public DAFApplications: DAFApplicationConfig[];
 
   public DAFAppOptions: { [key: string]: string };
 
