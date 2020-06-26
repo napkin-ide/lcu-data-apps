@@ -4,12 +4,12 @@ import {
   DAFApplicationConfig,
   Status,
   Icon,
-} from "@lcu/common";
+} from '@lcu/common';
 
 export class DataAppsManagementState {
   public AccessRightOptions: string[];
 
-  public ActiveAppPath: string;
+  public ActiveAppPathGroup: string;
 
   public Applications: DataAppDetails[];
 
