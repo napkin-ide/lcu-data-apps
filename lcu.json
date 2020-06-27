@@ -12,8 +12,8 @@
 			"config-manager": {
 				"element": "lcu-data-apps-config-manager-element"
 			},
-			"data-apps-management": {
-				"element": "lcu-data-apps-data-apps-management-element"
+			"management": {
+				"element": "lcu-data-apps-management-element"
 			}
 		},
 		"elements": {},
