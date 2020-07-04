@@ -17,16 +17,19 @@
   <div class="data-app-filters"></div>
 
   <div class="data-app-list">
-    <div fxLayout="row wrap" fxLayoutAlign="left center">
+    <div
+      gdColumns="33% 33% 33%"
+      gdColumns.lt-md="45% 45%"
+      gdColumns.lt-sm="100%"
+      gdGap="2em"
+      gdGap.lt-sm="1em"
+    >
       <ng-container *ngFor="let app of Applications">
-        <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
-          <div class="app-card">
-            <lcu-data-app-card
-              [application]="app"
-              (settings-click)="AppSettingsClick($event)"
-            ></lcu-data-app-card>
-          </div>
-        </div>
+        <lcu-data-app-card
+          class="app-card"
+          [application]="app"
+          (settings-click)="AppSettingsClick($event)"
+        ></lcu-data-app-card>
       </ng-container>
     </div>
   </div>

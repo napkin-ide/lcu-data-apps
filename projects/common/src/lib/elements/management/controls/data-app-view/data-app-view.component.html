@@ -9,38 +9,52 @@
         <mat-icon>keyboard_backspace</mat-icon>
       </button>
 
-      Application Management for Area: {{ Application.PathGroup }}
+      Application Management for: {{ Application.PathGroup }}
     </h1>
+
+    <nav mat-tab-nav-bar mat-stretch-tabs class="tabs-header">
+      <a mat-tab-link (click)="SetApplicationTab(0)" [active]="CurrentApplicationTab == 0">Insights</a>
+
+      <a mat-tab-link (click)="SetApplicationTab(1)" [active]="CurrentApplicationTab == 1">ApplicationFlow</a>
+    </nav>
   </div>
 
-  <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="Insights">
-      <div class="spread insight"><h2>Coming to a Sprint near you!</h2></div>
-    </mat-tab>
 
-    <mat-tab label="Application Flow">
-      <div class="spread application-flow">
-        <div>
-          <span class="data-app-actions">
-            <button mat-raised-button>
-              <mat-icon color="primary">add</mat-icon> Create New
-            </button>
-          </span>
+
+  <div class="tabs-content">
+    <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 0">
+      <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
+    </div>
+
+    <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 1">
+      <div class="application-flow">
+        <div class="application-flow-header spread">
+          <div fxFlex></div>
+
+          <button mat-raised-button>
+            <mat-icon color="primary">add</mat-icon> Create New
+          </button>
         </div>
 
         <div class="application-configs">
-          <ng-container *ngFor="let dafApp of DAFApplications">
-            <div fxFlex="33.33%" fxFlex.sm="50%" fxFlex.xs="100%">
-              <div class="application-config">
-                <lcu-daf-app-card
-                  [daf-application]="dafApp"
-                  (daf-settings-click)="DAFAppSettingsClick($event)"
-                ></lcu-daf-app-card>
-              </div>
-            </div>
-          </ng-container>
+          <div
+            class="application-grid"
+            gdColumns="30% 30% 30%"
+            gdColumns.lt-md="45% 45%"
+            gdColumns.lt-sm="100%"
+            gdGap="2em"
+            gdGap.lt-sm="1em"
+          >
+            <ng-container *ngFor="let dafApp of DAFApplications">
+              <lcu-daf-app-card
+                class="application-config"
+                [daf-application]="dafApp"
+                (daf-settings-click)="DAFAppSettingsClick($event)"
+              ></lcu-daf-app-card>
+            </ng-container>
+          </div>
         </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+  </div>
 </div>

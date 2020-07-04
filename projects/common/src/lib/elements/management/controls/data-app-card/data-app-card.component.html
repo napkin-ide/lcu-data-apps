@@ -20,13 +20,28 @@
     <div class="data-app-actions">
       <div fxFlex></div>
 
-      <button mat-icon-button><mat-icon>launch</mat-icon></button>
+      <!-- Doesn't really make sense to have a launch here, as we don't know what to launch... Could be the root path.. but nothing may be there.-->
+      <!-- <button mat-icon-button><mat-icon>launch</mat-icon></button> -->
 
       <button mat-icon-button (click)="AppSettingsClick()">
         <mat-icon>settings</mat-icon>
       </button>
 
-      <button mat-icon-button><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <div class="data-app-fakes">
+      <div fxFlex></div>
+
+      <button mat-icon-button disabled>
+        <mat-icon>fiber_manual_record</mat-icon>
+      </button>
+
+      <button mat-icon-button disabled>
+        <mat-icon>fiber_manual_record</mat-icon>
+      </button>
     </div>
   </mat-card-actions>
 </mat-card>

@@ -1,20 +1,47 @@
-:host {
+:host ::ng-deep {
   .data-app-header {
     margin-bottom: 2em;
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    z-index: 500;
+    background-color: white;
   }
 
-  .application-flow {
-    .data-app-actions {
-      float: right;
-    }
+  .mat-tab-header {
+    position: sticky;
+    top: 50px;
+    z-index: 500;
+    background-color: white;
+  }
 
-    .application-configs {
-      .application-config {
-        margin: 1em;
+  .tabs-content {
+    margin-top: 2em;
+
+    .mat-card {
+      .mat-card-header {
+        .mat-card-header-text {
+          width: calc(100%);
+        }
       }
     }
-  }
 
-  .insights {
+    .application-flow {
+      .application-flow-header {
+      }
+
+      .application-configs {
+        .application-grid {
+          justify-content: center;
+
+          .application-config {
+            // margin: 1em;
+          }
+        }
+      }
+    }
+
+    .insights {
+    }
   }
 }

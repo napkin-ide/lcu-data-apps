@@ -1,0 +1,50 @@
+:host ::ng-deep {
+  .mat-card {
+    .mat-card-header {
+      border-bottom: 1px solid black;
+
+      .mat-card-header-text {
+        margin: 0;
+        padding-right: 1em;
+        width: calc(100% - 100px);
+
+        .mat-card-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .mat-card-content {
+      overflow: auto;
+      height: calc(100% - 41px - 48px - 16px) ;
+    }
+
+    .mat-card-actions {
+      .data-app-actions {
+        display: none !important;
+      }
+
+      .data-app-fakes {
+        display: flex !important;
+
+        .mat-icon {
+          font-size: 8px;
+        }
+      }
+    }
+
+    &:hover {
+      .mat-card-actions {
+        .data-app-actions {
+          display: flex !important;
+        }
+
+        .data-app-fakes {
+          display: none !important;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,22 @@
 <div class="spread">
   <ng-container *ngIf="!State.Loading">
     <ng-container *ngIf="!ActiveApp">
-      <lcu-data-apps-list [applications]="State.Applications" (settings-click)="AppSettingsClick($event)"></lcu-data-apps-list>
+      <lcu-data-apps-list
+        [applications]="State.Applications"
+        (settings-click)="AppSettingsClick($event)"
+      ></lcu-data-apps-list>
     </ng-container>
 
     <ng-container *ngIf="ActiveApp">
-      <lcu-data-app-view [application]="ActiveApp" [daf-applications]="State.DAFApplications" (back-click)="BackClick()"></lcu-data-app-view>
+      <lcu-data-app-view
+        [active-daf-application]="State.ActiveDAFAppID"
+        [application]="ActiveApp"
+        [current-application-tab]="State.CurrentApplicationTab"
+        [daf-applications]="State.DAFApplications"
+        (application-tab-click)="SetApplicationTab($event)"
+        (back-click)="BackClick()"
+        (daf-settings-click)="DAFAppSettingsClick($event)"
+      ></lcu-data-app-view>
     </ng-container>
   </ng-container>
 

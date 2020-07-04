@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
-import { DataAppsManagementState, DataAppDetails } from './../../state/data-apps-management.state';
+import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
 export class LcuDataAppsManagementElementState {}
@@ -61,6 +61,18 @@ export class LcuDataAppsManagementElementComponent
     this.State.Loading = true;
 
     this.dataAppsCtxt.SetActiveDataApp(null);
+  }
+
+  public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SetActiveDAFApp(dafApp.ID);
+  }
+
+  public SetApplicationTab(appTab: number) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SetApplicationTab(appTab);
   }
 
   //  Helpers

@@ -1,9 +1,12 @@
-:host {
+:host ::ng-deep {
   .data-apps-actions {
     float: right;
   }
 
-  .app-card {
-    margin: 1em;
+  .data-app-list {
+  }
+
+  .mat-card {
+    // padding: 0;
   }
 }

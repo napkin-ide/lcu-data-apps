@@ -1,7 +1,5 @@
 import {
   Application,
-  DAFAPIApplicationConfig,
-  DAFApplicationConfig,
   Status,
   Icon,
 } from '@lcu/common';
@@ -11,9 +9,13 @@ export class DataAppsManagementState {
 
   public ActiveAppPathGroup: string;
 
+  public ActiveDAFAppID: string;
+
   public Applications: DataAppDetails[];
 
-  public DAFApplications: DAFApplicationConfig[];
+  public CurrentApplicationTab: number;
+
+  public DAFApplications: DataDAFAppDetails[];
 
   public DAFAppOptions: { [key: string]: string };
 
@@ -28,12 +30,16 @@ export class DataAppDetails {
   public PathGroup: string;
 }
 
-export class DataAppDAFDetails {
+export class DataDAFAppDetails {
   public Description: string;
+
+  public ID: string;
 
   public Name: string;
 
   public Path: string;
+
+  public Priority: string;
 }
 
 export class DAFAppStatus extends Status {

@@ -4,9 +4,11 @@ import { DataAppDetails } from '../../../../state/data-apps-management.state';
 @Component({
   selector: 'lcu-data-apps-list',
   templateUrl: './data-apps-list.component.html',
-  styleUrls: ['./data-apps-list.component.scss']
+  styleUrls: ['./data-apps-list.component.scss'],
 })
 export class DataAppsListComponent implements OnInit {
+  //  Fields
+
   //  Properties
   @Input('applications')
   public Applications: DataAppDetails[];
@@ -20,8 +22,7 @@ export class DataAppsListComponent implements OnInit {
   }
 
   //  Life Cycle
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   //  API Methods
   public AppSettingsClick(appDetails: DataAppDetails) {
