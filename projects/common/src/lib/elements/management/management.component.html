@@ -1,5 +1,5 @@
 <div class="spread">
-  <ng-container *ngIf="!State.Loading">
+  <ng-container *ngIf="!Loading">
     <ng-container *ngIf="!ActiveApp">
       <lcu-data-apps-list
         [applications]="State.Applications"
@@ -13,6 +13,7 @@
         [application]="ActiveApp"
         [current-application-tab]="State.CurrentApplicationTab"
         [daf-applications]="State.DAFApplications"
+        [loading]="State.Loading"
         (application-tab-click)="SetApplicationTab($event)"
         (back-click)="BackClick()"
         (daf-settings-click)="DAFAppSettingsClick($event)"
@@ -20,7 +21,7 @@
     </ng-container>
   </ng-container>
 
-  <ng-container *ngIf="State.Loading">
+  <ng-container *ngIf="Loading">
     <mat-spinner></mat-spinner>
   </ng-container>
 </div>

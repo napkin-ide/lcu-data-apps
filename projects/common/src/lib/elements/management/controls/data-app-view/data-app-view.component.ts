@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
 import { DataDAFAppDetails } from '../../../../state/data-apps-management.state';
 
@@ -7,10 +15,21 @@ import { DataDAFAppDetails } from '../../../../state/data-apps-management.state'
   templateUrl: './data-app-view.component.html',
   styleUrls: ['./data-app-view.component.scss'],
 })
-export class DataAppViewComponent implements OnInit {
+export class DataAppViewComponent implements AfterViewInit, OnInit {
+  //  Fields
+  protected activeDafAppId: string;
+
   //  Properties
   @Input('active-daf-application')
-  public ActiveDAFApplicationID: string;
+  public get ActiveDAFApplicationID(): string {
+    return this.activeDafAppId;
+  }
+
+  public set ActiveDAFApplicationID(activeDafAppId: string) {
+    this.activeDafAppId = activeDafAppId;
+
+    this.handleActiveDafAppVisibility();
+  }
 
   @Input('application')
   public Application: DataAppDetails;
@@ -30,8 +49,11 @@ export class DataAppViewComponent implements OnInit {
   @Output('daf-settings-click')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
+  @Input('loading')
+  public Loading: boolean;
+
   //  Constructors
-  constructor() {
+  constructor(protected el: ElementRef) {
     this.ApplicationTabClicked = new EventEmitter<number>();
 
     this.BackClicked = new EventEmitter<DataAppDetails>();
@@ -40,6 +62,10 @@ export class DataAppViewComponent implements OnInit {
   }
 
   //  Life Cycle
+  public ngAfterViewInit(): void {
+    this.handleActiveDafAppVisibility();
+  }
+
   public ngOnInit(): void {}
 
   //  API Methods
@@ -60,4 +86,21 @@ export class DataAppViewComponent implements OnInit {
   }
 
   //  Helpers
+  protected handleActiveDafAppVisibility() {
+    setTimeout(() => {
+      if (this.ActiveDAFApplicationID) {
+        const el = this.el.nativeElement as HTMLElement;
+
+        const appCfgEl = el.querySelector(
+          `.application-config-${this.ActiveDAFApplicationID}`
+        );
+
+        if (appCfgEl) {
+          appCfgEl.scrollIntoView({
+            block: 'center'
+          });
+        }
+      }
+    }, 0);
+  }
 }

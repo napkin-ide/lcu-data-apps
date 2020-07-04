@@ -27,6 +27,10 @@ export class LcuDataAppsManagementElementComponent
     return this.State.ActiveAppPathGroup ? this.State.Applications.find(app => app.PathGroup === this.State.ActiveAppPathGroup) : null;
   }
 
+  public get Loading(): boolean {
+    return this.State.Loading && !this.State.ActiveAppPathGroup;
+  }
+
   public State: DataAppsManagementState;
 
   //  Constructors

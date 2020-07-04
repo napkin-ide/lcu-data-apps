@@ -13,51 +13,67 @@
     </h1>
 
     <nav mat-tab-nav-bar mat-stretch-tabs class="tabs-header">
-      <a mat-tab-link (click)="SetApplicationTab(0)" [active]="CurrentApplicationTab == 0">Insights</a>
+      <a
+        mat-tab-link
+        (click)="SetApplicationTab(0)"
+        [active]="CurrentApplicationTab == 0"
+        >Insights</a
+      >
 
-      <a mat-tab-link (click)="SetApplicationTab(1)" [active]="CurrentApplicationTab == 1">ApplicationFlow</a>
+      <a
+        mat-tab-link
+        (click)="SetApplicationTab(1)"
+        [active]="CurrentApplicationTab == 1"
+        >ApplicationFlow</a
+      >
     </nav>
   </div>
 
+  <div class="spread" *ngIf="Loading">
+    <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+  </div>
 
+  <ng-container *ngIf="!Loading">
+    <div class="tabs-content">
+      <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 0">
+        <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
+      </div>
 
-  <div class="tabs-content">
-    <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 0">
-      <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
-    </div>
+      <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 1">
+        <div class="application-flow">
+          <div class="application-flow-header spread">
+            <div fxFlex></div>
 
-    <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 1">
-      <div class="application-flow">
-        <div class="application-flow-header spread">
-          <div fxFlex></div>
+            <button mat-raised-button>
+              <mat-icon color="primary">add</mat-icon> Create New
+            </button>
+          </div>
 
-          <button mat-raised-button>
-            <mat-icon color="primary">add</mat-icon> Create New
-          </button>
-        </div>
-
-        <div class="application-configs">
-          <div
-            class="application-grid"
-            gdColumns="30% 30% 30%"
-            gdColumns.lt-md="45% 45%"
-            gdColumns.lt-sm="100%"
-            gdGap="2em"
-            gdGap.lt-sm="1em"
-          >
-            <ng-container *ngFor="let dafApp of DAFApplications">
-              <lcu-daf-app-card
-                class="application-config"
-                [is-blocked]="ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)"
-                [is-edit]="IsActiveDAFApplication(dafApp.ID)"
-                [is-expanded]="ActiveDAFApplicationID"
-                [daf-application]="dafApp"
-                (daf-settings-click)="DAFAppSettingsClick($event)"
-              ></lcu-daf-app-card>
-            </ng-container>
+          <div class="application-configs">
+            <div
+              class="application-grid"
+              gdColumns="30% 30% 30%"
+              gdColumns.lt-md="45% 45%"
+              gdColumns.lt-sm="100%"
+              gdGap="2em"
+              gdGap.lt-sm="1em"
+            >
+              <ng-container *ngFor="let dafApp of DAFApplications">
+                <lcu-daf-app-card
+                  class="application-config application-config-{{ dafApp.ID }}"
+                  [is-blocked]="
+                    ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)
+                  "
+                  [is-edit]="IsActiveDAFApplication(dafApp.ID)"
+                  [is-expanded]="ActiveDAFApplicationID"
+                  [daf-application]="dafApp"
+                  (daf-settings-click)="DAFAppSettingsClick($event)"
+                ></lcu-daf-app-card>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>
