@@ -25,12 +25,18 @@ export class DataAppsManagementState {
 export class DataAppDetails {
   public AppIDs: { [appId: string]: string };
 
-  public AppStati: DAFAppStatus[];
+  public AppStati: DataDAFAppStatus[];
 
   public PathGroup: string;
 }
 
 export class DataDAFAppDetails {
+  public AppStatus: DataDAFAppStatus;
+
+  public Config: { [key: string]: string };
+
+  public DAFAppType: DataDAFAppTypes;
+
   public Description: string;
 
   public ID: string;
@@ -42,10 +48,17 @@ export class DataDAFAppDetails {
   public Priority: string;
 }
 
-export class DAFAppStatus extends Status {
+export class DataDAFAppStatus extends Status {
   public AppCount: number;
 
   public Icon: Icon;
 
   public Name: string;
+}
+
+export enum DataDAFAppTypes {
+  View = 'View',
+  API = 'API',
+  Redirect = 'Redirect',
+  DAFAppPointer = 'DAFAppPointer'
 }

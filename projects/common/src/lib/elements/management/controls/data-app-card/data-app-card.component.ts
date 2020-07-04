@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
-import { DAFAppStatus } from './../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-card',

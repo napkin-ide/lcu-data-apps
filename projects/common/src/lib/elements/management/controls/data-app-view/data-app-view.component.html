@@ -48,6 +48,9 @@
             <ng-container *ngFor="let dafApp of DAFApplications">
               <lcu-daf-app-card
                 class="application-config"
+                [is-blocked]="ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)"
+                [is-edit]="IsActiveDAFApplication(dafApp.ID)"
+                [is-expanded]="ActiveDAFApplicationID"
                 [daf-application]="dafApp"
                 (daf-settings-click)="DAFAppSettingsClick($event)"
               ></lcu-daf-app-card>

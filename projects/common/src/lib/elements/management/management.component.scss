@@ -1,12 +1,25 @@
 :host ::ng-deep {
   .mat-card {
+    overflow: hidden;
+    position: relative;
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(5, 5, 5, 0.8);
+    }
+
     .mat-card-header {
       border-bottom: 1px solid black;
 
       .mat-card-header-text {
         margin: 0;
         padding-right: 1em;
-        width: calc(100% - 100px);
+        max-width: calc(100% - 100px);
+        min-width: calc(100% - 100px);
 
         .mat-card-title {
           white-space: nowrap;
@@ -18,7 +31,12 @@
 
     .mat-card-content {
       overflow: auto;
-      height: calc(100% - 41px - 48px - 16px) ;
+      margin: 0;
+      height: calc(100% - 41px - 48px);
+
+      .spread {
+        margin: 1em;
+      }
     }
 
     .mat-card-actions {

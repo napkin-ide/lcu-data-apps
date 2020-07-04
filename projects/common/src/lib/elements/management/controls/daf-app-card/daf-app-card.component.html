@@ -1,8 +1,12 @@
-<mat-card>
+<mat-card [class.expanded]="IsExpanded">
   <mat-card-header>
-    <!-- <lcu-data-app-stati [application-stati]="DAFApplication.AppStati"></lcu-data-app-stati> -->
+    <lcu-data-app-stati
+      [application-stati]="[DAFApplication.AppStatus]"
+    ></lcu-data-app-stati>
 
     <mat-card-title class="mat-subheading-2" [matTooltip]="DAFApplication.Name">
+      <mat-icon>{{ DAFApplicationIcon }}</mat-icon>
+
       {{ DAFApplication.Name }}
     </mat-card-title>
     <!--
@@ -12,36 +16,104 @@
   </mat-card-header>
 
   <mat-card-content>
-    <!-- Maybe instead of a description since that doesn't make sense here, we choose a default set of analytics to show here?  or just nothing?-->
+    <div class="spread">
+      <ng-container *ngIf="!IsEdit">
+        <ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View">
+          <h4>
+            {{ DAFApplication.Config.NPMPackage }}@{{
+              DAFApplication.Config.PackageVersion
+            }}
+          </h4>
+        </ng-container>
+
+        <ng-container
+          *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect"
+        >
+          <h4>{{ DAFApplication.Config.Redirect }}</h4>
+        </ng-container>
+
+        <ng-container
+          *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.DAFAppPointer"
+        >
+          <h4>{{ DAFApplication.Config.DAFApplicationID }}</h4>
+        </ng-container>
+
+        <ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API">
+          <h4>{{ DAFApplication.Config.InboundPath }}</h4>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="IsEdit">
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+        <div>Editing</div>
+      </ng-container>
+    </div>
   </mat-card-content>
 
   <mat-card-actions>
-    <div class="data-app-actions">
-      <div fxFlex></div>
+    <ng-container *ngIf="!IsEdit">
+      <div class="data-app-actions">
+        <div fxFlex></div>
 
-      <button mat-icon-button><mat-icon>launch</mat-icon></button>
+        <a
+          mat-icon-button
+          [href]="LaunchPath"
+          target="_blank"
+          *ngIf="LaunchPath"
+          ><mat-icon>launch</mat-icon></a
+        >
 
-      <button mat-icon-button (click)="DAFAppSettingsClick()">
-        <mat-icon>edit</mat-icon>
-      </button>
+        <button mat-icon-button (click)="DAFAppSettingsClick()">
+          <mat-icon>edit</mat-icon>
+        </button>
 
-      <button mat-icon-button><mat-icon>delete</mat-icon></button>
-    </div>
+        <button mat-icon-button><mat-icon>delete</mat-icon></button>
+      </div>
 
-    <div class="data-app-fakes">
-      <div fxFlex></div>
+      <div class="data-app-fakes">
+        <div fxFlex></div>
 
-      <button mat-icon-button disabled>
-        <mat-icon>fiber_manual_record</mat-icon>
-      </button>
+        <button mat-icon-button disabled *ngIf="LaunchPath">
+          <mat-icon>fiber_manual_record</mat-icon>
+        </button>
 
-      <button mat-icon-button disabled>
-        <mat-icon>fiber_manual_record</mat-icon>
-      </button>
+        <button mat-icon-button disabled>
+          <mat-icon>fiber_manual_record</mat-icon>
+        </button>
 
-      <button mat-icon-button disabled>
-        <mat-icon>fiber_manual_record</mat-icon>
-      </button>
-    </div>
+        <button mat-icon-button disabled>
+          <mat-icon>fiber_manual_record</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="IsEdit">
+      <div>
+        <div fxFlex></div>
+
+        <button mat-icon-button color="primary">
+          <mat-icon>save</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn" (click)="DAFAppSettingsCanceled()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </ng-container>
   </mat-card-actions>
+
+  <div class="overlay" *ngIf="IsBlocked"></div>
 </mat-card>

@@ -10,7 +10,7 @@ import { DataDAFAppDetails } from '../../../../state/data-apps-management.state'
 export class DataAppViewComponent implements OnInit {
   //  Properties
   @Input('active-daf-application')
-  public ActiveDAFApplication: string;
+  public ActiveDAFApplicationID: string;
 
   @Input('application')
   public Application: DataAppDetails;
@@ -52,7 +52,7 @@ export class DataAppViewComponent implements OnInit {
   }
 
   public IsActiveDAFApplication(dafAppId: string) {
-    return this.ActiveDAFApplication === dafAppId;
+    return this.ActiveDAFApplicationID === dafAppId;
   }
 
   public SetApplicationTab(index: number) {

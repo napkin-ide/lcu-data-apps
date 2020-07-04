@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DAFAppStatus } from './../../../../state/data-apps-management.state';
+import { DataDAFAppStatus } from './../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-stati',
@@ -9,7 +9,7 @@ import { DAFAppStatus } from './../../../../state/data-apps-management.state';
 export class DataAppStatiComponent implements OnInit {
   //  Properties
   @Input('application-stati')
-  public ApplicationStati: DAFAppStatus;
+  public ApplicationStati: DataDAFAppStatus[];
 
   //  Constructors
   constructor() { }
@@ -18,7 +18,7 @@ export class DataAppStatiComponent implements OnInit {
   public ngOnInit(): void {}
 
   //  API Methods
-  public LoadAppStatusIconCSS(appStatus: DAFAppStatus) {
+  public LoadAppStatusIconCSS(appStatus: DataDAFAppStatus) {
     const key = this.LoadAppStatusKey(appStatus);
 
     const css = {};
@@ -28,7 +28,7 @@ export class DataAppStatiComponent implements OnInit {
     return css;
   }
 
-  public LoadAppStatusKey(appStatus: DAFAppStatus) {
+  public LoadAppStatusKey(appStatus: DataDAFAppStatus) {
     switch (appStatus.Code) {
       case 0:
         return 'success';
