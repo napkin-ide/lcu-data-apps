@@ -1,18 +1,10 @@
 :host ::ng-deep {
   .data-app-header {
     margin-bottom: 2em;
-    position: sticky;
-    top: 0;
+    // position: sticky;
+    // top: 0;
     padding-top: 10px;
     z-index: 500;
-    background-color: white;
-  }
-
-  .mat-tab-header {
-    position: sticky;
-    top: 50px;
-    z-index: 500;
-    background-color: white;
   }
 
   .tabs-content {
