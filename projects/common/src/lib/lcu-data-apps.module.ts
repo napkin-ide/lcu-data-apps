@@ -26,6 +26,11 @@ import { DataAppViewComponent } from './elements/management/controls/data-app-vi
 import { DataAppsListComponent } from './elements/management/controls/data-apps-list/data-apps-list.component';
 import { LcuDataAppsManagementElementComponent } from './elements/management/management.component';
 import { DataAppStatiComponent } from './elements/management/controls/data-app-stati/data-app-stati.component';
+import { DataAppCreateComponent } from './elements/management/controls/data-app-create/data-app-create.component';
+import { DafAppViewConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-view-config/daf-app-view-config.component';
+import { DafAppApiConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-api-config/daf-app-api-config.component';
+import { DafAppRedirectConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-redirect-config/daf-app-redirect-config.component';
+import { DafAppPointerConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +41,11 @@ import { DataAppStatiComponent } from './elements/management/controls/data-app-s
     DataAppViewComponent,
     DataAppsListComponent,
     DataAppStatiComponent,
+    DataAppCreateComponent,
+    DafAppViewConfigComponent,
+    DafAppApiConfigComponent,
+    DafAppRedirectConfigComponent,
+    DafAppPointerConfigComponent,
   ],
   imports: [
     FathymSharedModule,
@@ -52,6 +62,11 @@ import { DataAppStatiComponent } from './elements/management/controls/data-app-s
     DataAppViewComponent,
     DataAppsListComponent,
     DataAppStatiComponent,
+    DataAppCreateComponent,
+    DafAppViewConfigComponent,
+    DafAppApiConfigComponent,
+    DafAppRedirectConfigComponent,
+    DafAppPointerConfigComponent,
   ],
 entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
 })
