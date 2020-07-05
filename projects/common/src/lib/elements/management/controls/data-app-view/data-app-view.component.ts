@@ -49,6 +49,8 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Output('daf-settings-click')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
+  public IsCreating: boolean;
+
   @Input('loading')
   public Loading: boolean;
 

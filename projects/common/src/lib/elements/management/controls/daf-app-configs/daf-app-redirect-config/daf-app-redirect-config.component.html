@@ -1,1 +1,19 @@
-<p>daf-app-redirect-config works!</p>
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Redirect URL"
+      formControlName="redirect"
+      required
+    />
+    <mat-icon
+      matSuffix
+      matTooltip="This is where you define the URL to which you want the application
+    to redirect.  A redirect may be used when you have moved domains or have multiple
+    domains that you want to go to the same location or you may have changed pages or
+    re-organized your site."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+</div>

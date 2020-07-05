@@ -1,1 +1,75 @@
-<p>daf-app-api-config works!</p>
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input matInput placeholder="API Root" formControlName="apiRoot" required />
+
+    <mat-icon
+      matSuffix
+      matTooltip="The root-endpoint is the starting point of the API you're requesting from."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Inbound Path"
+      formControlName="inboundPath"
+      required
+    />
+
+    <mat-icon
+      matSuffix
+      matTooltip="This is the path where your API receives a request and you process it and acknowledge it"
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Methods (space separated)"
+      formControlName="methods"
+      required
+    />
+
+    <mat-icon
+      matSuffix
+      matTooltip="GET. GET requests are the most common and widely used methods
+   (verbs) in APIs and websites. Simply put, the GET method is used to
+   retrieve data from a server at the specified resource. For example,
+   say you have an API with a /users endpoint. Making a GET request to
+   that endpoint should return a list of all available users. Other methods
+   are POST, PUT, HEAD, DELETE, PATCH and OPTIONS"
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Security"
+      formControlName="security"
+      required
+    />
+
+    <mat-icon
+      matSuffix
+      matTooltip="This is where you would add security headers to the payload proxy."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field
+    class="mat-full-width"
+  >
+    <input
+      matInput
+      placeholder="Environment Lookup (Leave Empty for Default)"
+      formControlName="lookup"
+    />
+  </mat-form-field>
+</div>

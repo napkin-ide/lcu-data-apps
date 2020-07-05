@@ -1,1 +1,124 @@
-<p>data-app-create works!</p>
+<div class="spread">
+  <h1>
+    <mat-icon>apps</mat-icon>
+
+    Create New Application
+  </h1>
+
+  <p class="mat-subheading-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.
+  </p>
+
+  <form class="spread" [formGroup]="CreateDataAppFormGroup" (ngSubmit)="Save()">
+    <mat-form-field class="mat-full-width">
+      <input matInput placeholder="Application Name" formControlName="name" />
+
+      <mat-icon
+        matSuffix
+        matTooltip="This is the name of the Application that will show in the drop-down list of Data Applications."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="mat-full-width">
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="desc"
+      ></textarea>
+
+      <mat-icon
+        matSuffix
+        matTooltip="This field, along with Application Name, is to help maintain understanding and context of what an application container is there for."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="mat-full-width">
+      <span matPrefix>/</span>
+
+      <input matInput placeholder="Path" formControlName="path" />
+
+      <mat-icon
+        matSuffix
+        matTooltip="The path is the URL where your application is hosted. It must be a valid URL structure."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <!--  TODO:  Tags go here  -->
+
+    <mat-form-field class="mat-full-width">
+      <mat-select placeholder="Application Type" formControlName="dataAppType">
+        <mat-option [value]="DataDAFAppTypes.API">
+          API
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.DAFAppPointer">
+          Application Pointer
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.Redirect">
+          Redirect
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.View">
+          NPM Package View
+        </mat-option>
+      </mat-select>
+
+      <mat-icon matSuffix matTooltip="The type of Application to create.">
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <div [ngSwitch]="SelectedDAFAppType">
+      <ng-container *ngSwitchCase="DataDAFAppTypes.API">
+        <lcu-daf-app-api-config
+          [form-group]="CreateDataAppFormGroup"
+        ></lcu-daf-app-api-config>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
+        <lcu-daf-app-pointer-config
+          [daf-app-options]="DAFAppOptions"
+          [daf-app-root-base]="AppRootBase"
+          [form-group]="CreateDataAppFormGroup"
+        ></lcu-daf-app-pointer-config>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
+        <lcu-daf-app-redirect-config
+          [form-group]="CreateDataAppFormGroup"
+        ></lcu-daf-app-redirect-config>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataDAFAppTypes.View">
+        <lcu-daf-app-view-config
+        [form-group]="CreateDataAppFormGroup"></lcu-daf-app-view-config>
+      </ng-container>
+    </div>
+
+    <div class="create-actions spread">
+      <div fxFlex></div>
+
+      <button type="button" mat-button color="warn" (click)="Cancel()">
+        <mat-icon>cancel</mat-icon>
+
+        Cancel
+      </button>
+
+      <button type="submit" mat-raised-button color="primary" (click)="Save()">
+        <mat-icon>save</mat-icon>
+
+        Save
+      </button>
+    </div>
+  </form>
+</div>

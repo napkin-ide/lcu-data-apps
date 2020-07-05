@@ -31,21 +31,21 @@ export class DataAppDetails {
 }
 
 export class DataDAFAppDetails {
-  public AppStatus: DataDAFAppStatus;
+  public AppStatus?: DataDAFAppStatus;
 
-  public Config: { [key: string]: string };
+  public Config?: { [key: string]: string };
 
-  public DAFAppType: DataDAFAppTypes;
+  public DAFAppType?: DataDAFAppTypes;
 
-  public Description: string;
+  public Description?: string;
 
-  public ID: string;
+  public ID?: string;
 
-  public Name: string;
+  public Name?: string;
 
-  public Path: string;
+  public Path?: string;
 
-  public Priority: string;
+  public Priority?: string;
 }
 
 export class DataDAFAppStatus extends Status {

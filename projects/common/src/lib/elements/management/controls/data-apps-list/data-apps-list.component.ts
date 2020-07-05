@@ -13,6 +13,8 @@ export class DataAppsListComponent implements OnInit {
   @Input('applications')
   public Applications: DataAppDetails[];
 
+  public IsCreating: boolean;
+
   @Output('settings-click')
   public SettingsClicked: EventEmitter<DataAppDetails>;
 
@@ -27,6 +29,10 @@ export class DataAppsListComponent implements OnInit {
   //  API Methods
   public AppSettingsClick(appDetails: DataAppDetails) {
     this.SettingsClicked.emit(appDetails);
+  }
+
+  public ToggleCreatingNewApp() {
+    this.IsCreating = !this.IsCreating;
   }
 
   //  Helpers

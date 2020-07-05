@@ -1,1 +1,34 @@
-<p>daf-app-pointer-config works!</p>
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <mat-select
+      placeholder="Application Pointer"
+      formControlName="dafAppId"
+      required
+    >
+      <mat-option *ngFor="let daoKey of DAFAppOptionKeys" [value]="daoKey">
+        {{ DAFAppOptions[daoKey] }}
+      </mat-option>
+    </mat-select>
+
+    <mat-icon matSuffix matTooltip="The ID of the DAF Application to point to.">
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <span matPrefix>{{ DAFAppRootBase }}</span>
+
+    <input
+      matInput
+      placeholder="Application Root"
+      formControlName="dafAppRoot"
+    />
+
+    <mat-icon
+      matSuffix
+      matTooltip="The app root is used for changing the base path the app runs on."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+</div>
