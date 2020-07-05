@@ -35,8 +35,19 @@
       matInput
       placeholder="Package Version"
       formControlName="pkgVer"
+      [matAutocomplete]="pkgVer"
       required
     />
+
+    <mat-autocomplete
+      #pkgVer="matAutocomplete"
+    >
+      <ng-container *ngFor="let pkgVer of NPMPackageVersions">
+        <mat-option [value]="pkgVer">
+          <span>{{ pkgVer }}</span>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
 
     <a
       mat-icon-button

@@ -10,6 +10,7 @@ export * from './lib/elements/management/controls/daf-app-configs/daf-app-api-co
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-redirect-config/daf-app-redirect-config.component';
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-view-config/daf-app-view-config.component';
+export * from './lib/elements/management/controls/data-app-config/data-app-config.component';
 export * from './lib/elements/management/controls/data-app-create/data-app-create.component';
 export * from './lib/elements/management/controls/data-app-card/data-app-card.component';
 export * from './lib/elements/management/controls/data-app-view/data-app-view.component';

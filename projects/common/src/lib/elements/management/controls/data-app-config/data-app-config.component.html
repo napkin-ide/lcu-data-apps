@@ -1,0 +1,42 @@
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input matInput placeholder="Application Name" formControlName="name" />
+
+    <mat-icon
+      matSuffix
+      matTooltip="This is the name of the Application that will show in the drop-down list of Data Applications."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <textarea
+      matInput
+      placeholder="Description"
+      formControlName="desc"
+    ></textarea>
+
+    <mat-icon
+      matSuffix
+      matTooltip="This field, along with Application Name, is to help maintain understanding and context of what an application container is there for."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <span matPrefix>/</span>
+
+    <input matInput placeholder="Path" formControlName="path" />
+
+    <mat-icon
+      matSuffix
+      matTooltip="The path is the URL where your application is hosted. It must be a valid URL structure."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <!--  TODO:  Tags go here  -->
+</div>

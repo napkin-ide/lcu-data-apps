@@ -18,6 +18,8 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
   public NPMPackages: { Name: string; NPMLink: string; Version: string }[];
 
+  public NPMPackageVersions: string[];
+
   //  Constructors
   constructor(protected npm: NPMService) {}
 
@@ -73,6 +75,14 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
     if (!this.FormGroup.controls.pkgVer.value) {
       this.FormGroup.controls.pkgVer.setValue(pkg.Version);
+
+      this.npm.Versions(pkg.Name).subscribe((pkgDetails: any) => {
+        const tags = Object.keys(pkgDetails['dist-tags']);
+
+        const versions = Object.keys(pkgDetails['versions']);
+
+        this.NPMPackageVersions = [...tags, ...versions];
+      });
     }
   }
 

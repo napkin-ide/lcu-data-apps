@@ -31,6 +31,7 @@ import { DafAppViewConfigComponent } from './elements/management/controls/daf-ap
 import { DafAppApiConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-api-config/daf-app-api-config.component';
 import { DafAppRedirectConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-redirect-config/daf-app-redirect-config.component';
 import { DafAppPointerConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
+import { DataAppConfigComponent } from './elements/management/controls/data-app-config/data-app-config.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DafAppPointerConfigComponent } from './elements/management/controls/daf
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
+    DataAppConfigComponent,
   ],
   imports: [
     FathymSharedModule,
@@ -67,6 +69,7 @@ import { DafAppPointerConfigComponent } from './elements/management/controls/daf
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
+    DataAppConfigComponent,
   ],
 entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
 })
