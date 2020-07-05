@@ -52,6 +52,7 @@
           <div class="application-configs">
             <div
               class="application-grid"
+              gdAlignColumns="center center"
               gdColumns="30% 30% 30%"
               gdColumns.lt-md="45% 45%"
               gdColumns.lt-sm="100%"
@@ -61,11 +62,14 @@
               <ng-container *ngFor="let dafApp of DAFApplications">
                 <lcu-daf-app-card
                   class="application-config application-config-{{ dafApp.ID }}"
+                  [app-paths]="ApplicationPaths"
                   [is-blocked]="
                     ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)
                   "
                   [is-edit]="IsActiveDAFApplication(dafApp.ID)"
-                  [is-expanded]="ActiveDAFApplicationID"
+                  [is-expanded]="IsActiveDAFApplication(dafApp.ID)"
+                  [path-group]="Application.PathGroup"
+                  [gdColumn]="IsActiveDAFApplication(dafApp.ID) ? 'auto / span 2' : null"
                   [daf-application]="dafApp"
                   (daf-settings-click)="DAFAppSettingsClick($event)"
                 ></lcu-daf-app-card>

@@ -11,6 +11,9 @@ export class DataAppCreateComponent implements OnInit {
   //  Fields
 
   //  Properties
+  @Input('app-paths')
+  public ApplicationPaths: string[];
+
   @Output('canceled')
   public Canceled: EventEmitter<{}>;
 
@@ -41,13 +44,10 @@ export class DataAppCreateComponent implements OnInit {
   //  Life Cycle
   public ngOnInit(): void {
     this.CreateDataAppFormGroup = this.formBldr.group({
-      name: ['', Validators.required],
-      desc: ['', Validators.required],
-      path: ['', Validators.required],
       dataAppType: ['', Validators.required],
-      isSecure: [''],
-      accRights: [''],
-      licenses: [''],
+      // isSecure: [''],
+      // accRights: [''],
+      // licenses: [''],
     });
   }
 

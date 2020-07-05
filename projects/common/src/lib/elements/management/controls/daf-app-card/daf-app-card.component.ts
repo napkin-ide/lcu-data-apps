@@ -3,6 +3,7 @@ import {
   DataDAFAppDetails,
   DataDAFAppTypes,
 } from '../../../../state/data-apps-management.state';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -11,6 +12,9 @@ import {
 })
 export class DafAppCardComponent implements OnInit {
   //  Properties
+  @Input('app-paths')
+  public ApplicationPaths: string[];
+
   @Input('daf-application')
   public DAFApplication: DataDAFAppDetails;
 
@@ -38,10 +42,15 @@ export class DafAppCardComponent implements OnInit {
     return icon;
   }
 
+  @Input('daf-app-options')
+  public DAFAppOptions: { [key: string]: string };
+
   @Output('daf-settings-click')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
   public DataDAFAppTypes = DataDAFAppTypes;
+
+  public EditDataAppFormGroup: FormGroup;
 
   @Input('is-blocked')
   public IsBlocked: boolean;
@@ -66,13 +75,18 @@ export class DafAppCardComponent implements OnInit {
     return launchPath;
   }
 
+  @Input('path-group')
+  public PathGroup: string;
+
   //  Constructors
-  constructor() {
+  constructor(protected formBldr: FormBuilder) {
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
   }
 
   //  Life Cycle
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.EditDataAppFormGroup = this.formBldr.group({});
+  }
 
   //  API Methods
   public DAFAppSettingsClick() {

@@ -1,5 +1,17 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'lcu-data-app-config',
@@ -10,11 +22,28 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  @Input('app-paths')
+  public ApplicationPaths: string[];
+
+  @Input('description')
+  public Description: string;
+
   @Input('form-group')
   public FormGroup: FormGroup;
 
+  @Input('name')
+  public Name: string;
+
+  @Input('path')
+  public Path: string;
+
+  @Input('path-root')
+  public PathRoot: string;
+
   //  Constructors
-  constructor() {}
+  constructor() {
+    this.PathRoot = '/';
+  }
 
   //  Life Cycle
   public ngOnDestroy(): void {
@@ -28,21 +57,28 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'name',
-      new FormControl('', [Validators.required])
+      new FormControl(this.Name, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'desc',
-      new FormControl('', [Validators.required])
+      new FormControl(this.Description, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'path',
-      new FormControl('', [Validators.required])
+      new FormControl(this.cleanPath(), [Validators.required])
     );
   }
 
   //  API Methods
 
   //  Helpers
+  protected cleanPath() {
+    if (this.Path.startsWith(this.PathRoot)) {
+      return this.Path.substring(this.PathRoot.length);
+    } else {
+      return this.Path;
+    }
+  }
 }

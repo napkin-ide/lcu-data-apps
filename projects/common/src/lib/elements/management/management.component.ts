@@ -27,6 +27,10 @@ export class LcuDataAppsManagementElementComponent
     return this.State.ActiveAppPathGroup ? this.State.Applications.find(app => app.PathGroup === this.State.ActiveAppPathGroup) : null;
   }
 
+  public get ApplicationPaths(): string[] {
+    return this.State.Applications ? this.State.Applications.map(app => app.PathGroup) : [];
+  }
+
   public get Loading(): boolean {
     return this.State.Loading && !this.State.ActiveAppPathGroup;
   }

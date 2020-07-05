@@ -34,6 +34,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Input('application')
   public Application: DataAppDetails;
 
+  @Input('app-paths')
+  public ApplicationPaths: string[];
+
   @Output('application-tab-click')
   public ApplicationTabClicked: EventEmitter<number>;
 

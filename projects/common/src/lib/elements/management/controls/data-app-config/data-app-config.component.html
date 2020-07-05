@@ -1,6 +1,11 @@
 <div [formGroup]="FormGroup">
   <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Application Name" formControlName="name" />
+    <input
+      matInput
+      placeholder="Application Name"
+      formControlName="name"
+      required
+    />
 
     <mat-icon
       matSuffix
@@ -15,6 +20,7 @@
       matInput
       placeholder="Description"
       formControlName="desc"
+      required
     ></textarea>
 
     <mat-icon
@@ -26,9 +32,9 @@
   </mat-form-field>
 
   <mat-form-field class="mat-full-width">
-    <span matPrefix>/</span>
+    <span matPrefix>{{ PathRoot }}</span>
 
-    <input matInput placeholder="Path" formControlName="path" />
+    <input matInput placeholder="Path" formControlName="path" required />
 
     <mat-icon
       matSuffix

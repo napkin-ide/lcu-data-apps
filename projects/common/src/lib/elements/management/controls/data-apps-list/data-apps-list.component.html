@@ -37,6 +37,9 @@
   </ng-container>
 
   <ng-container *ngIf="IsCreating">
-    <lcu-data-app-create (canceled)="ToggleCreatingNewApp()"></lcu-data-app-create>
+    <lcu-data-app-create
+      [app-paths]="ApplicationPaths"
+      (canceled)="ToggleCreatingNewApp()"
+    ></lcu-data-app-create>
   </ng-container>
 </div>

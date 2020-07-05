@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ApplicationRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -14,7 +14,7 @@ export class DafAppApiConfigComponent implements  OnDestroy, OnInit {
   public FormGroup: FormGroup;
 
   //  Constructors
-  constructor() {
+  constructor(protected appRef: ApplicationRef) {
   }
 
   //  Life Cycle

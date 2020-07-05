@@ -14,6 +14,7 @@
 
   <form class="spread" [formGroup]="CreateDataAppFormGroup" (ngSubmit)="Save()">
     <lcu-data-app-config
+      [app-paths]="ApplicationPaths"
       [form-group]="CreateDataAppFormGroup"
     ></lcu-data-app-config>
 
@@ -78,7 +79,13 @@
         Cancel
       </button>
 
-      <button type="submit" mat-raised-button color="primary" (click)="Save()">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="Save()"
+        [disabled]="!CreateDataAppFormGroup.valid"
+      >
         <mat-icon>save</mat-icon>
 
         Save

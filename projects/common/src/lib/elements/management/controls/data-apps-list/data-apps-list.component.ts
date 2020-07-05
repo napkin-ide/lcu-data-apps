@@ -13,6 +13,10 @@ export class DataAppsListComponent implements OnInit {
   @Input('applications')
   public Applications: DataAppDetails[];
 
+  public get ApplicationPaths(): string[] {
+    return this.Applications ? this.Applications.map(app => app.PathGroup) : [];
+  }
+
   public IsCreating: boolean;
 
   @Output('settings-click')
