@@ -49,6 +49,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Input('daf-applications')
   public DAFApplications: DataDAFAppDetails[];
 
+  @Input('daf-app-options')
+  public DAFAppOptions: { [key: string]: string };
+
   @Output('daf-settings-click')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 

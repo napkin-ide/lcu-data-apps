@@ -17,6 +17,9 @@ export class DataAppsListComponent implements OnInit {
     return this.Applications ? this.Applications.map(app => app.PathGroup) : [];
   }
 
+  @Input('daf-app-options')
+  public DAFAppOptions: { [key: string]: string };
+
   public IsCreating: boolean;
 
   @Output('settings-click')

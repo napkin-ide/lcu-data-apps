@@ -33,7 +33,7 @@ export class DataAppDetails {
 export class DataDAFAppDetails {
   public AppStatus?: DataDAFAppStatus;
 
-  public Config?: { [key: string]: string };
+  public Configs?: { [key: string]: { [key: string]: string } };
 
   public DAFAppType?: DataDAFAppTypes;
 

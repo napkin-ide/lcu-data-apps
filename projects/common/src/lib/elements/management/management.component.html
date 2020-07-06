@@ -3,6 +3,7 @@
     <ng-container *ngIf="!ActiveApp">
       <lcu-data-apps-list
         [applications]="State.Applications"
+        [daf-app-options]="State.DAFAppOptions"
         (settings-click)="AppSettingsClick($event)"
       ></lcu-data-apps-list>
     </ng-container>
@@ -13,6 +14,7 @@
         [application]="ActiveApp"
         [app-paths]="ApplicationPaths"
         [current-application-tab]="State.CurrentApplicationTab"
+        [daf-app-options]="State.DAFAppOptions"
         [daf-applications]="State.DAFApplications"
         [loading]="State.Loading"
         (application-tab-click)="SetApplicationTab($event)"

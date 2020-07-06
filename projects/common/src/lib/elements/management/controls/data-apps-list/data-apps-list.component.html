@@ -39,6 +39,7 @@
   <ng-container *ngIf="IsCreating">
     <lcu-data-app-create
       [app-paths]="ApplicationPaths"
+      [daf-app-options]="DAFAppOptions"
       (canceled)="ToggleCreatingNewApp()"
     ></lcu-data-app-create>
   </ng-container>

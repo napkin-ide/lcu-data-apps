@@ -65,20 +65,10 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
       new FormControl(this.Description, [Validators.required])
     );
 
-    this.FormGroup.addControl(
-      'path',
-      new FormControl(this.cleanPath(), [Validators.required])
-    );
+    this.FormGroup.addControl('path', new FormControl(this.Path, []));
   }
 
   //  API Methods
 
   //  Helpers
-  protected cleanPath() {
-    if (this.Path.startsWith(this.PathRoot)) {
-      return this.Path.substring(this.PathRoot.length);
-    } else {
-      return this.Path;
-    }
-  }
 }

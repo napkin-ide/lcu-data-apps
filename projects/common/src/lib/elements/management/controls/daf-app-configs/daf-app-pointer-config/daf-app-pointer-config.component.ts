@@ -10,6 +10,18 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  /**
+   * The ID of the DAF Application Pointer already selected
+   */
+  @Input('daf-app-id')
+  public DAFAppID: string;
+
+  /**
+   * The root path of the DAF Application to use for the pointer.
+   */
+  @Input('daf-app-root')
+  public DAFAppRoot: string;
+
   public get DAFAppOptionKeys(): string[] {
     return this.DAFAppOptions ? Object.keys(this.DAFAppOptions) : [];
   }
@@ -38,12 +50,12 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'dafAppId',
-      new FormControl('', [Validators.required])
+      new FormControl(this.DAFAppID, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'dafAppRoot',
-      new FormControl('', [])
+      new FormControl(this.DAFAppRoot, [])
     );
   }
 

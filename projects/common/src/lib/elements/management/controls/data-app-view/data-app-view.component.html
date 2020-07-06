@@ -63,6 +63,7 @@
                 <lcu-daf-app-card
                   class="application-config application-config-{{ dafApp.ID }}"
                   [app-paths]="ApplicationPaths"
+                  [daf-app-options]="DAFAppOptions"
                   [is-blocked]="
                     ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)
                   "
