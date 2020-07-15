@@ -13,6 +13,14 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get Config(): { [key: string]: string } {
+    return {
+      NPMPackage: this.FormGroup.controls.npmPkg.value,
+      PackageVersion: this.FormGroup.controls.pkgVer.value,
+      StateConfig: this.FormGroup.controls.stateCfg.value,
+    };
+  }
+
   @Input('form-group')
   public FormGroup: FormGroup;
 
@@ -43,10 +51,7 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
       new FormControl('', [Validators.required])
     );
 
-    this.FormGroup.addControl(
-      'stateCfg',
-      new FormControl('{}', [])
-    );
+    this.FormGroup.addControl('stateCfg', new FormControl('{}', []));
 
     this.FormGroup.controls.npmPkg.valueChanges
       .pipe(

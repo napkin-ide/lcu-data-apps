@@ -6,6 +6,7 @@ export * from './lib/core/npm.service';
 export * from './lib/elements/ide/config-manager/config-manager-element.component';
 export * from './lib/elements/management/management.component';
 export * from './lib/elements/management/controls/daf-app-card/daf-app-card.component';
+export * from './lib/elements/management/controls/daf-app-configs/daf-app-configs.component';
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-api-config/daf-app-api-config.component';
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
 export * from './lib/elements/management/controls/daf-app-configs/daf-app-redirect-config/daf-app-redirect-config.component';

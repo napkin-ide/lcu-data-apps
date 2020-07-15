@@ -10,6 +10,12 @@ export class DafAppRedirectConfigComponent implements  OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get Config(): { [key: string]: string } {
+    return {
+      Redirect: this.FormGroup.controls.redirect.value
+    };
+  }
+
   @Input('form-group')
   public FormGroup: FormGroup;
 

@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { StateContext } from '@lcu/common';
-import { DataAppsManagementState } from './data-apps-management.state';
+import { DataAppsManagementState, DataDAFAppDetails } from './data-apps-management.state';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,15 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
   }
 
   //  API Methods
+  public SaveDataDAFApp(dafApp: DataDAFAppDetails) {
+    this.Execute({
+      Arguments: {
+        DAFApp: dafApp
+      },
+      Type: 'SaveDataDAFApp'
+    });
+  }
+
   public SetActiveDAFApp(dafAppId: string) {
     this.Execute({
       Arguments: {

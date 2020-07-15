@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataAppDetails } from '../../../../state/data-apps-management.state';
+import { DataDAFAppDetails } from './../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-apps-list',
@@ -20,6 +21,9 @@ export class DataAppsListComponent implements OnInit {
   @Input('daf-app-options')
   public DAFAppOptions: { [key: string]: string };
 
+  @Output('daf-app-saved')
+  public DAFAppSaved: EventEmitter<DataDAFAppDetails>;
+
   public IsCreating: boolean;
 
   @Output('settings-click')
@@ -27,6 +31,8 @@ export class DataAppsListComponent implements OnInit {
 
   //  Constructors
   constructor() {
+    this.DAFAppSaved = new EventEmitter<DataDAFAppDetails>();
+
     this.SettingsClicked = new EventEmitter<DataAppDetails>();
   }
 
@@ -36,6 +42,10 @@ export class DataAppsListComponent implements OnInit {
   //  API Methods
   public AppSettingsClick(appDetails: DataAppDetails) {
     this.SettingsClicked.emit(appDetails);
+  }
+
+  public SaveDAFApp(dafApp: DataDAFAppDetails) {
+    this.DAFAppSaved.emit(dafApp);
   }
 
   public ToggleCreatingNewApp() {

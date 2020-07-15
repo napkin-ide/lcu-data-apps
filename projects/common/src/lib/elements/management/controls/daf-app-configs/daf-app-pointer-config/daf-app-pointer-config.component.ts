@@ -10,6 +10,13 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get Config(): { [key: string]: string } {
+    return {
+      DAFApplicationID: this.FormGroup.controls.dafAppId.value,
+      DAFApplicationRoot: this.FormGroup.controls.dafAppRoot.value
+    };
+  }
+
   /**
    * The ID of the DAF Application Pointer already selected
    */

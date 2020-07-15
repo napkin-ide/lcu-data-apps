@@ -1,21 +1,37 @@
-import { Component, OnInit, OnDestroy, Input, ApplicationRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  ApplicationRef,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lcu-daf-app-api-config',
   templateUrl: './daf-app-api-config.component.html',
-  styleUrls: ['./daf-app-api-config.component.scss']
+  styleUrls: ['./daf-app-api-config.component.scss'],
 })
-export class DafAppApiConfigComponent implements  OnDestroy, OnInit {
+export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get Configs(): { [key: string]: { [key: string]: string } } {
+    return {
+      '': {
+        APIRoot: this.FormGroup.controls.apiRoot.value,
+        InboundPath: this.FormGroup.controls.inboundPath.value,
+        Methods: this.FormGroup.controls.methods.value,
+        Security: this.FormGroup.controls.security.value
+      },
+    };
+  }
+
   @Input('form-group')
   public FormGroup: FormGroup;
 
   //  Constructors
-  constructor(protected appRef: ApplicationRef) {
-  }
+  constructor(protected appRef: ApplicationRef) {}
 
   //  Life Cycle
   public ngOnDestroy(): void {

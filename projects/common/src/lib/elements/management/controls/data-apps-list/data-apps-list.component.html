@@ -41,6 +41,7 @@
       [app-paths]="ApplicationPaths"
       [daf-app-options]="DAFAppOptions"
       (canceled)="ToggleCreatingNewApp()"
+      (saved)="SaveDAFApp($event)"
     ></lcu-data-app-create>
   </ng-container>
 </div>

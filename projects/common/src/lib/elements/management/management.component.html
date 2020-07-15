@@ -19,6 +19,7 @@
         [loading]="State.Loading"
         (application-tab-click)="SetApplicationTab($event)"
         (back-click)="BackClick()"
+        (daf-app-saved)="SaveDAFApp($event)"
         (daf-settings-click)="DAFAppSettingsClick($event)"
       ></lcu-data-app-view>
     </ng-container>
