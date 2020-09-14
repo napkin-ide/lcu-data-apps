@@ -1,13 +1,13 @@
-import { Application, DAFAPIApplicationConfig, DAFApplicationConfig, Status } from '@lcu/common';
+import { Application, DAFApplication, Status } from '@lcu/common';
 
 export class ConfigManagerState {
   public AccessRightOptions: string[];
 
   public ActiveApp: Application;
 
-  public ActiveDAFApp: DAFApplicationConfig;
+  public ActiveDAFApp: DAFApplication;
 
-  public ActiveDAFAPIs: DAFAPIApplicationConfig[];
+  public ActiveDAFAPIs: DAFApplication[];
 
   public ActiveHost: string;
 
