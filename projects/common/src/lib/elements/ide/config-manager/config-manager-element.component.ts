@@ -9,7 +9,7 @@ import {
   LcuElementComponent,
   LCUElementContext,
   Application,
-  DAFApplicationConfig,
+  DAFApplication,
   Guid,
 } from '@lcu/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -119,7 +119,7 @@ export class DataAppsConfigManagerElementComponent
 
     this.DAFPointerAppFormGroup = this.formBldr.group({
       dafAppId: ['', Validators.required],
-      dafAppRoot: ['']
+      dafAppRoot: [''],
     });
 
     this.DAFRedirectAppFormGroup = this.formBldr.group({
@@ -174,7 +174,7 @@ export class DataAppsConfigManagerElementComponent
   public AddAPIConfigEnvironment() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
+    this.state.SaveDAFApp(<DAFApplication>{
       APIRoot: this.State.ActiveDAFApp['APIRoot'],
       InboundPath: this.State.ActiveDAFApp['InboundPath'],
       Lookup: this.State.ActiveDAFApp['Lookup'] + '-copy',
@@ -235,45 +235,54 @@ export class DataAppsConfigManagerElementComponent
   public SaveAppAPI() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
+    this.state.SaveDAFApp(<DAFApplication>{
       ...this.State.ActiveDAFApp,
-      APIRoot: this.DAFAPIAppFormGroup.controls.apiRoot.value,
-      InboundPath: this.DAFAPIAppFormGroup.controls.inboundPath.value,
-      Lookup: this.DAFAPIAppFormGroup.controls.lookup.value,
-      Methods: this.DAFAPIAppFormGroup.controls.methods.value,
-      Security: this.DAFAPIAppFormGroup.controls.security.value,
+      Details: {
+        APIRoot: this.DAFAPIAppFormGroup.controls.apiRoot.value,
+        InboundPath: this.DAFAPIAppFormGroup.controls.inboundPath.value,
+        Lookup: this.DAFAPIAppFormGroup.controls.lookup.value,
+        Methods: this.DAFAPIAppFormGroup.controls.methods.value,
+        Security: this.DAFAPIAppFormGroup.controls.security.value,
+      },
     });
   }
 
   public SaveAppDAFPointer() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
+    this.state.SaveDAFApp(<DAFApplication>{
       ...this.State.ActiveDAFApp,
-      DAFApplicationID: this.DAFPointerAppFormGroup.controls.dafAppId.value,
-      DAFApplicationRoot: this.DAFPointerAppFormGroup.controls.dafAppRoot.value,
+      Details: {
+        DAFApplicationID: this.DAFPointerAppFormGroup.controls.dafAppId.value,
+        DAFApplicationRoot: this.DAFPointerAppFormGroup.controls.dafAppRoot
+          .value,
+      },
     });
   }
 
   public SaveAppRedirect() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
+    this.state.SaveDAFApp(<DAFApplication>{
       ...this.State.ActiveDAFApp,
-      Redirect: this.DAFRedirectAppFormGroup.controls.redirect.value,
+      Details: {
+        Redirect: this.DAFRedirectAppFormGroup.controls.redirect.value,
+      },
     });
   }
 
   public SaveAppView() {
     this.State.Loading = true;
 
-    this.state.SaveDAFApp(<DAFApplicationConfig>{
+    this.state.SaveDAFApp(<DAFApplication>{
       ...this.State.ActiveDAFApp,
-      NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
-      PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value,
-      StateConfig: JSON.parse(
-        this.DAFViewAppFormGroup.controls.stateCfg.value || '{}'
-      ),
+      Details: {
+        NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
+        PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value,
+        StateConfig: JSON.parse(
+          this.DAFViewAppFormGroup.controls.stateCfg.value || '{}'
+        ),
+      },
     });
   }
 
@@ -351,15 +360,15 @@ export class DataAppsConfigManagerElementComponent
     if (this.DAFViewAppFormGroup) {
       if (this.State.ActiveDAFApp) {
         this.DAFViewAppFormGroup.controls.npmPkg.setValue(
-          this.State.ActiveDAFApp['NPMPackage']
+          this.State.ActiveDAFApp.Details['NPMPackage']
         );
 
         this.DAFViewAppFormGroup.controls.pkgVer.setValue(
-          this.State.ActiveDAFApp['PackageVersion']
+          this.State.ActiveDAFApp.Details['PackageVersion']
         );
 
         this.DAFViewAppFormGroup.controls.stateCfg.setValue(
-          this.State.ActiveDAFApp['StateConfig'] || {}
+          JSON.stringify(this.State.ActiveDAFApp.Details['StateConfig'] || {})
         );
       } else {
         this.DAFViewAppFormGroup.reset();
@@ -370,11 +379,11 @@ export class DataAppsConfigManagerElementComponent
     if (this.DAFPointerAppFormGroup) {
       if (this.State.ActiveDAFApp) {
         this.DAFPointerAppFormGroup.controls.dafAppId.setValue(
-          this.State.ActiveDAFApp['DAFApplicationID']
+          this.State.ActiveDAFApp.Details['DAFApplicationID']
         );
 
         this.DAFPointerAppFormGroup.controls.dafAppRoot.setValue(
-          this.State.ActiveDAFApp['DAFApplicationRoot']
+          this.State.ActiveDAFApp.Details['DAFApplicationRoot']
         );
       } else {
         this.DAFPointerAppFormGroup.reset();
@@ -384,7 +393,7 @@ export class DataAppsConfigManagerElementComponent
     if (this.DAFRedirectAppFormGroup) {
       if (this.State.ActiveDAFApp) {
         this.DAFRedirectAppFormGroup.controls.redirect.setValue(
-          this.State.ActiveDAFApp['Redirect']
+          this.State.ActiveDAFApp.Details['Redirect']
         );
       } else {
         this.DAFRedirectAppFormGroup.reset();
@@ -400,17 +409,17 @@ export class DataAppsConfigManagerElementComponent
     }
   }
 
-  protected setDAFAPIForm(dafApp: DAFApplicationConfig) {
-    this.DAFAPIAppFormGroup.controls.apiRoot.setValue(dafApp['APIRoot']);
+  protected setDAFAPIForm(dafApp: DAFApplication) {
+    this.DAFAPIAppFormGroup.controls.apiRoot.setValue(dafApp.Details['APIRoot']);
 
     this.DAFAPIAppFormGroup.controls.inboundPath.setValue(
-      dafApp['InboundPath']
+      dafApp.Details['InboundPath']
     );
 
-    this.DAFAPIAppFormGroup.controls.lookup.setValue(dafApp['Lookup']);
+    this.DAFAPIAppFormGroup.controls.lookup.setValue(dafApp.Details['Lookup']);
 
-    this.DAFAPIAppFormGroup.controls.methods.setValue(dafApp['Methods']);
+    this.DAFAPIAppFormGroup.controls.methods.setValue(dafApp.Details['Methods']);
 
-    this.DAFAPIAppFormGroup.controls.security.setValue(dafApp['Security']);
+    this.DAFAPIAppFormGroup.controls.security.setValue(dafApp.Details['Security']);
   }
 }
