@@ -1,21 +1,4 @@
 import { NgModule } from '@angular/core';
-// import {
-//   MatButtonModule,
-//   MatListModule,
-//   MatToolbarModule,
-//   MatProgressSpinnerModule,
-//   MatProgressBarModule,
-//   MatSidenavModule,
-//   MatIconModule,
-//   MatCardModule,
-//   MatFormFieldModule,
-//   MatInputModule,
-//   MatChipsModule,
-//   MatTabsModule,
-//   MatExpansionModule,
-//   MatAutocompleteModule,
-//   MatTooltipModule
-// } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FathymSharedModule, MaterialModule } from '@lcu/common';
 import { DataAppsConfigManagerElementComponent } from './elements/ide/config-manager/config-manager-element.component';
@@ -33,6 +16,8 @@ import { DafAppRedirectConfigComponent } from './elements/management/controls/da
 import { DafAppPointerConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
 import { DataAppConfigComponent } from './elements/management/controls/data-app-config/data-app-config.component';
 import { DafAppConfigsComponent } from './elements/management/controls/daf-app-configs/daf-app-configs.component';
+import { ConfirmationComponent } from './elements/modals/confirmation/confirmation.component';
+import { GenericModalComponent } from './elements/modals/generic-modal/generic-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +35,8 @@ import { DafAppConfigsComponent } from './elements/management/controls/daf-app-c
     DafAppPointerConfigComponent,
     DataAppConfigComponent,
     DafAppConfigsComponent,
+    ConfirmationComponent,
+    GenericModalComponent
   ],
   imports: [
     FathymSharedModule,
@@ -73,7 +60,13 @@ import { DafAppConfigsComponent } from './elements/management/controls/daf-app-c
     DafAppPointerConfigComponent,
     DataAppConfigComponent,
     DafAppConfigsComponent,
+    ConfirmationComponent,
+    GenericModalComponent,
   ],
-entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
+entryComponents: [
+  DataAppsConfigManagerElementComponent,
+  LcuDataAppsManagementElementComponent,
+  ConfirmationComponent,
+  GenericModalComponent]
 })
 export class LcuDataAppsModule {}
