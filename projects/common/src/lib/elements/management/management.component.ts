@@ -71,10 +71,17 @@ export class LcuDataAppsManagementElementComponent
     this.dataAppsCtxt.SetActiveDataApp(null);
   }
 
+  /**
+   *
+   * @param dafApp application details
+   *
+   * open settings
+   *
+   */
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.State.Loading = true;
 
-    this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
+    // this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
   }
 
   public SaveDAFApp(dafApp: DataDAFAppDetails) {
