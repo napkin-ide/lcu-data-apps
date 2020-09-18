@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { StateContext, Application, DAFViewApplicationConfig, DAFApplicationConfig } from '@lcu/common';
+import { StateContext, Application, DAFApplication } from '@lcu/common';
 import { ConfigManagerState, DAFAppTypes } from './config-manager.state';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ConfigManagerStateManagerContext extends StateContext<ConfigManager
   }
 
   //  API Methods
-  public SaveDAFApp(dafApp: DAFApplicationConfig) {
+  public SaveDAFApp(dafApp: DAFApplication) {
     this.Execute({
       Arguments: {
         DAFApp: dafApp
@@ -81,7 +81,7 @@ export class ConfigManagerStateManagerContext extends StateContext<ConfigManager
   }
 
   protected loadStateKey() {
-    return 'main';
+    return 'orig-apps';
   }
 
   protected loadStateName() {
