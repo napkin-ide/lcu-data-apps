@@ -19,6 +19,8 @@ export class DataAppsManagementState {
 
   public DAFAppOptions: { [key: string]: string };
 
+  public FixedApplications: DataAppDetails[];
+
   public Loading?: boolean;
 }
 

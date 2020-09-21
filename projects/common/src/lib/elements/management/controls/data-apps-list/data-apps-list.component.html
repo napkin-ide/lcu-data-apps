@@ -8,16 +8,18 @@
 
     <h1 class="mat-headline">Application Management</h1>
 
-    <p class="mat-subheading-2">
+    <!-- <p class="mat-subheading-2">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
       commodo consequat.
-    </p>
+    </p> -->
 
     <div class="data-app-filters"></div>
 
     <div class="data-app-list">
+      <h2>My Application Paths</h2>
+
       <div
         gdColumns="33% 33% 33%"
         gdColumns.lt-md="45% 45%"
@@ -26,6 +28,16 @@
         gdGap.lt-sm="1em"
       >
         <ng-container *ngFor="let app of Applications">
+          <lcu-data-app-card
+            class="app-card"
+            [application]="app"
+            (settings-click)="AppSettingsClick($event)"
+          ></lcu-data-app-card>
+        </ng-container>
+
+        <h2>System Application Paths</h2>
+
+        <ng-container *ngFor="let app of FixedApplications">
           <lcu-data-app-card
             class="app-card"
             [application]="app"

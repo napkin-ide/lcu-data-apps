@@ -24,6 +24,9 @@ export class DataAppsListComponent implements OnInit {
   @Output('daf-app-saved')
   public DAFAppSaved: EventEmitter<DataDAFAppDetails>;
 
+  @Input('fixed-applications')
+  public FixedApplications: DataAppDetails[];
+
   public IsCreating: boolean;
 
   @Output('settings-click')
