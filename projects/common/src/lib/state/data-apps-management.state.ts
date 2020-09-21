@@ -29,6 +29,8 @@ export class DataAppDetails {
 
   public AppStati: DataDAFAppStatus[];
 
+  public DisplayName: string;
+
   public PathGroup: string;
 }
 
