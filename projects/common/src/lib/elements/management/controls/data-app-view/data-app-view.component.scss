@@ -1,0 +1,31 @@
+:host ::ng-deep {
+  .data-app-header {
+    margin-bottom: 2em;
+    // position: sticky;
+    // top: 0;
+    padding-top: 10px;
+    z-index: 500;
+  }
+
+  .tabs-content {
+    margin-top: 2em;
+
+    .application-flow {
+      .application-flow-header {
+      }
+
+      .application-configs {
+        .application-grid {
+          justify-content: center;
+
+          .application-config {
+            // margin: 1em;
+          }
+        }
+      }
+    }
+
+    .insights {
+    }
+  }
+}

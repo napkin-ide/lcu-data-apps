@@ -1,0 +1,80 @@
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="NPM Package"
+      formControlName="npmPkg"
+      [matAutocomplete]="npmPkg"
+      required
+    />
+
+    <mat-autocomplete
+      #npmPkg="matAutocomplete"
+      (optionSelected)="PackageSelected($event)"
+    >
+      <ng-container *ngFor="let pkg of NPMPackages">
+        <mat-option [value]="pkg.Name">
+          <span>{{ pkg.Name }}</span> |
+
+          <small>(latest: {{ pkg.Version }})</small>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+
+    <mat-icon
+      matSuffix
+      mat-icon-button
+      matTooltip="Enter the name of your NPM node package."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Package Version"
+      formControlName="pkgVer"
+      [matAutocomplete]="pkgVer"
+      required
+    />
+
+    <mat-autocomplete
+      #pkgVer="matAutocomplete"
+    >
+      <ng-container *ngFor="let pkgVer of NPMPackageVersions">
+        <mat-option [value]="pkgVer">
+          <span>{{ pkgVer }}</span>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+
+    <a
+      mat-icon-button
+      matSuffix
+      matTooltip="Enter any current or previous version of your package. Click here to access the package version in NPM."
+      [href]="
+        'https://www.npmjs.com/package/' +
+        FormGroup.controls.npmPkg.value
+      "
+      target="_blank"
+      id="npm-package-button"
+    >
+      <mat-icon>info_outline</mat-icon>
+    </a>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="State Config (json)"
+      formControlName="stateCfg"
+    />
+    <mat-icon
+      matSuffix
+      matTooltip=" This needs to be an empty JSON object to start for many apps."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+</div>

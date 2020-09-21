@@ -1,0 +1,27 @@
+<div [ngSwitch]="DAFAppType">
+  <ng-container *ngSwitchCase="DataDAFAppTypes.API">
+    <lcu-daf-app-api-config
+      [form-group]="FormGroup"
+    ></lcu-daf-app-api-config>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
+    <lcu-daf-app-pointer-config
+      [daf-app-options]="DAFAppOptions"
+      [daf-app-root-base]="DAFAppRootBase"
+      [form-group]="FormGroup"
+    ></lcu-daf-app-pointer-config>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
+    <lcu-daf-app-redirect-config
+      [form-group]="FormGroup"
+    ></lcu-daf-app-redirect-config>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataDAFAppTypes.View">
+    <lcu-daf-app-view-config
+      [form-group]="FormGroup"
+    ></lcu-daf-app-view-config>
+  </ng-container>
+</div>

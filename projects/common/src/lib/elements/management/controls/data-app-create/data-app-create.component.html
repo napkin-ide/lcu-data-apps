@@ -1,0 +1,74 @@
+<div class="spread">
+  <h1>
+    <mat-icon>apps</mat-icon>
+
+    Create New Application
+  </h1>
+
+  <p class="mat-subheading-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.
+  </p>
+
+  <form class="spread" [formGroup]="CreateDataAppFormGroup" (ngSubmit)="Save()">
+    <lcu-data-app-config
+      [app-paths]="ApplicationPaths"
+      [form-group]="CreateDataAppFormGroup"
+    ></lcu-data-app-config>
+
+    <mat-form-field class="mat-full-width">
+      <mat-select placeholder="Application Type" formControlName="dataAppType">
+        <mat-option [value]="DataDAFAppTypes.API">
+          API
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.DAFAppPointer">
+          Application Pointer
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.Redirect">
+          Redirect
+        </mat-option>
+
+        <mat-option [value]="DataDAFAppTypes.View">
+          NPM Package View
+        </mat-option>
+      </mat-select>
+
+      <mat-icon matSuffix matTooltip="The type of Application to create.">
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <lcu-daf-app-configs
+      [form-group]="CreateDataAppFormGroup"
+      [daf-app-type]="SelectedDAFAppType"
+      [daf-app-options]="DAFAppOptions"
+      [daf-app-root-base]="AppRootBase"
+    ></lcu-daf-app-configs>
+
+    <div class="create-actions spread">
+      <div fxFlex></div>
+
+      <button type="button" mat-button color="warn" (click)="Cancel()">
+        <mat-icon>cancel</mat-icon>
+
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="Save()"
+        [disabled]="!CreateDataAppFormGroup.valid"
+      >
+        <mat-icon>save</mat-icon>
+
+        Save
+      </button>
+    </div>
+  </form>
+</div>
