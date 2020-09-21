@@ -1,0 +1,12 @@
+<div class="app-stati">
+  <ng-container *ngFor="let appStatus of ApplicationStati">
+    <mat-icon
+      class="app-status"
+      [ngClass]="LoadAppStatusIconCSS(appStatus)"
+      [matBadge]="appStatus.AppCount"
+      matBadgeColor="accent"
+    >
+      {{ appStatus.Icon.Icon }}
+    </mat-icon>
+  </ng-container>
+</div>

@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .mat-card {
+    .mat-card-actions {
+      &:after {
+        // content: " · · ";
+      }
+    }
+  }
+}
