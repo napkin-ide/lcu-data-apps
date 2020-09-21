@@ -34,8 +34,17 @@
             (settings-click)="AppSettingsClick($event)"
           ></lcu-data-app-card>
         </ng-container>
+      </div>
 
-        <h2>System Application Paths</h2>
+      <h2>System Application Paths</h2>
+
+      <div
+        gdColumns="33% 33% 33%"
+        gdColumns.lt-md="45% 45%"
+        gdColumns.lt-sm="100%"
+        gdGap="2em"
+        gdGap.lt-sm="1em"
+      >
 
         <ng-container *ngFor="let app of FixedApplications">
           <lcu-data-app-card
