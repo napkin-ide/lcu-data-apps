@@ -1,5 +1,15 @@
-import { GenericModalgModel } from './../../../models/generic-modal-model';
-import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, Inject, OnInit, Output, ViewContainerRef, EventEmitter, OnDestroy } from '@angular/core';
+import { GenericModalModel } from './../../../models/generic-modal-model';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Inject,
+  OnInit,
+  ViewContainerRef,
+  OnDestroy,
+  ViewChild,
+  HostListener, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -9,22 +19,30 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GenericModalComponent implements OnInit, OnDestroy {
 
-  // Events
-  @Output('action-event')
-  public ActionEvent: EventEmitter<any>;
+ // Properties
+ protected componentRef: ComponentRef<any>;
 
-  // Properties
-  protected componentRef: ComponentRef<any>;
-  protected vcRef: ViewContainerRef;
+@Input('test')
+public Test: string;
+
+ /**
+  * Access the component passed into the modal
+  */
+ @ViewChild('content', { read: ViewContainerRef })
+ public vcRef: ViewContainerRef;
+
+  // Events
+  @HostListener('keydown.esc')
+  public onEsc() {
+   // this.OnCancel(false);
+  }
 
   constructor(
     protected dialogRef: MatDialogRef<GenericModalComponent>,
     protected resolver: ComponentFactoryResolver,
-    @Inject(MAT_DIALOG_DATA) public Data: GenericModalgModel) {
-      this.ActionEvent = new EventEmitter();
-    }
+    @Inject(MAT_DIALOG_DATA) public Data: GenericModalModel) {}
 
-   // Lifecycle hooks
+  // Lifecycle hooks
   public ngOnInit(): void {
     /**
      * Need to use a timeout, otherwise the component won't
@@ -45,20 +63,24 @@ export class GenericModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Close dialog
+   * User cancels
    */
-  public OnCancel(): void {
-    this.dialogRef.close();
+  public OnCancel(val: boolean = false): void {
+    // this.dialogRef.close(val);
   }
 
+  /**
+   * User confirms action(s)
+   */
   public OnAction(): void {
-    this.ActionEvent.emit();
+    // this.Data.CallbackAction(true);
+    // this.dialogRef.close(true);
   }
 
   // Helpers
 
   /**
-   * Render the component to use in the modal (this.Data.Component)
+   * Render the component to use within the modal (this.Data.Component)
    */
   protected renderModalComponent(): void {
     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
