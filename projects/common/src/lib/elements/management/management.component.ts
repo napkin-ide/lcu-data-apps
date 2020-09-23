@@ -92,8 +92,8 @@ export class LcuDataAppsManagementElementComponent
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.State.Loading = true;
 
-    // this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
-    this.configureModal();
+    this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
+    // this.configureModal();
   }
 
   /**
