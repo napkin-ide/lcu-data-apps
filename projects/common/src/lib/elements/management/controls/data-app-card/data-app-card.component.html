@@ -13,6 +13,8 @@
   </mat-card-header>
 
   <mat-card-content>
+    <p class="mat-body-1" [innerHTML]="Application.Description" *ngIf="Application.Description"></p>
+
     <!-- Maybe instead of a description since that doesn't make sense here, we choose a default set of analytics to show here?  or just nothing?-->
   </mat-card-content>
 

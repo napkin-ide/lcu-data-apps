@@ -48,7 +48,9 @@
             *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API"
           >
             <ng-container *ngFor="let apiConfig of DAFConfig.API">
-              <h4>{{ apiConfig.Lookup || '~default~' }} - {{ apiConfig.APIRoot }}</h4>
+              <h4>
+                {{ apiConfig.Lookup || "~default~" }} - {{ apiConfig.APIRoot }}
+              </h4>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -68,34 +70,15 @@
             </mat-tab>
 
             <mat-tab label="Config">
+              <!-- <lcu-daf-app-configs
+                [form-group]="EditDataAppFormGroup"
+                [daf-app-options]="DAFAppOptions"
+                [daf-app-id]="DAFConfig.DAFAppPointer.ID"
+                [daf-app-root]="DAFConfig.DAFAppPointer.Root"
+                [daf-app-root-base]="PathGroup + '/'"
+              ></lcu-daf-app-configs> -->
+
               <div [ngSwitch]="DAFApplication.DAFAppType" class="spread">
-                <ng-container *ngSwitchCase="DataDAFAppTypes.API">
-                  <lcu-daf-app-api-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-api-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
-                  <lcu-daf-app-pointer-config
-                    [daf-app-options]="DAFAppOptions"
-                    [daf-app-id]="DAFConfig.DAFAppPointer.ID"
-                    [daf-app-root]="DAFConfig.DAFAppPointer.Root"
-                    [daf-app-root-base]="PathGroup + '/'"
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-pointer-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
-                  <lcu-daf-app-redirect-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-redirect-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.View">
-                  <lcu-daf-app-view-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-view-config>
-                </ng-container>
               </div>
             </mat-tab>
 

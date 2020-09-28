@@ -1,8 +1,4 @@
-import {
-  Application,
-  Status,
-  Icon,
-} from '@lcu/common';
+import { Application, Status, Icon } from '@lcu/common';
 
 export class DataAppsManagementState {
   public AccessRightOptions: string[];
@@ -29,9 +25,23 @@ export class DataAppDetails {
 
   public AppStati: DataDAFAppStatus[];
 
+  public Description: string;
+
   public DisplayName: string;
 
+  public IsReadOnly: boolean;
+
   public PathGroup: string;
+
+  public Security: DataAppSecurityDetails;
+}
+
+export class DataAppSecurityDetails {
+  public AccessRights: string[];
+
+  public IsPrivate: boolean;
+
+  public Licenses: string[];
 }
 
 export class DataDAFAppDetails {
@@ -64,5 +74,5 @@ export enum DataDAFAppTypes {
   View = 'View',
   API = 'API',
   Redirect = 'Redirect',
-  DAFAppPointer = 'DAFAppPointer'
+  DAFAppPointer = 'DAFAppPointer',
 }
