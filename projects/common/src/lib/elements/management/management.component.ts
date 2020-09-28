@@ -10,12 +10,9 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
-
 import { GenericModalService } from './../../services/generic-modal.service';
 import { GenericModalModel } from './../../models/generic-modal-model';
 import { SettingsComponent } from './../modals/settings/settings.component';
-import { Component, OnInit, Injector, DoBootstrap, ViewChild } from '@angular/core';
-import { LCUElementContext, LcuElementComponent } from '@lcu/common';
 import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails, DataDAFAppDelete } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
