@@ -172,6 +172,7 @@ export class DafAppCardComponent implements OnInit {
 
     this.DAFDeleteClicked.emit({
       ApplicationID: this.DAFApplication.ID,
+      DisplayName: this.DAFApplication.Name,
       Lookups: lookups,
     });
   }

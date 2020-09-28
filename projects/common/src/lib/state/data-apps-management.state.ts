@@ -73,6 +73,8 @@ export class DataDAFAppStatus extends Status {
 export class DataDAFAppDelete {
   public ApplicationID: string;
 
+  public DisplayName: string;
+
   public Lookups: string[];
 }
 

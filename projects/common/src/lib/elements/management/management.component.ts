@@ -1,19 +1,27 @@
 import {
   Component,
   OnInit,
-  Injector, DoBootstrap,
+  Injector,
+  DoBootstrap,
   ViewChild,
   ComponentFactoryResolver,
   ComponentRef,
   ComponentFactory,
-  ViewContainerRef, Inject, ElementRef
+  ViewContainerRef,
+  Inject,
+  ElementRef,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
 import { GenericModalService } from './../../services/generic-modal.service';
 import { GenericModalModel } from './../../models/generic-modal-model';
 import { SettingsComponent } from './../modals/settings/settings.component';
-import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails, DataDAFAppDelete } from './../../state/data-apps-management.state';
+import {
+  DataAppsManagementState,
+  DataAppDetails,
+  DataDAFAppDetails,
+  DataDAFAppDelete,
+} from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
 import { DataAppViewComponent } from './controls/data-app-view/data-app-view.component';
@@ -39,23 +47,29 @@ export class LcuDataAppsManagementElementComponent
 
   //  Properties
 
- /**
-  * Access the component passed into the modal
-  */
- @ViewChild('modalContent', { read: ViewContainerRef })
- public vcRef: ViewContainerRef;
+  /**
+   * Access the component passed into the modal
+   */
+  @ViewChild('modalContent', { read: ViewContainerRef })
+  public vcRef: ViewContainerRef;
 
   @ViewChild(SettingsComponent)
-    public settingsComp: SettingsComponent;
+  public settingsComp: SettingsComponent;
 
-    protected componentRef: ComponentRef<any>;
+  protected componentRef: ComponentRef<any>;
 
   public get ActiveApp(): DataAppDetails {
-    return this.State.ActiveAppPathGroup ? this.State.Applications.find(app => app.PathGroup === this.State.ActiveAppPathGroup) : null;
+    return this.State.ActiveAppPathGroup
+      ? this.State.Applications.find(
+          (app) => app.PathGroup === this.State.ActiveAppPathGroup
+        )
+      : null;
   }
 
   public get ApplicationPaths(): string[] {
-    return this.State.Applications ? this.State.Applications.map(app => app.PathGroup) : [];
+    return this.State.Applications
+      ? this.State.Applications.map((app) => app.PathGroup)
+      : [];
   }
 
   public get Loading(): boolean {
@@ -109,9 +123,14 @@ export class LcuDataAppsManagementElementComponent
    *
    */
   public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
-    this.State.Loading = true;
+    if (confirm(`Are you sure you want to delete ${dafAppDelete.DisplayName}?`)) {
+      this.State.Loading = true;
 
-    this.dataAppsCtxt.DeleteDataDAFApp(dafAppDelete.ApplicationID, dafAppDelete.Lookups);
+      this.dataAppsCtxt.DeleteDataDAFApp(
+        dafAppDelete.ApplicationID,
+        dafAppDelete.Lookups
+      );
+    }
     // this.configureModal();
   }
 
@@ -125,7 +144,7 @@ export class LcuDataAppsManagementElementComponent
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.State.Loading = true;
 
-   this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
+    this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
 
     // this.configureModal();
   }
@@ -136,10 +155,13 @@ export class LcuDataAppsManagementElementComponent
   protected configureModal(): void {
     let el: ElementRef;
     const ksdfe: DataAppViewComponent = new DataAppViewComponent(el);
-    const modalCompFactory: ComponentFactory<DataAppViewComponent>
-      = this.resolver.resolveComponentFactory(DataAppViewComponent);
+    const modalCompFactory: ComponentFactory<DataAppViewComponent> = this.resolver.resolveComponentFactory(
+      DataAppViewComponent
+    );
 
-    this.componentRef = this.vcRef.createComponent<DataAppViewComponent>(modalCompFactory);
+    this.componentRef = this.vcRef.createComponent<DataAppViewComponent>(
+      modalCompFactory
+    );
     ksdfe.ActiveDAFApplicationID = this.State.ActiveDAFAppID;
     ksdfe.Application = this.ActiveApp;
     ksdfe.ApplicationPaths = this.ApplicationPaths;
@@ -150,35 +172,38 @@ export class LcuDataAppsManagementElementComponent
 
     debugger;
     setTimeout(() => {
-      const modalConfig: GenericModalModel = new GenericModalModel(
-        {
-          ModalType: 'data', // type of modal we want (data, confirm, info)
-          CallbackAction: this.confirmCallback, // function exposed to the modal
-          Component : ksdfe, // set component to be used inside the modal
-          LabelCancel: 'Cancel',
-          LabelAction: 'OK',
-          Title : 'Settings',
-          Width: '100%'
-        });
+      const modalConfig: GenericModalModel = new GenericModalModel({
+        ModalType: 'data', // type of modal we want (data, confirm, info)
+        CallbackAction: this.confirmCallback, // function exposed to the modal
+        Component: ksdfe, // set component to be used inside the modal
+        LabelCancel: 'Cancel',
+        LabelAction: 'OK',
+        Title: 'Settings',
+        Width: '100%',
+      });
 
-        /**
-         * Pass modal config to service open function
-         */
-        this.genericModalService.Open(modalConfig);
+      /**
+       * Pass modal config to service open function
+       */
+      this.genericModalService.Open(modalConfig);
 
-        this.genericModalService.ModalComponent.afterOpened().subscribe((res: any) => {
+      this.genericModalService.ModalComponent.afterOpened().subscribe(
+        (res: any) => {
           this.State.Loading = false;
           console.log('MODAL OPEN', res);
-        });
+        }
+      );
 
-        this.genericModalService.ModalComponent.afterClosed().subscribe((res: any) => {
+      this.genericModalService.ModalComponent.afterClosed().subscribe(
+        (res: any) => {
           console.log('MODAL CLOSED', res);
-        });
+        }
+      );
 
-        this.genericModalService.OnAction().subscribe((res: any) => {
-          console.log('ONAction', res);
-        });
-      }, 1000);
+      this.genericModalService.OnAction().subscribe((res: any) => {
+        console.log('ONAction', res);
+      });
+    }, 1000);
   }
 
   /**
