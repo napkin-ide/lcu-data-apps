@@ -7,7 +7,7 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { DataAppDetails } from '../../../../state/data-apps-management.state';
+import { DataAppDetails, DataDAFAppDelete } from '../../../../state/data-apps-management.state';
 import { DataDAFAppDetails } from '../../../../state/data-apps-management.state';
 
 @Component({
@@ -20,6 +20,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   protected activeDafAppId: string;
 
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('active-daf-application')
   public get ActiveDAFApplicationID(): string {
     return this.activeDafAppId;
@@ -52,7 +55,13 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Input('daf-app-options')
   public DAFAppOptions: { [key: string]: string };
 
-  @Output('daf-settings-click')
+  @Output('daf-app-saved')
+  public DAFAppSaved: EventEmitter<DataDAFAppDetails>;
+
+  @Output('delete')
+  public DAFDeleteClicked: EventEmitter<DataDAFAppDelete>;
+
+  @Output('settings')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
   public IsCreating: boolean;
@@ -65,6 +74,10 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.ApplicationTabClicked = new EventEmitter<number>();
 
     this.BackClicked = new EventEmitter<DataAppDetails>();
+
+    this.DAFAppSaved = new EventEmitter<DataDAFAppDetails>();
+
+    this.DAFDeleteClicked = new EventEmitter<DataDAFAppDelete>();
 
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
   }
@@ -81,12 +94,20 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.BackClicked.emit(this.Application);
   }
 
+  public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
+    this.DAFDeleteClicked.emit(dafAppDelete);
+  }
+
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.DAFSettingsClicked.emit(dafApp);
   }
 
   public IsActiveDAFApplication(dafAppId: string) {
     return this.ActiveDAFApplicationID === dafAppId;
+  }
+
+  public SaveDAFApp(dafApp: DataDAFAppDetails) {
+    this.DAFAppSaved.emit(dafApp);
   }
 
   public SetApplicationTab(index: number) {

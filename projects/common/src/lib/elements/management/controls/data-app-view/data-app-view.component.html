@@ -62,6 +62,7 @@
               <ng-container *ngFor="let dafApp of DAFApplications">
                 <lcu-daf-app-card
                   class="application-config application-config-{{ dafApp.ID }}"
+                  [access-right-options]="AccessRightOptions"
                   [app-paths]="ApplicationPaths"
                   [daf-app-options]="DAFAppOptions"
                   [is-blocked]="
@@ -72,7 +73,9 @@
                   [path-group]="Application.PathGroup"
                   [gdColumn]="IsActiveDAFApplication(dafApp.ID) ? 'auto / span 2' : null"
                   [daf-application]="dafApp"
-                  (daf-settings-click)="DAFAppSettingsClick($event)"
+                  (delete)="DAFAppDeleteClick($event)"
+                  (settings)="DAFAppSettingsClick($event)"
+                  (saved)="SaveDAFApp($event)"
                 ></lcu-daf-app-card>
               </ng-container>
             </div>

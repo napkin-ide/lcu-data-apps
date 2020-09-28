@@ -11,7 +11,7 @@ export class DataAppCardComponent implements OnInit {
   @Input('application')
   public Application: DataAppDetails;
 
-  @Output('settings-click')
+  @Output('settings')
   public SettingsClicked: EventEmitter<DataAppDetails>;
 
   //  Constructors

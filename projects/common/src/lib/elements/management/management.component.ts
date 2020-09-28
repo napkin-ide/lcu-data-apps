@@ -3,7 +3,7 @@ import { GenericModalModel } from './../../models/generic-modal-model';
 import { SettingsComponent } from './../modals/settings/settings.component';
 import { Component, OnInit, Injector, DoBootstrap, ViewChild } from '@angular/core';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
-import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails } from './../../state/data-apps-management.state';
+import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails, DataDAFAppDelete } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericModalComponent } from '../modals/generic-modal/generic-modal.component';
@@ -80,6 +80,20 @@ export class LcuDataAppsManagementElementComponent
     this.State.Loading = true;
 
     this.dataAppsCtxt.SetActiveDataApp(null);
+  }
+
+  /**
+   *
+   * @param dafApp application details
+   *
+   * Delete DAF Application
+   *
+   */
+  public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.DeleteDataDAFApp(dafAppDelete.ApplicationID, dafAppDelete.Lookups);
+    // this.configureModal();
   }
 
   /**

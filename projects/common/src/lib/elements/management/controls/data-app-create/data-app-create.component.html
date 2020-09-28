@@ -24,9 +24,9 @@
           API
         </mat-option>
 
-        <mat-option [value]="DataDAFAppTypes.DAFAppPointer">
+        <!-- <mat-option [value]="DataDAFAppTypes.DAFAppPointer">
           Application Pointer
-        </mat-option>
+        </mat-option> -->
 
         <mat-option [value]="DataDAFAppTypes.Redirect">
           Redirect
@@ -49,6 +49,11 @@
       [daf-app-root-base]="AppRootBase"
     ></lcu-daf-app-configs>
 
+    <lcu-data-app-security-configs
+      [access-right-options]="AccessRightOptions"
+      [form-group]="CreateDataAppFormGroup"
+    ></lcu-data-app-security-configs>
+
     <div class="create-actions spread">
       <div fxFlex></div>
 
@@ -62,7 +67,6 @@
         type="submit"
         mat-raised-button
         color="primary"
-        (click)="Save()"
         [disabled]="!CreateDataAppFormGroup.valid"
       >
         <mat-icon>save</mat-icon>

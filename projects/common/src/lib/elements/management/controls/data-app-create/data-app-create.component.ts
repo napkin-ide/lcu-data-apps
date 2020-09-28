@@ -19,6 +19,9 @@ export class DataAppCreateComponent implements OnInit {
   //  Fields
 
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('app-root-base')
   public AppRootBase: string;
 
@@ -29,7 +32,7 @@ export class DataAppCreateComponent implements OnInit {
   public Canceled: EventEmitter<{}>;
 
   @ViewChild(DafAppConfigsComponent)
-  public DafAppConfigs: DafAppConfigsComponent;
+  public DAFAppConfigs: DafAppConfigsComponent;
 
   public CreateDataAppFormGroup: FormGroup;
 
@@ -70,13 +73,17 @@ export class DataAppCreateComponent implements OnInit {
   }
 
   public Save() {
-
     const toSave = {
-      Configs: this.DafAppConfigs.Configs,
-      DAFAppType: this.CreateDataAppFormGroup.controls.dafAppType.value,
+      Configs: this.DAFAppConfigs.Configs,
+      DAFAppType: this.CreateDataAppFormGroup.controls.dataAppType.value,
       Description: this.CreateDataAppFormGroup.controls.desc.value,
       Name: this.CreateDataAppFormGroup.controls.name.value,
-      Path: this.CreateDataAppFormGroup.controls.path.value
+      Path: this.CreateDataAppFormGroup.controls.path.value,
+      Security: {
+        AccessRights: this.CreateDataAppFormGroup.controls.accRights.value,
+        IsPrivate: this.CreateDataAppFormGroup.controls.isPrivate.value || false,
+        Licenses: this.CreateDataAppFormGroup.controls.licenses.value,
+      }
     } as DataDAFAppDetails;
 
     this.Saved.emit(toSave);

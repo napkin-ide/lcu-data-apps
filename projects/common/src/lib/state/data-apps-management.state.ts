@@ -32,16 +32,14 @@ export class DataAppDetails {
   public IsReadOnly: boolean;
 
   public PathGroup: string;
-
-  public Security: DataAppSecurityDetails;
 }
 
 export class DataAppSecurityDetails {
-  public AccessRights: string[];
+  public AccessRights?: string[];
 
-  public IsPrivate: boolean;
+  public IsPrivate?: boolean;
 
-  public Licenses: string[];
+  public Licenses?: string[];
 }
 
 export class DataDAFAppDetails {
@@ -60,6 +58,8 @@ export class DataDAFAppDetails {
   public Path?: string;
 
   public Priority?: string;
+
+  public Security: DataAppSecurityDetails;
 }
 
 export class DataDAFAppStatus extends Status {
@@ -68,6 +68,12 @@ export class DataDAFAppStatus extends Status {
   public Icon: Icon;
 
   public Name: string;
+}
+
+export class DataDAFAppDelete {
+  public ApplicationID: string;
+
+  public Lookups: string[];
 }
 
 export enum DataDAFAppTypes {

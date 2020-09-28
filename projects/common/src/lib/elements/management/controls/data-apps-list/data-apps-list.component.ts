@@ -11,6 +11,9 @@ export class DataAppsListComponent implements OnInit {
   //  Fields
 
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('applications')
   public Applications: DataAppDetails[];
 
@@ -29,7 +32,7 @@ export class DataAppsListComponent implements OnInit {
 
   public IsCreating: boolean;
 
-  @Output('settings-click')
+  @Output('settings')
   public SettingsClicked: EventEmitter<DataAppDetails>;
 
   //  Constructors

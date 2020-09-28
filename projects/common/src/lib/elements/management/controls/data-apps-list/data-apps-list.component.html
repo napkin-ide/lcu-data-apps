@@ -31,7 +31,7 @@
           <lcu-data-app-card
             class="app-card"
             [application]="app"
-            (settings-click)="AppSettingsClick($event)"
+            (settings)="AppSettingsClick($event)"
           ></lcu-data-app-card>
         </ng-container>
       </div>
@@ -50,7 +50,8 @@
           <lcu-data-app-card
             class="app-card"
             [application]="app"
-            (settings-click)="AppSettingsClick($event)"
+            (settings)="AppSettingsClick($event)"
+            (saved)="SaveDAFApp($event)"
           ></lcu-data-app-card>
         </ng-container>
       </div>
@@ -59,6 +60,7 @@
 
   <ng-container *ngIf="IsCreating">
     <lcu-data-app-create
+      [access-right-options]="AccessRightOptions"
       [app-paths]="ApplicationPaths"
       [daf-app-options]="DAFAppOptions"
       (canceled)="ToggleCreatingNewApp()"

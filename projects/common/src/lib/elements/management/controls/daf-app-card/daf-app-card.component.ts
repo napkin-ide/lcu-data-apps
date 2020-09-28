@@ -1,9 +1,18 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  DataDAFAppDelete,
   DataDAFAppDetails,
   DataDAFAppTypes,
 } from '../../../../state/data-apps-management.state';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DafAppConfigsComponent } from '../daf-app-configs/daf-app-configs.component';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -12,8 +21,14 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class DafAppCardComponent implements OnInit {
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('app-paths')
   public ApplicationPaths: string[];
+
+  @ViewChild(DafAppConfigsComponent)
+  public DAFAppConfigs: DafAppConfigsComponent;
 
   @Input('daf-application')
   public DAFApplication: DataDAFAppDetails;
@@ -46,15 +61,19 @@ export class DafAppCardComponent implements OnInit {
   public DAFAppOptions: { [key: string]: string };
 
   public get DAFConfig() {
+    if (!this.DAFApplication) {
+      return {};
+    }
+
     const cfgKeys = Object.keys(this.DAFApplication.Configs);
 
-    const apiCfgs = cfgKeys.map(configKey => {
+    const apiCfgs = cfgKeys.map((configKey) => {
       return {
         APIRoot: this.DAFApplication.Configs[configKey]['APIRoot'],
         InboundPath: this.DAFApplication.Configs[configKey]['InboundPath'],
         Lookup: configKey,
         Methods: this.DAFApplication.Configs[configKey]['Methods'],
-        Security: this.DAFApplication.Configs[configKey]['Security']
+        Security: this.DAFApplication.Configs[configKey]['Security'],
       };
     });
 
@@ -62,19 +81,22 @@ export class DafAppCardComponent implements OnInit {
       API: apiCfgs,
       DAFAppPointer: {
         ID: this.DAFApplication.Configs['']['DAFApplicationID'],
-        Root: this.DAFApplication.Configs['']['DAFApplicationRoot']
+        Root: this.DAFApplication.Configs['']['DAFApplicationRoot'],
       },
       Redirect: {
-        Redirect: this.DAFApplication.Configs[''].Redirect
+        Redirect: this.DAFApplication.Configs[''].Redirect,
       },
       View: {
         NPMPackage: this.DAFApplication.Configs[''].NPMPackage,
-        PackageVersion: this.DAFApplication.Configs[''].PackageVersion
-      }
+        PackageVersion: this.DAFApplication.Configs[''].PackageVersion,
+      },
     };
   }
 
-  @Output('daf-settings-click')
+  @Output('delete')
+  public DAFDeleteClicked: EventEmitter<DataDAFAppDelete>;
+
+  @Output('settings')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
   public DataDAFAppTypes = DataDAFAppTypes;
@@ -107,9 +129,16 @@ export class DafAppCardComponent implements OnInit {
   @Input('path-group')
   public PathGroup: string;
 
+  @Output('saved')
+  public Saved: EventEmitter<DataDAFAppDetails>;
+
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
+    this.DAFDeleteClicked = new EventEmitter<DataDAFAppDelete>();
+
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
+
+    this.Saved = new EventEmitter<DataDAFAppDetails>();
   }
 
   //  Life Cycle
@@ -123,9 +152,11 @@ export class DafAppCardComponent implements OnInit {
 
     if (this.DAFApplication.Path.startsWith(this.PathGroup)) {
       if (this.DAFApplication.Path === this.PathGroup) {
-        path =  '';
+        path = '';
       } else {
-        path = (this.DAFApplication.Path.substring(this.PathGroup.length) + '/').replace('//', '/');
+        path = (
+          this.DAFApplication.Path.substring(this.PathGroup.length) + '/'
+        ).replace('//', '/');
       }
     }
 
@@ -136,12 +167,38 @@ export class DafAppCardComponent implements OnInit {
     return path;
   }
 
+  public DAFAppDeleteClick() {
+    const lookups = Object.keys(this.DAFApplication.Configs);
+
+    this.DAFDeleteClicked.emit({
+      ApplicationID: this.DAFApplication.ID,
+      Lookups: lookups,
+    });
+  }
+
   public DAFAppSettingsClick() {
     this.DAFSettingsClicked.emit(this.DAFApplication);
   }
 
   public DAFAppSettingsCanceled() {
     this.DAFSettingsClicked.emit(null);
+  }
+
+  public Save() {
+    const toSave = {
+      Configs: this.DAFAppConfigs.Configs,
+      DAFAppType: this.DAFApplication.DAFAppType,
+      Description: this.EditDataAppFormGroup.controls.desc.value,
+      Name: this.EditDataAppFormGroup.controls.name.value,
+      Path: this.EditDataAppFormGroup.controls.path.value,
+      Security: {
+        AccessRights: this.EditDataAppFormGroup.controls.accRights.value,
+        IsPrivate: this.EditDataAppFormGroup.controls.isPrivate.value || false,
+        Licenses: this.EditDataAppFormGroup.controls.licenses.value,
+      },
+    } as DataDAFAppDetails;
+
+    this.Saved.emit(toSave);
   }
 
   //  Helpers

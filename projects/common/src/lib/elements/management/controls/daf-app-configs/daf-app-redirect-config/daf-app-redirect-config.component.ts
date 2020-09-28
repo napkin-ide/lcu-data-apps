@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DAFRedirectApplicationDetails } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-redirect-config',
@@ -16,11 +17,15 @@ export class DafAppRedirectConfigComponent implements  OnDestroy, OnInit {
     };
   }
 
+  @Input('details')
+  public Details: DAFRedirectApplicationDetails;
+
   @Input('form-group')
   public FormGroup: FormGroup;
 
   //  Constructors
   constructor() {
+    this.Details = {};
   }
 
   //  Life Cycle
@@ -31,7 +36,7 @@ export class DafAppRedirectConfigComponent implements  OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'redirect',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.Redirect, [Validators.required])
     );
   }
 

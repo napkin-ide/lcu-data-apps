@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { DAFViewApplicationDetails } from '@lcu/common';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../../../core/npm.service';
 
@@ -17,9 +18,12 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
     return {
       NPMPackage: this.FormGroup.controls.npmPkg.value,
       PackageVersion: this.FormGroup.controls.pkgVer.value,
-      StateConfig: this.FormGroup.controls.stateCfg.value,
+      StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
     };
   }
+
+  @Input('details')
+  public Details: DAFViewApplicationDetails;
 
   @Input('form-group')
   public FormGroup: FormGroup;
@@ -29,7 +33,9 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   public NPMPackageVersions: string[];
 
   //  Constructors
-  constructor(protected npm: NPMService) {}
+  constructor(protected npm: NPMService) {
+    this.Details = {};
+  }
 
   //  Life Cycle
   public ngOnDestroy(): void {
@@ -43,15 +49,18 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'npmPkg',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.NPMPackage, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'pkgVer',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.PackageVersion, [Validators.required])
     );
 
-    this.FormGroup.addControl('stateCfg', new FormControl('{}', []));
+    this.FormGroup.addControl(
+      'stateCfg',
+      new FormControl(JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}), [])
+    );
 
     this.FormGroup.controls.npmPkg.valueChanges
       .pipe(

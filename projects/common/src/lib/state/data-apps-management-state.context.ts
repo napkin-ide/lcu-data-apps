@@ -14,10 +14,11 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
   }
 
   //  API Methods
-  public DeleteDataDAFApp(dafAppId: string) {
+  public DeleteDataDAFApp(appId: string, lookups: string[]) {
     this.Execute({
       Arguments: {
-        DAFAppID: dafAppId
+        ApplicationID: appId,
+        Lookups: lookups
       },
       Type: 'DeleteDataDAFApp'
     });

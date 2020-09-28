@@ -1,1 +1,48 @@
-<p>data-app-security-configs works!</p>
+<div [formGroup]="FormGroup">
+  <div>
+    <mat-slide-toggle
+      [checked]="Security.IsPrivate"
+      formControlName="isPrivate"
+      #isPrivate
+    >
+      Is Secured Application?
+    </mat-slide-toggle>
+    <mat-icon
+      matSuffix
+      matTooltip="A Secured Application is one that requires the user to be authenticated to use the application. The application is hosted behind an identity wall."
+    >
+      info_outline
+    </mat-icon>
+  </div>
+
+  <mat-form-field class="mat-full-width" *ngIf="isPrivate.checked">
+    <mat-select
+      multiple
+      placeholder="Access Rights"
+      formControlName="accRights"
+    >
+      <mat-option
+        *ngFor="let accessRight of AccessRightOptions"
+        [value]="accessRight"
+      >
+        {{ accessRight }}
+      </mat-option>
+    </mat-select>
+    <mat-icon
+      matSuffix
+      matTooltip="Access rights only matter if this is a Secured Application (not public). This is the level of access the user has in the system."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width" *ngIf="isPrivate.checked">
+    <mat-select multiple placeholder="Licenses" formControlName="licenses">
+      <mat-option value="lcu"> Low-Code Unit™ </mat-option>
+
+      <mat-option value="forecast"> Forecast </mat-option>
+    </mat-select>
+
+    <mat-icon matSuffix matTooltip="..."> info_outline </mat-icon>
+  </mat-form-field>
+</div>

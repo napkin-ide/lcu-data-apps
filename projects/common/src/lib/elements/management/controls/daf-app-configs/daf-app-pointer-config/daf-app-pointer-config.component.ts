@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DAFAppPointerApplicationDetails } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-pointer-config',
@@ -17,18 +18,6 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
     };
   }
 
-  /**
-   * The ID of the DAF Application Pointer already selected
-   */
-  @Input('daf-app-id')
-  public DAFAppID: string;
-
-  /**
-   * The root path of the DAF Application to use for the pointer.
-   */
-  @Input('daf-app-root')
-  public DAFAppRoot: string;
-
   public get DAFAppOptionKeys(): string[] {
     return this.DAFAppOptions ? Object.keys(this.DAFAppOptions) : [];
   }
@@ -39,12 +28,17 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
   @Input('daf-app-root-base')
   public DAFAppRootBase: string;
 
+  @Input('details')
+  public Details: DAFAppPointerApplicationDetails;
+
   @Input('form-group')
   public FormGroup: FormGroup;
 
   //  Constructors
   constructor() {
     this.DAFAppRootBase = '/';
+
+    this.Details = {};
   }
 
   //  Life Cycle
@@ -57,12 +51,12 @@ export class DafAppPointerConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'dafAppId',
-      new FormControl(this.DAFAppID, [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.DAFApplicationID, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'dafAppRoot',
-      new FormControl(this.DAFAppRoot, [])
+      new FormControl(!this.Details ? '' : this.Details.DAFApplicationRoot, [])
     );
   }
 

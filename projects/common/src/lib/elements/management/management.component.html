@@ -2,15 +2,18 @@
   <ng-container *ngIf="!Loading">
     <ng-container *ngIf="!ActiveApp">
       <lcu-data-apps-list
+        [access-right-options]="State.AccessRightOptions"
         [applications]="State.Applications"
         [daf-app-options]="State.DAFAppOptions"
         [fixed-applications]="State.FixedApplications"
-        (settings-click)="AppSettingsClick($event)"
+        (daf-app-saved)="SaveDAFApp($event)"
+        (settings)="AppSettingsClick($event)"
       ></lcu-data-apps-list>
     </ng-container>
 
     <ng-container *ngIf="ActiveApp">
       <lcu-data-app-view
+        [access-right-options]="State.AccessRightOptions"
         [active-daf-application]="State.ActiveDAFAppID"
         [application]="ActiveApp"
         [app-paths]="ApplicationPaths"
@@ -21,7 +24,8 @@
         (application-tab-click)="SetApplicationTab($event)"
         (back-click)="BackClick()"
         (daf-app-saved)="SaveDAFApp($event)"
-        (daf-settings-click)="DAFAppSettingsClick($event)"
+        (delete)="DAFAppDeleteClick($event)"
+        (settings)="DAFAppSettingsClick($event)"
       ></lcu-data-app-view>
     </ng-container>
   </ng-container>
