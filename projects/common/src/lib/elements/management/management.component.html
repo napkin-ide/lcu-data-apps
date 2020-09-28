@@ -8,8 +8,8 @@
         (settings-click)="AppSettingsClick($event)"
       ></lcu-data-apps-list>
     </ng-container>
-
     <ng-container *ngIf="ActiveApp">
+      <ng-template #modalContent></ng-template>
       <lcu-data-app-view
         [active-daf-application]="State.ActiveDAFAppID"
         [application]="ActiveApp"

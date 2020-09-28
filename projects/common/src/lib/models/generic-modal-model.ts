@@ -4,7 +4,7 @@
  * This tells us if the modal is being used as a confirmation
  * or something more complex
  */
-type ModalType = 'confirm' | 'data';
+type ModalType = 'confirm' | 'data' | 'info';
 
 export class GenericModalModel {
 
@@ -41,7 +41,7 @@ export class GenericModalModel {
     /**
      * Type of modal being used (confirmation or data)
      */
-    public ModalType?: ModalType;
+    public ModalType?: ModalType = 'data';
 
     /**
      * Modal title

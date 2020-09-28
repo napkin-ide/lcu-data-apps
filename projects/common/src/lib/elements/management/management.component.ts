@@ -1,12 +1,23 @@
+import {
+  Component,
+  OnInit,
+  Injector, DoBootstrap,
+  ViewChild,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ComponentFactory,
+  ViewContainerRef, Inject, ElementRef
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LCUElementContext, LcuElementComponent } from '@lcu/common';
+
 import { GenericModalService } from './../../services/generic-modal.service';
 import { GenericModalModel } from './../../models/generic-modal-model';
 import { SettingsComponent } from './../modals/settings/settings.component';
-import { Component, OnInit, Injector, DoBootstrap, ViewChild } from '@angular/core';
-import { LCUElementContext, LcuElementComponent } from '@lcu/common';
 import { DataAppsManagementState, DataAppDetails, DataDAFAppDetails } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
-import { MatDialog } from '@angular/material/dialog';
-import { GenericModalComponent } from '../modals/generic-modal/generic-modal.component';
+
+import { DataAppViewComponent } from './controls/data-app-view/data-app-view.component';
 
 export class LcuDataAppsManagementElementState {}
 
@@ -29,8 +40,16 @@ export class LcuDataAppsManagementElementComponent
 
   //  Properties
 
+ /**
+  * Access the component passed into the modal
+  */
+ @ViewChild('modalContent', { read: ViewContainerRef })
+ public vcRef: ViewContainerRef;
+
   @ViewChild(SettingsComponent)
     public settingsComp: SettingsComponent;
+
+    protected componentRef: ComponentRef<any>;
 
   public get ActiveApp(): DataAppDetails {
     return this.State.ActiveAppPathGroup ? this.State.Applications.find(app => app.PathGroup === this.State.ActiveAppPathGroup) : null;
@@ -51,7 +70,8 @@ export class LcuDataAppsManagementElementComponent
     protected injector: Injector,
     protected dataAppsCtxt: DataAppsManagementStateContext,
     protected dialog: MatDialog,
-    protected genericModalService: GenericModalService
+    protected genericModalService: GenericModalService,
+    protected resolver: ComponentFactoryResolver
   ) {
     super(injector);
   }
@@ -92,7 +112,8 @@ export class LcuDataAppsManagementElementComponent
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.State.Loading = true;
 
-    this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
+   this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
+
     // this.configureModal();
   }
 
@@ -100,32 +121,51 @@ export class LcuDataAppsManagementElementComponent
    * Modal configuration
    */
   protected configureModal(): void {
+    let el: ElementRef;
+    const ksdfe: DataAppViewComponent = new DataAppViewComponent(el);
+    const modalCompFactory: ComponentFactory<DataAppViewComponent>
+      = this.resolver.resolveComponentFactory(DataAppViewComponent);
 
-    const modalConfig: GenericModalModel = new GenericModalModel(
-      {
-        ModalType: 'data',
-        CallbackAction: this.confirmCallback,
-        Component : SettingsComponent,
-        LabelCancel: 'Cancel',
-        LabelAction: 'OK',
-        Title : 'Settings',
-        Width: '100%'
-      });
+    this.componentRef = this.vcRef.createComponent<DataAppViewComponent>(modalCompFactory);
+    ksdfe.ActiveDAFApplicationID = this.State.ActiveDAFAppID;
+    ksdfe.Application = this.ActiveApp;
+    ksdfe.ApplicationPaths = this.ApplicationPaths;
+    ksdfe.CurrentApplicationTab = this.State.CurrentApplicationTab;
+    ksdfe.DAFAppOptions = this.State.DAFAppOptions;
+    ksdfe.DAFApplications = this.State.DAFApplications;
+    ksdfe.Loading = this.State.Loading;
 
-      this.genericModalService.Open(modalConfig);
+    debugger;
+    setTimeout(() => {
+      const modalConfig: GenericModalModel = new GenericModalModel(
+        {
+          ModalType: 'data', // type of modal we want (data, confirm, info)
+          CallbackAction: this.confirmCallback, // function exposed to the modal
+          Component : ksdfe, // set component to be used inside the modal
+          LabelCancel: 'Cancel',
+          LabelAction: 'OK',
+          Title : 'Settings',
+          Width: '100%'
+        });
 
-      this.genericModalService.ModalComponent.afterOpened().subscribe((res: any) => {
-        this.State.Loading = false;
-        console.log('MODAL OPEN', res);
-      });
+        /**
+         * Pass modal config to service open function
+         */
+        this.genericModalService.Open(modalConfig);
 
-      this.genericModalService.ModalComponent.afterClosed().subscribe((res: any) => {
-        console.log('MODAL CLOSED', res);
-      });
+        this.genericModalService.ModalComponent.afterOpened().subscribe((res: any) => {
+          this.State.Loading = false;
+          console.log('MODAL OPEN', res);
+        });
 
-      this.genericModalService.OnAction().subscribe((res: any) => {
-        console.log('ONAction', res);
-      });
+        this.genericModalService.ModalComponent.afterClosed().subscribe((res: any) => {
+          console.log('MODAL CLOSED', res);
+        });
+
+        this.genericModalService.OnAction().subscribe((res: any) => {
+          console.log('ONAction', res);
+        });
+      }, 1000);
   }
 
   /**

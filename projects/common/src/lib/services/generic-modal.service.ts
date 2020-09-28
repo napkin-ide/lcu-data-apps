@@ -10,6 +10,12 @@ import { map } from 'rxjs/internal/operators/map';
   providedIn: 'root'
 })
 
+// TODO: May need to create a unique ID to isolate and
+// differentiate multiple modals - shannon
+
+/**
+ * Service that handles generic modal instantiation and functionality
+ */
 export class GenericModalService {
 
   /**
@@ -50,7 +56,6 @@ export class GenericModalService {
    * Event after the modal closes
    */
   public OnAction(): Observable<any> {
-    
       return this.ModalComponent.afterClosed().pipe(take(1), map((res: any) => {
         return res;
       }

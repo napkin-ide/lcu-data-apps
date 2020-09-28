@@ -70,10 +70,11 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     SettingsComponent,
   ],
 entryComponents: [
+  DataAppViewComponent,
+  GenericModalComponent,
   DataAppsConfigManagerElementComponent,
   LcuDataAppsManagementElementComponent,
   ConfirmationComponent,
-  GenericModalComponent,
   SettingsComponent]
 })
 export class LcuDataAppsModule {}

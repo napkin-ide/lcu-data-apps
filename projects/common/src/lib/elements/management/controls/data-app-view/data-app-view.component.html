@@ -61,6 +61,8 @@
             >
               <ng-container *ngFor="let dafApp of DAFApplications">
                 <lcu-daf-app-card
+                *ngIf="(ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)) == null ||
+                       (ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)) == false"
                   class="application-config application-config-{{ dafApp.ID }}"
                   [app-paths]="ApplicationPaths"
                   [daf-app-options]="DAFAppOptions"
