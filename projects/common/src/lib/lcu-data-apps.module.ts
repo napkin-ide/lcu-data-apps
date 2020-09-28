@@ -39,7 +39,7 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     DafAppConfigsComponent,
     ConfirmationComponent,
     GenericModalComponent,
-    DataAppSecurityConfigsComponent
+    DataAppSecurityConfigsComponent,
     SettingsComponent
   ],
   imports: [
