@@ -18,5 +18,7 @@ export * from './lib/elements/management/controls/data-app-view/data-app-view.co
 export * from './lib/elements/management/controls/data-apps-list/data-apps-list.component';
 export * from './lib/elements/modals/generic-modal/generic-modal.component';
 export * from './lib/elements/modals/confirmation/confirmation.component';
+export * from './lib/elements/modals/settings/settings.component';
 export * from './lib/models/generic-modal-model';
+export * from './lib/services/generic-modal.service';
 export * from './lib/lcu-data-apps.module';

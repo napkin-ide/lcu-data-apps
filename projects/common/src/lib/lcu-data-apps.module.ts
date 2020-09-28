@@ -19,6 +19,7 @@ import { DafAppConfigsComponent } from './elements/management/controls/daf-app-c
 import { ConfirmationComponent } from './elements/modals/confirmation/confirmation.component';
 import { GenericModalComponent } from './elements/modals/generic-modal/generic-modal.component';
 import { DataAppSecurityConfigsComponent } from './elements/management/controls/data-app-security-configs/data-app-security-configs.component';
+import { SettingsComponent } from './elements/modals/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DataAppSecurityConfigsComponent } from './elements/management/controls/
     ConfirmationComponent,
     GenericModalComponent,
     DataAppSecurityConfigsComponent
+    SettingsComponent
   ],
   imports: [
     FathymSharedModule,
@@ -65,11 +67,13 @@ import { DataAppSecurityConfigsComponent } from './elements/management/controls/
     ConfirmationComponent,
     GenericModalComponent,
     DataAppSecurityConfigsComponent,
+    SettingsComponent,
   ],
 entryComponents: [
   DataAppsConfigManagerElementComponent,
   LcuDataAppsManagementElementComponent,
   ConfirmationComponent,
-  GenericModalComponent]
+  GenericModalComponent,
+  SettingsComponent]
 })
 export class LcuDataAppsModule {}

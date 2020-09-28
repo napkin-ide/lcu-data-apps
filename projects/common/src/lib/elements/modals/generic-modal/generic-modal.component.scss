@@ -1,0 +1,6 @@
+.title, .dialog-message {
+    text-transform: lowercase;
+}
+.title::first-letter, .dialog-message::first-letter {
+    text-transform: uppercase;
+}
