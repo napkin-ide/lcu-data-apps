@@ -200,7 +200,7 @@ export class DafAppCardComponent implements OnInit {
         Licenses: this.EditDataAppFormGroup.controls.licenses.value,
       },
     } as DataDAFAppDetails;
-debugger;
+
     this.Saved.emit(toSave);
   }
 
