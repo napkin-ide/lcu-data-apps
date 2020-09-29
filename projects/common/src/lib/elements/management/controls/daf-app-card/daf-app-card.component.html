@@ -72,6 +72,16 @@
 
             <mat-tab label="Config">
               <div class="spread">
+                <!--
+                  TODO:  Maybe support changing an application type?
+
+                  <lcu-data-daf-app-type
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
+                  [data-daf-app-type-options]="SupportedDAFAppTypes"
+                  [form-group]="CreateDataAppFormGroup"
+                ></lcu-data-daf-app-type>
+                 -->
+
                 <lcu-daf-app-configs
                   [form-group]="EditDataAppFormGroup"
                   [daf-app-type]="DAFApplication.DAFAppType"

@@ -7,8 +7,7 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { DataAppDetails, DataDAFAppDelete } from '../../../../state/data-apps-management.state';
-import { DataDAFAppDetails } from '../../../../state/data-apps-management.state';
+import { DataAppDetails, DataDAFAppDelete, DataDAFAppDetails, DataDAFAppTypes } from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-view',
@@ -64,6 +63,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Output('settings')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
 
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
+
   public IsCreating: boolean;
 
   @Input('loading')
@@ -112,6 +114,10 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
   public SetApplicationTab(index: number) {
     this.ApplicationTabClicked.emit(index);
+  }
+
+  public ToggleCreatingNewApp() {
+    this.IsCreating = !this.IsCreating;
   }
 
   //  Helpers

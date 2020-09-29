@@ -17,15 +17,17 @@
         mat-tab-link
         (click)="SetApplicationTab(0)"
         [active]="CurrentApplicationTab == 0"
-        >Insights</a
       >
+        Application Flow
+      </a>
 
       <a
         mat-tab-link
         (click)="SetApplicationTab(1)"
         [active]="CurrentApplicationTab == 1"
-        >ApplicationFlow</a
       >
+        Insights
+      </a>
     </nav>
   </div>
 
@@ -35,56 +37,80 @@
 
   <ng-container *ngIf="!Loading">
     <div class="tabs-content">
-      <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 0">
-        <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
+      <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 0">
+        <div class="application-flow">
+          <ng-container *ngIf="!IsCreating">
+            <div class="application-flow-header spread">
+              <div fxFlex></div>
+
+              <button mat-raised-button (click)="ToggleCreatingNewApp()">
+                <mat-icon color="primary">add</mat-icon> Create New
+              </button>
+            </div>
+
+            <div class="application-configs">
+              <div
+                class="application-grid"
+                gdAlignColumns="center center"
+                gdColumns="30% 30% 30%"
+                gdColumns.lt-md="45% 45%"
+                gdColumns.lt-sm="100%"
+                gdGap="2em"
+                gdGap.lt-sm="1em"
+              >
+                <!--Want to use a modal for editing, but running into difficulties right now.
+            For now, just setting the below *ngIf to remove non-editable applications when in the edit mode-->
+                <ng-container *ngFor="let dafApp of DAFApplications">
+                  <lcu-daf-app-card
+                    *ngIf="
+                      (ActiveDAFApplicationID &&
+                        !IsActiveDAFApplication(dafApp.ID)) == null ||
+                      (ActiveDAFApplicationID &&
+                        !IsActiveDAFApplication(dafApp.ID)) == false
+                    "
+                    class="application-config application-config-{{
+                      dafApp.ID
+                    }}"
+                    [access-right-options]="AccessRightOptions"
+                    [app-paths]="ApplicationPaths"
+                    [daf-app-options]="DAFAppOptions"
+                    [is-blocked]="
+                      ActiveDAFApplicationID &&
+                      !IsActiveDAFApplication(dafApp.ID)
+                    "
+                    [is-edit]="IsActiveDAFApplication(dafApp.ID)"
+                    [is-expanded]="IsActiveDAFApplication(dafApp.ID)"
+                    [path-group]="Application.PathGroup"
+                    [gdColumn]="
+                      IsActiveDAFApplication(dafApp.ID) ? 'auto / span 3' : null
+                    "
+                    [daf-application]="dafApp"
+                    [supported-daf-app-types]="SupportedDAFAppTypes"
+                    (delete)="DAFAppDeleteClick($event)"
+                    (settings)="DAFAppSettingsClick($event)"
+                    (saved)="SaveDAFApp($event)"
+                  ></lcu-daf-app-card>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="IsCreating">
+            <lcu-data-app-create
+              [access-right-options]="AccessRightOptions"
+              [app-paths]="ApplicationPaths"
+              [app-root-base]="Application.PathGroup + '/'"
+              [daf-app-options]="DAFAppOptions"
+              [supported-daf-app-types]="SupportedDAFAppTypes"
+              (canceled)="ToggleCreatingNewApp()"
+              (saved)="SaveDAFApp($event)"
+            ></lcu-data-app-create>
+          </ng-container>
+        </div>
       </div>
 
-      <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 1">
-        <div class="application-flow">
-          <div class="application-flow-header spread">
-            <div fxFlex></div>
-
-            <button mat-raised-button>
-              <mat-icon color="primary">add</mat-icon> Create New
-            </button>
-          </div>
-
-          <div class="application-configs">
-            <div
-              class="application-grid"
-              gdAlignColumns="center center"
-              gdColumns="30% 30% 30%"
-              gdColumns.lt-md="45% 45%"
-              gdColumns.lt-sm="100%"
-              gdGap="2em"
-              gdGap.lt-sm="1em"
-            >
-            <!--Want to use a modal for editing, but running into difficulties right now.
-            For now, just setting the below *ngIf to remove non-editable applications when in the edit mode-->
-              <ng-container *ngFor="let dafApp of DAFApplications">
-                <lcu-daf-app-card
-                *ngIf="(ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)) == null ||
-                       (ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)) == false"
-                  class="application-config application-config-{{ dafApp.ID }}"
-                  [access-right-options]="AccessRightOptions"
-                  [app-paths]="ApplicationPaths"
-                  [daf-app-options]="DAFAppOptions"
-                  [is-blocked]="
-                    ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)
-                  "
-                  [is-edit]="IsActiveDAFApplication(dafApp.ID)"
-                  [is-expanded]="IsActiveDAFApplication(dafApp.ID)"
-                  [path-group]="Application.PathGroup"
-                  [gdColumn]="IsActiveDAFApplication(dafApp.ID) ? 'auto / span 3' : null"
-                  [daf-application]="dafApp"
-                  (delete)="DAFAppDeleteClick($event)"
-                  (settings)="DAFAppSettingsClick($event)"
-                  (saved)="SaveDAFApp($event)"
-                ></lcu-daf-app-card>
-              </ng-container>
-            </div>
-          </div>
-        </div>
+      <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 1">
+        <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
       </div>
     </div>
   </ng-container>

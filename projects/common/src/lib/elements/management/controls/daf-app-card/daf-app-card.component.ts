@@ -104,6 +104,9 @@ export class DafAppCardComponent implements OnInit {
 
   public EditDataAppFormGroup: FormGroup;
 
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
+
   @Input('is-blocked')
   public IsBlocked: boolean;
 

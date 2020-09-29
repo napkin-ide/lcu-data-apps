@@ -21,6 +21,7 @@ import {
   DataAppDetails,
   DataDAFAppDetails,
   DataDAFAppDelete,
+  DataDAFAppTypes,
 } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
@@ -64,6 +65,38 @@ export class LcuDataAppsManagementElementComponent
           (app) => app.PathGroup === this.State.ActiveAppPathGroup
         )
       : null;
+  }
+
+  public get ActiveFixedApp(): DataAppDetails {
+    return this.State.ActiveAppPathGroup
+      ? this.State.FixedApplications.find(
+          (app) => app.PathGroup === this.State.ActiveAppPathGroup
+        )
+      : null;
+  }
+
+  public get SupportedDAFAppTypes(): DataDAFAppTypes[] {
+    if (this.ActiveFixedApp != null) {
+      const activeAppType = this.State.DAFApplications[0].DAFAppType;
+
+      if (
+        activeAppType === DataDAFAppTypes.API ||
+        activeAppType === DataDAFAppTypes.LCU
+      ) {
+        return [activeAppType];
+      }
+    }
+
+    if (this.ActiveApp != null) {
+      return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
+    }
+
+    return [
+      DataDAFAppTypes.View,
+      DataDAFAppTypes.Redirect,
+      DataDAFAppTypes.API,
+      DataDAFAppTypes.LCU,
+    ];
   }
 
   public get ApplicationPaths(): string[] {
@@ -123,7 +156,9 @@ export class LcuDataAppsManagementElementComponent
    *
    */
   public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
-    if (confirm(`Are you sure you want to delete ${dafAppDelete.DisplayName}?`)) {
+    if (
+      confirm(`Are you sure you want to delete ${dafAppDelete.DisplayName}?`)
+    ) {
       this.State.Loading = true;
 
       this.dataAppsCtxt.DeleteDataDAFApp(
