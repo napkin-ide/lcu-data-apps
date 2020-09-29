@@ -13,6 +13,7 @@ import {
 } from '../../../../state/data-apps-management.state';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DafAppConfigsComponent } from '../daf-app-configs/daf-app-configs.component';
+import { debug } from 'console';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -187,18 +188,19 @@ export class DafAppCardComponent implements OnInit {
 
   public Save() {
     const toSave = {
+      ID: this.DAFApplication.ID,
       Configs: this.DAFAppConfigs.Configs,
       DAFAppType: this.DAFApplication.DAFAppType,
       Description: this.EditDataAppFormGroup.controls.desc.value,
       Name: this.EditDataAppFormGroup.controls.name.value,
-      Path: this.EditDataAppFormGroup.controls.path.value,
+      Path: `${this.PathGroup}/${this.EditDataAppFormGroup.controls.path.value}`,
       Security: {
         AccessRights: this.EditDataAppFormGroup.controls.accRights.value,
         IsPrivate: this.EditDataAppFormGroup.controls.isPrivate.value || false,
         Licenses: this.EditDataAppFormGroup.controls.licenses.value,
       },
     } as DataDAFAppDetails;
-
+debugger;
     this.Saved.emit(toSave);
   }
 
