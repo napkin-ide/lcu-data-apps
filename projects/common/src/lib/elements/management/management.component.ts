@@ -97,6 +97,7 @@ export class LcuDataAppsManagementElementComponent
       ) {
         return [activeAppType];
       } else if (
+        activeAppType === DataDAFAppTypes.Redirect ||
         activeAppType === DataDAFAppTypes.View ||
         activeAppType === DataDAFAppTypes.ViewZip ||
         activeAppType === DataDAFAppTypes.ViewGit
