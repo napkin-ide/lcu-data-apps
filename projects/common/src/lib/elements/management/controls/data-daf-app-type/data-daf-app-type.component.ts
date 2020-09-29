@@ -25,7 +25,9 @@ export class DataDafAppTypeComponent implements OnInit {
   public OptionDisplayNames: {};
 
   //  Constructors
-  constructor() {}
+  constructor() {
+    this.OptionDisplayNames = {};
+  }
 
   //  Life Cycle
   public ngOnDestroy(): void {

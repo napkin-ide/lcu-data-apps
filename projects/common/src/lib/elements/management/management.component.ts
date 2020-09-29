@@ -75,6 +75,18 @@ export class LcuDataAppsManagementElementComponent
       : null;
   }
 
+  public get ApplicationPaths(): string[] {
+    return this.State.Applications
+      ? this.State.Applications.map((app) => app.PathGroup)
+      : [];
+  }
+
+  public get Loading(): boolean {
+    return this.State.Loading && !this.State.ActiveAppPathGroup;
+  }
+
+  public State: DataAppsManagementState;
+
   public get SupportedDAFAppTypes(): DataDAFAppTypes[] {
     if (this.ActiveFixedApp != null) {
       const activeAppType = this.State.DAFApplications[0].DAFAppType;
@@ -84,6 +96,12 @@ export class LcuDataAppsManagementElementComponent
         activeAppType === DataDAFAppTypes.LCU
       ) {
         return [activeAppType];
+      } else if (
+        activeAppType === DataDAFAppTypes.View ||
+        activeAppType === DataDAFAppTypes.ViewZip ||
+        activeAppType === DataDAFAppTypes.ViewGit
+      ) {
+        return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
       }
     }
 
@@ -98,18 +116,6 @@ export class LcuDataAppsManagementElementComponent
       DataDAFAppTypes.LCU,
     ];
   }
-
-  public get ApplicationPaths(): string[] {
-    return this.State.Applications
-      ? this.State.Applications.map((app) => app.PathGroup)
-      : [];
-  }
-
-  public get Loading(): boolean {
-    return this.State.Loading && !this.State.ActiveAppPathGroup;
-  }
-
-  public State: DataAppsManagementState;
 
   //  Constructors
   constructor(

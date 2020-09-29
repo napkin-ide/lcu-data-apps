@@ -7,7 +7,12 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { DataAppDetails, DataDAFAppDelete, DataDAFAppDetails, DataDAFAppTypes } from '../../../../state/data-apps-management.state';
+import {
+  DataAppDetails,
+  DataDAFAppDelete,
+  DataDAFAppDetails,
+  DataDAFAppTypes,
+} from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-view',
@@ -41,6 +46,16 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
   @Output('application-tab-click')
   public ApplicationTabClicked: EventEmitter<number>;
+
+  public get AppRootBase(): string {
+    let appRootBase = this.Application.PathGroup + '/';
+
+    if (appRootBase === '//') {
+      appRootBase = '/';
+    }
+
+    return appRootBase;
+  }
 
   @Output('back-click')
   public BackClicked: EventEmitter<{}>;
@@ -132,7 +147,7 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
         if (appCfgEl) {
           appCfgEl.scrollIntoView({
-            block: 'center'
+            block: 'center',
           });
         }
       }

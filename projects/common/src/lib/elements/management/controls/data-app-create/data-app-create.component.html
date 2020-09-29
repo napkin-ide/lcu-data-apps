@@ -24,26 +24,6 @@
       [form-group]="CreateDataAppFormGroup"
     ></lcu-data-daf-app-type>
 
-    <mat-form-field class="mat-full-width">
-      <mat-select placeholder="Application Type" formControlName="dataAppType">
-        <mat-option [value]="DataDAFAppTypes.API"> API </mat-option>
-
-        <!-- <mat-option [value]="DataDAFAppTypes.DAFAppPointer">
-          Application Pointer
-        </mat-option> -->
-
-        <mat-option [value]="DataDAFAppTypes.Redirect"> Redirect </mat-option>
-
-        <mat-option [value]="DataDAFAppTypes.View">
-          NPM Package View
-        </mat-option>
-      </mat-select>
-
-      <mat-icon matSuffix matTooltip="The type of Application to create.">
-        info_outline
-      </mat-icon>
-    </mat-form-field>
-
     <lcu-daf-app-configs
       [form-group]="CreateDataAppFormGroup"
       [daf-app-type]="SelectedDAFAppType"
