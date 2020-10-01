@@ -22,3 +22,5 @@ export * from './lib/elements/modals/settings/settings.component';
 export * from './lib/models/generic-modal-model';
 export * from './lib/services/generic-modal.service';
 export * from './lib/lcu-data-apps.module';
+export * from './lib/elements/management/controls/data-app-stati/data-app-stati.component';
+export * from './lib/elements/management/controls/data-app-security-configs/data-app-security-configs.component';

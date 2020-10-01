@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
 
+  public ConfirmMessage: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.ConfirmMessage = 'Are you sure you want to delete?';
   }
 
 }

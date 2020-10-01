@@ -186,7 +186,8 @@ export class DafAppCardComponent implements OnInit {
     this.DAFSettingsClicked.emit(null);
   }
 
-  public Save() {
+  private Save() {
+    debugger;
     const toSave = {
       ID: this.DAFApplication.ID,
       Configs: this.DAFAppConfigs.Configs,

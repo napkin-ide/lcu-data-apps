@@ -44,13 +44,6 @@ public Test: string;
 
   // Lifecycle hooks
   public ngOnInit(): void {
-    /**
-     * Need to use a timeout, otherwise the component won't
-     * exist on load; dumb, I know. - shannon
-     */
-    setTimeout(() => {
-      this.renderModalComponent();
-    }, 1);
   }
 
   /**
@@ -66,7 +59,7 @@ public Test: string;
    * User cancels
    */
   public OnCancel(val: boolean = false): void {
-    // this.dialogRef.close(val);
+    this.dialogRef.close(val);
   }
 
   /**
@@ -74,7 +67,7 @@ public Test: string;
    */
   public OnAction(): void {
     // this.Data.CallbackAction(true);
-    // this.dialogRef.close(true);
+    this.dialogRef.close(true);
   }
 
   // Helpers
@@ -82,9 +75,9 @@ public Test: string;
   /**
    * Render the component to use within the modal (this.Data.Component)
    */
-  protected renderModalComponent(): void {
-    debugger;
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
-    this.componentRef = this.vcRef.createComponent(factory);
-  }
-}
+//   protected renderModalComponent(): void {
+//     debugger;
+//     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
+//     this.componentRef = this.vcRef.createComponent(factory);
+//   }
+ }

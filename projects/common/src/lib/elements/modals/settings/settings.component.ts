@@ -1,6 +1,5 @@
 import { GenericModalService } from './../../../services/generic-modal.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'lcu-settings',

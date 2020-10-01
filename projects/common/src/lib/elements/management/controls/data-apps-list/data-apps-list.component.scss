@@ -1,6 +1,13 @@
+@import '../../../../../../assets/styles/common';
+
 :host ::ng-deep {
   .data-apps-actions {
     float: right;
+  }
+
+  .divider-fill-hor {
+    background-color: $divider;
+    height: $divider-size;
   }
 
   .data-app-list {

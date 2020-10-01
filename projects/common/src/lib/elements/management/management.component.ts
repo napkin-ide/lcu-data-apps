@@ -25,6 +25,7 @@ import {
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
 import { DataAppViewComponent } from './controls/data-app-view/data-app-view.component';
+import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
 
 export class LcuDataAppsManagementElementState {}
 
@@ -123,15 +124,34 @@ export class LcuDataAppsManagementElementComponent
    *
    */
   public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
-    if (confirm(`Are you sure you want to delete ${dafAppDelete.DisplayName}?`)) {
-      this.State.Loading = true;
+    // this.openDeleteModal();
+    // if (confirm(`Are you sure you want to sdsdf ${dafAppDelete.DisplayName}?`)) {
+    //   this.State.Loading = true;
 
-      this.dataAppsCtxt.DeleteDataDAFApp(
-        dafAppDelete.ApplicationID,
-        dafAppDelete.Lookups
-      );
-    }
-    // this.configureModal();
+    //   this.dataAppsCtxt.DeleteDataDAFApp(
+    //     dafAppDelete.ApplicationID,
+    //     dafAppDelete.Lookups
+    //   );
+    // }
+    this.openDeleteModal();
+  }
+
+  protected openDeleteModal(): void {
+    const confirm: ConfirmationComponent = new ConfirmationComponent();
+
+    setTimeout(() => {
+      const modalConfig: GenericModalModel = new GenericModalModel({
+        ModalType: 'confirm', // type of modal we want (data, confirm, info)
+        CallbackAction: null, // function exposed to the modal
+        Component: confirm, // set component to be used inside the modal
+        LabelCancel: 'Cancel',
+        LabelAction: 'OK',
+        Title: 'Delete Confirmation',
+        Width: '100%',
+      });
+
+      this.genericModalService.Open(modalConfig);
+    }, 100);
   }
 
   /**

@@ -60,7 +60,8 @@
               gdGap.lt-sm="1em"
             >
             <!--Want to use a modal for editing, but running into difficulties right now.
-            For now, just setting the below *ngIf to remove non-editable applications when in the edit mode-->
+            For now, just setting the below *ngIf to remove non-editable applications when in the edit mode
+            - shannon -->
               <ng-container *ngFor="let dafApp of DAFApplications">
                 <lcu-daf-app-card
                 *ngIf="(ActiveDAFApplicationID && !IsActiveDAFApplication(dafApp.ID)) == null ||
