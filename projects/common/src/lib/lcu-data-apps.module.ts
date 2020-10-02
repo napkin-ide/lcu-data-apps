@@ -21,6 +21,8 @@ import { GenericModalComponent } from './elements/modals/generic-modal/generic-m
 import { DataAppSecurityConfigsComponent } from './elements/management/controls/data-app-security-configs/data-app-security-configs.component';
 import { SettingsComponent } from './elements/modals/settings/settings.component';
 import { DataDafAppTypeComponent } from './elements/management/controls/data-daf-app-type/data-daf-app-type.component';
+import { DafAppLCUConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-lcu-config/daf-app-lcu-config.component';
+import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-package-select.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { DataDafAppTypeComponent } from './elements/management/controls/data-daf
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
@@ -42,7 +45,8 @@ import { DataDafAppTypeComponent } from './elements/management/controls/data-daf
     GenericModalComponent,
     DataAppSecurityConfigsComponent,
     SettingsComponent,
-    DataDafAppTypeComponent
+    DataDafAppTypeComponent,
+    NpmPackageSelectComponent
   ],
   imports: [
     FathymSharedModule,
@@ -61,6 +65,7 @@ import { DataDafAppTypeComponent } from './elements/management/controls/data-daf
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
@@ -71,6 +76,7 @@ import { DataDafAppTypeComponent } from './elements/management/controls/data-daf
     DataAppSecurityConfigsComponent,
     SettingsComponent,
     DataDafAppTypeComponent,
+    NpmPackageSelectComponent,
   ],
 entryComponents: [
   DataAppViewComponent,

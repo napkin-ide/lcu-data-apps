@@ -39,66 +39,17 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
   //  Life Cycle
   public ngOnDestroy(): void {
-    this.FormGroup.removeControl('npmPkg');
-
-    this.FormGroup.removeControl('pkgVer');
-
     this.FormGroup.removeControl('stateCfg');
   }
 
   public ngOnInit(): void {
     this.FormGroup.addControl(
-      'npmPkg',
-      new FormControl(!this.Details ? '' : this.Details.NPMPackage, [Validators.required])
-    );
-
-    this.FormGroup.addControl(
-      'pkgVer',
-      new FormControl(!this.Details ? '' : this.Details.PackageVersion, [Validators.required])
-    );
-
-    this.FormGroup.addControl(
       'stateCfg',
       new FormControl(JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}), [])
     );
-
-    this.FormGroup.controls.npmPkg.valueChanges
-      .pipe(
-        debounceTime(500),
-        switchMap((value) => this.npm.Search(value ? value.toString() : '')),
-        map((val) => {
-          return val.Model
-            ? val.Model.Items.map((i) => {
-                return {
-                  Name: i.package.name,
-                  Version: i.package.version,
-                  NPMLink: i.package.links.npm,
-                };
-              })
-            : [];
-        })
-      )
-      .subscribe((packages) => {
-        this.NPMPackages = packages;
-      });
   }
 
   //  API Methods
-  public PackageSelected(event: MatAutocompleteSelectedEvent) {
-    const pkg = this.NPMPackages.find((p) => p.Name === event.option.value);
-
-    if (!this.FormGroup.controls.pkgVer.value) {
-      this.FormGroup.controls.pkgVer.setValue(pkg.Version);
-
-      this.npm.Versions(pkg.Name).subscribe((pkgDetails: any) => {
-        const tags = Object.keys(pkgDetails['dist-tags']);
-
-        const versions = Object.keys(pkgDetails['versions']);
-
-        this.NPMPackageVersions = [...tags, ...versions];
-      });
-    }
-  }
 
   //  Helpers
 }
