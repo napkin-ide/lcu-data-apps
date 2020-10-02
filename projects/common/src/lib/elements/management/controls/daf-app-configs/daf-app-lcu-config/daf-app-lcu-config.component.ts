@@ -17,10 +17,10 @@ export class DafAppLCUConfigComponent implements OnDestroy, OnInit {
   public get Config(): { [key: string]: string } {
     return {
       Lookup: this.FormGroup.controls.lcuLookup.value,
-      // BaseHref: this.FormGroup.controls.baseHref.value,
+      BaseHresf: this.Details.BaseHref,
       NPMPackage: this.FormGroup.controls.npmPkg.value,
       PackageVersion: this.FormGroup.controls.pkgVer.value,
-      // StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
+      StateConfig: this.Details.StateConfig,
     };
   }
 

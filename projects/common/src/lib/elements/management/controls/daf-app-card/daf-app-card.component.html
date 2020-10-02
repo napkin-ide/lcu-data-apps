@@ -33,6 +33,16 @@
           </ng-container>
 
           <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU"
+          >
+            <h4>
+              {{ DAFConfig.LCU.Lookup }} - {{ DAFConfig.LCU.NPMPackage }}@{{
+                DAFConfig.LCU.PackageVersion
+              }}
+            </h4>
+          </ng-container>
+
+          <ng-container
             *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect"
           >
             <h4>{{ DAFConfig.Redirect.Redirect }}</h4>
