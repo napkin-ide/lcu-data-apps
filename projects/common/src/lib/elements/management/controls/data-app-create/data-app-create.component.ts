@@ -91,6 +91,7 @@ export class DataAppCreateComponent implements OnInit {
       Description: this.CreateDataAppFormGroup.controls.desc.value,
       Name: this.CreateDataAppFormGroup.controls.name.value,
       Path: `${appRootBase}${this.CreateDataAppFormGroup.controls.path.value}`,
+      Priority: this.CreateDataAppFormGroup.controls.priority.value,
       Security: {
         AccessRights: this.CreateDataAppFormGroup.controls.accRights.value,
         IsPrivate:

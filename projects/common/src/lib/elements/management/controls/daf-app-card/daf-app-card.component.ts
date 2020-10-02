@@ -111,9 +111,6 @@ export class DafAppCardComponent implements OnInit {
 
   public EditDataAppFormGroup: FormGroup;
 
-  @Input('supported-daf-app-types')
-  public SupportedDAFAppTypes: DataDAFAppTypes[];
-
   @Input('is-blocked')
   public IsBlocked: boolean;
 
@@ -142,6 +139,9 @@ export class DafAppCardComponent implements OnInit {
 
   @Output('saved')
   public Saved: EventEmitter<DataDAFAppDetails>;
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
@@ -204,6 +204,7 @@ export class DafAppCardComponent implements OnInit {
       Description: this.EditDataAppFormGroup.controls.desc.value,
       Name: this.EditDataAppFormGroup.controls.name.value,
       Path: `${this.PathGroup}/${this.EditDataAppFormGroup.controls.path.value}`,
+      Priority: this.EditDataAppFormGroup.controls.priority.value,
       Security: {
         AccessRights: this.EditDataAppFormGroup.controls.accRights.value,
         IsPrivate: this.EditDataAppFormGroup.controls.isPrivate.value || false,
