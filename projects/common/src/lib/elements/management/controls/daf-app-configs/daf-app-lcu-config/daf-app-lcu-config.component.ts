@@ -14,6 +14,16 @@ export class DafAppLCUConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get Config(): { [key: string]: string } {
+    return {
+      Lookup: this.FormGroup.controls.lcuLookup.value,
+      // BaseHref: this.FormGroup.controls.baseHref.value,
+      NPMPackage: this.FormGroup.controls.npmPkg.value,
+      PackageVersion: this.FormGroup.controls.pkgVer.value,
+      // StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
+    };
+  }
+
   @Input('details')
   public Details: DAFLCUApplicationDetails;
 

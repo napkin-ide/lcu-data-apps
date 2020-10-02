@@ -84,6 +84,13 @@ export class DafAppCardComponent implements OnInit {
         ID: this.DAFApplication.Configs['']['DAFApplicationID'],
         Root: this.DAFApplication.Configs['']['DAFApplicationRoot'],
       },
+      LCU: {
+        Lookup: this.DAFApplication.Configs[''].Lookup || '',
+        BaseHref: this.DAFApplication.Configs[''].BaseHref,
+        NPMPackage: this.DAFApplication.Configs[''].NPMPackage,
+        PackageVersion: this.DAFApplication.Configs[''].PackageVersion,
+        StateConfig: this.DAFApplication.Configs[''].StateConfig
+      },
       Redirect: {
         Redirect: this.DAFApplication.Configs[''].Redirect,
       },
