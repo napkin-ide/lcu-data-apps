@@ -197,6 +197,13 @@ export class DafAppCardComponent implements OnInit {
   }
 
   public Save() {
+    const appRootBase = this.PathGroup;
+
+    const path =
+      this.DAFApplication.DAFAppType === DataDAFAppTypes.LCU
+        ? this.EditDataAppFormGroup.controls.lcuLookup.value
+        : this.EditDataAppFormGroup.controls.path.value;
+
     const toSave = {
       ID: this.DAFApplication.ID,
       Configs: this.DAFAppConfigs.Configs,

@@ -32,13 +32,17 @@
   </mat-form-field>
 
   <lcu-data-daf-app-type
+    *ngIf="!HideAppType"
     [data-daf-app-type]="DataDafAppType"
     [data-daf-app-type-options]="SupportedDAFAppTypes"
     [form-group]="FormGroup"
   ></lcu-data-daf-app-type>
 
   <ng-container *ngIf="SelectedDAFAppType">
-    <mat-form-field class="mat-full-width">
+    <mat-form-field
+      class="mat-full-width"
+      [fxHide]="SelectedDAFAppType == DataDAFAppTypes.LCU"
+    >
       <span matPrefix>{{ PathRoot }}</span>
 
       <input matInput placeholder="Path" formControlName="path" />

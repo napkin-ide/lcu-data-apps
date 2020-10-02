@@ -29,11 +29,16 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   @Input('data-daf-app-type')
   public DataDafAppType: DataDAFAppTypes;
 
+  public DataDAFAppTypes = DataDAFAppTypes;
+
   @Input('description')
   public Description: string;
 
   @Input('form-group')
   public FormGroup: FormGroup;
+
+  @Input('hide-app-type')
+  public HideAppType: boolean;
 
   @Input('hide-priority')
   public HidePriority: boolean;
@@ -51,7 +56,7 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   public Priority: string;
 
   public get SelectedDAFAppType(): DataDAFAppTypes {
-    return this.FormGroup.controls.dataAppType.value;
+    return this.FormGroup.controls.dataAppType ? this.FormGroup.controls.dataAppType.value : this.DataDafAppType;
   }
 
   @Input('supported-daf-app-types')
