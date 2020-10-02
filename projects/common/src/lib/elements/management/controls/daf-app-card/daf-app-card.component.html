@@ -1,4 +1,4 @@
-<form [formGroup]="EditDataAppFormGroup">
+<form [formGroup]="EditDataAppFormGroup" (ngSubmit)="Save()">
   <mat-card [class.expanded]="IsExpanded">
     <mat-card-header>
       <lcu-data-app-stati
@@ -15,7 +15,7 @@
       </mat-card-title>
 
       <mat-card-subtitle class="mat-subheading-1">
-        {{ DAFApplication.Path }}
+        {{ DAFApplication.Path }} ({{ DAFApplication.Priority }})
       </mat-card-subtitle>
     </mat-card-header>
 
@@ -28,6 +28,16 @@
             <h4>
               {{ DAFConfig.View.NPMPackage }}@{{
                 DAFConfig.View.PackageVersion
+              }}
+            </h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU"
+          >
+            <h4>
+              {{ DAFConfig.LCU.Lookup }} - {{ DAFConfig.LCU.NPMPackage }}@{{
+                DAFConfig.LCU.PackageVersion
               }}
             </h4>
           </ng-container>
@@ -48,7 +58,9 @@
             *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API"
           >
             <ng-container *ngFor="let apiConfig of DAFConfig.API">
-              <h4>{{ apiConfig.Lookup || '~default~' }} - {{ apiConfig.APIRoot }}</h4>
+              <h4>
+                {{ apiConfig.Lookup || "~default~" }} - {{ apiConfig.APIRoot }}
+              </h4>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -56,50 +68,50 @@
         <ng-container *ngIf="IsEdit">
           <mat-tab-group mat-stretch-tabs>
             <mat-tab label="Details">
-              <lcu-data-app-config
-                class="spread"
-                [app-paths]="ApplicationPaths"
-                [form-group]="EditDataAppFormGroup"
-                [name]="DAFApplication.Name"
-                [description]="DAFApplication.Description"
-                [path]="CleanPath()"
-                [path-root]="PathGroup + '/'"
-              ></lcu-data-app-config>
-            </mat-tab>
-
-            <mat-tab label="Config">
-              <div [ngSwitch]="DAFApplication.DAFAppType" class="spread">
-                <ng-container *ngSwitchCase="DataDAFAppTypes.API">
-                  <lcu-daf-app-api-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-api-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
-                  <lcu-daf-app-pointer-config
-                    [daf-app-options]="DAFAppOptions"
-                    [daf-app-id]="DAFConfig.DAFAppPointer.ID"
-                    [daf-app-root]="DAFConfig.DAFAppPointer.Root"
-                    [daf-app-root-base]="PathGroup + '/'"
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-pointer-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
-                  <lcu-daf-app-redirect-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-redirect-config>
-                </ng-container>
-
-                <ng-container *ngSwitchCase="DataDAFAppTypes.View">
-                  <lcu-daf-app-view-config
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-daf-app-view-config>
-                </ng-container>
+              <div class="spread">
+                <lcu-data-app-config
+                  [app-paths]="ApplicationPaths"
+                  [form-group]="EditDataAppFormGroup"
+                  [name]="DAFApplication.Name"
+                  [description]="DAFApplication.Description"
+                  [path]="CleanPath()"
+                  [path-root]="PathGroup + '/'"
+                  [priority]="DAFApplication.Priority"
+                ></lcu-data-app-config>
               </div>
             </mat-tab>
 
-            <mat-tab label="Security"> Content 3 </mat-tab>
+            <mat-tab label="Config">
+              <div class="spread">
+                <!--
+                  TODO:  Maybe support changing an application type?
+
+                  <lcu-data-daf-app-type
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
+                  [data-daf-app-type-options]="SupportedDAFAppTypes"
+                  [form-group]="EditDataAppFormGroup"
+                ></lcu-data-daf-app-type>
+                 -->
+
+                <lcu-daf-app-configs
+                  [form-group]="EditDataAppFormGroup"
+                  [daf-app-type]="DAFApplication.DAFAppType"
+                  [daf-application]="DAFApplication"
+                  [daf-app-options]="DAFAppOptions"
+                  [daf-app-root-base]="PathGroup + '/'"
+                ></lcu-daf-app-configs>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Security">
+              <div class="spread">
+                <lcu-data-app-security-configs
+                  [access-right-options]="AccessRightOptions"
+                  [form-group]="EditDataAppFormGroup"
+                  [security]="DAFApplication.Security"
+                ></lcu-data-app-security-configs>
+              </div>
+            </mat-tab>
           </mat-tab-group>
         </ng-container>
       </div>
@@ -122,7 +134,9 @@
             <mat-icon>edit</mat-icon>
           </button>
 
-          <button mat-icon-button><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button (click)="DAFAppDeleteClick()">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
 
         <div class="data-app-fakes">

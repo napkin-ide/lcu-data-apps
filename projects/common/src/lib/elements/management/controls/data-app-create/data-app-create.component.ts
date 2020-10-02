@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import {
   DataDAFAppDetails,
   DataDAFAppTypes,
@@ -19,6 +26,9 @@ export class DataAppCreateComponent implements OnInit {
   //  Fields
 
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('app-root-base')
   public AppRootBase: string;
 
@@ -29,7 +39,7 @@ export class DataAppCreateComponent implements OnInit {
   public Canceled: EventEmitter<{}>;
 
   @ViewChild(DafAppConfigsComponent)
-  public DafAppConfigs: DafAppConfigsComponent;
+  public DAFAppConfigs: DafAppConfigsComponent;
 
   public CreateDataAppFormGroup: FormGroup;
 
@@ -44,6 +54,9 @@ export class DataAppCreateComponent implements OnInit {
   public get SelectedDAFAppType(): DataDAFAppTypes {
     return this.CreateDataAppFormGroup.controls.dataAppType.value;
   }
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
@@ -70,13 +83,21 @@ export class DataAppCreateComponent implements OnInit {
   }
 
   public Save() {
+    const appRootBase = this.AppRootBase || '';
 
     const toSave = {
-      Configs: this.DafAppConfigs.Configs,
-      DAFAppType: this.CreateDataAppFormGroup.controls.dafAppType.value,
+      Configs: this.DAFAppConfigs.Configs,
+      DAFAppType: this.CreateDataAppFormGroup.controls.dataAppType.value,
       Description: this.CreateDataAppFormGroup.controls.desc.value,
       Name: this.CreateDataAppFormGroup.controls.name.value,
-      Path: this.CreateDataAppFormGroup.controls.path.value
+      Path: `${appRootBase}${this.CreateDataAppFormGroup.controls.path.value}`,
+      Priority: this.CreateDataAppFormGroup.controls.priority.value,
+      Security: {
+        AccessRights: this.CreateDataAppFormGroup.controls.accRights.value,
+        IsPrivate:
+          this.CreateDataAppFormGroup.controls.isPrivate.value || false,
+        Licenses: this.CreateDataAppFormGroup.controls.licenses.value,
+      },
     } as DataDAFAppDetails;
 
     this.Saved.emit(toSave);

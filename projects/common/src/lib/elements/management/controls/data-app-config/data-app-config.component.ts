@@ -40,6 +40,9 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   @Input('path-root')
   public PathRoot: string;
 
+  @Input('priority')
+  public Priority: string;
+
   //  Constructors
   constructor() {
     this.PathRoot = '/';
@@ -52,6 +55,8 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
     this.FormGroup.removeControl('desc');
 
     this.FormGroup.removeControl('path');
+
+    this.FormGroup.removeControl('priority');
   }
 
   public ngOnInit(): void {
@@ -66,6 +71,8 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
     );
 
     this.FormGroup.addControl('path', new FormControl(this.Path, []));
+
+    this.FormGroup.addControl('priority', new FormControl(this.Priority || 0, []));
   }
 
   //  API Methods

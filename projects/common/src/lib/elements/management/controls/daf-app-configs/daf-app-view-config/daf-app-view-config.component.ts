@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { DAFViewApplicationDetails } from '@lcu/common';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../../../core/npm.service';
 
@@ -17,9 +18,12 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
     return {
       NPMPackage: this.FormGroup.controls.npmPkg.value,
       PackageVersion: this.FormGroup.controls.pkgVer.value,
-      StateConfig: this.FormGroup.controls.stateCfg.value,
+      StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
     };
   }
+
+  @Input('details')
+  public Details: DAFViewApplicationDetails;
 
   @Input('form-group')
   public FormGroup: FormGroup;
@@ -29,67 +33,23 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   public NPMPackageVersions: string[];
 
   //  Constructors
-  constructor(protected npm: NPMService) {}
+  constructor(protected npm: NPMService) {
+    this.Details = {};
+  }
 
   //  Life Cycle
   public ngOnDestroy(): void {
-    this.FormGroup.removeControl('npmPkg');
-
-    this.FormGroup.removeControl('pkgVer');
-
     this.FormGroup.removeControl('stateCfg');
   }
 
   public ngOnInit(): void {
     this.FormGroup.addControl(
-      'npmPkg',
-      new FormControl('', [Validators.required])
+      'stateCfg',
+      new FormControl(JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}), [])
     );
-
-    this.FormGroup.addControl(
-      'pkgVer',
-      new FormControl('', [Validators.required])
-    );
-
-    this.FormGroup.addControl('stateCfg', new FormControl('{}', []));
-
-    this.FormGroup.controls.npmPkg.valueChanges
-      .pipe(
-        debounceTime(500),
-        switchMap((value) => this.npm.Search(value ? value.toString() : '')),
-        map((val) => {
-          return val.Model
-            ? val.Model.Items.map((i) => {
-                return {
-                  Name: i.package.name,
-                  Version: i.package.version,
-                  NPMLink: i.package.links.npm,
-                };
-              })
-            : [];
-        })
-      )
-      .subscribe((packages) => {
-        this.NPMPackages = packages;
-      });
   }
 
   //  API Methods
-  public PackageSelected(event: MatAutocompleteSelectedEvent) {
-    const pkg = this.NPMPackages.find((p) => p.Name === event.option.value);
-
-    if (!this.FormGroup.controls.pkgVer.value) {
-      this.FormGroup.controls.pkgVer.setValue(pkg.Version);
-
-      this.npm.Versions(pkg.Name).subscribe((pkgDetails: any) => {
-        const tags = Object.keys(pkgDetails['dist-tags']);
-
-        const versions = Object.keys(pkgDetails['versions']);
-
-        this.NPMPackageVersions = [...tags, ...versions];
-      });
-    }
-  }
 
   //  Helpers
 }

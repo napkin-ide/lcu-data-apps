@@ -2,26 +2,39 @@
   <ng-container *ngSwitchCase="DataDAFAppTypes.API">
     <lcu-daf-app-api-config
       [form-group]="FormGroup"
-    ></lcu-daf-app-api-config>
+      [details]="DAFConfig.API"
+      ></lcu-daf-app-api-config>
   </ng-container>
 
-  <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
+  <!-- <ng-container *ngSwitchCase="DataDAFAppTypes.DAFAppPointer">
     <lcu-daf-app-pointer-config
       [daf-app-options]="DAFAppOptions"
-      [daf-app-root-base]="DAFAppRootBase"
       [form-group]="FormGroup"
+      [details]="DAFConfig.DAFAppPointer"
     ></lcu-daf-app-pointer-config>
+  </ng-container> -->
+  <!-- [daf-app-id]="DAFConfig.DAFAppPointer.ID"
+  [daf-app-root]="DAFConfig.DAFAppPointer.Root"
+  [daf-app-root-base]="PathGroup + '/'" -->
+
+  <ng-container *ngSwitchCase="DataDAFAppTypes.LCU">
+    <lcu-daf-app-lcu-config
+      [form-group]="FormGroup"
+      [details]="DAFConfig.LCU"
+    ></lcu-daf-app-lcu-config>
   </ng-container>
 
   <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
     <lcu-daf-app-redirect-config
       [form-group]="FormGroup"
+      [details]="DAFConfig.Redirect"
     ></lcu-daf-app-redirect-config>
   </ng-container>
 
   <ng-container *ngSwitchCase="DataDAFAppTypes.View">
     <lcu-daf-app-view-config
       [form-group]="FormGroup"
+      [details]="DAFConfig.View"
     ></lcu-daf-app-view-config>
   </ng-container>
 </div>

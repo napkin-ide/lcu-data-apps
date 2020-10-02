@@ -6,6 +6,7 @@ import {
   ApplicationRef,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DAFAPIApplicationDetails } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-api-config',
@@ -22,16 +23,21 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
         APIRoot: this.FormGroup.controls.apiRoot.value,
         InboundPath: this.FormGroup.controls.inboundPath.value,
         Methods: this.FormGroup.controls.methods.value,
-        Security: this.FormGroup.controls.security.value
+        Security: this.FormGroup.controls.security.value,
       },
     };
   }
+
+  @Input('details')
+  public Details: DAFAPIApplicationDetails & { Lookup?: string };
 
   @Input('form-group')
   public FormGroup: FormGroup;
 
   //  Constructors
-  constructor(protected appRef: ApplicationRef) {}
+  constructor(protected appRef: ApplicationRef) {
+    this.Details = {};
+  }
 
   //  Life Cycle
   public ngOnDestroy(): void {
@@ -49,27 +55,27 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'apiRoot',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.APIRoot, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'inboundPath',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.InboundPath, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'methods',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.Methods, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'security',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.Security, [Validators.required])
     );
 
     this.FormGroup.addControl(
       'lookup',
-      new FormControl('', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.Lookup, [Validators.required])
     );
   }
 

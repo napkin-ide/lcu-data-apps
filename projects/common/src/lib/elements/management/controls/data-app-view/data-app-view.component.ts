@@ -7,8 +7,12 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { DataAppDetails } from '../../../../state/data-apps-management.state';
-import { DataDAFAppDetails } from '../../../../state/data-apps-management.state';
+import {
+  DataAppDetails,
+  DataDAFAppDelete,
+  DataDAFAppDetails,
+  DataDAFAppTypes,
+} from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-view',
@@ -20,6 +24,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   protected activeDafAppId: string;
 
   //  Properties
+  @Input('access-right-options')
+  public AccessRightOptions: string[];
+
   @Input('active-daf-application')
   public get ActiveDAFApplicationID(): string {
     return this.activeDafAppId;
@@ -40,6 +47,16 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Output('application-tab-click')
   public ApplicationTabClicked: EventEmitter<number>;
 
+  public get AppRootBase(): string {
+    let appRootBase = this.Application.PathGroup + '/';
+
+    if (appRootBase === '//') {
+      appRootBase = '/';
+    }
+
+    return appRootBase;
+  }
+
   @Output('back-click')
   public BackClicked: EventEmitter<{}>;
 
@@ -52,8 +69,17 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Input('daf-app-options')
   public DAFAppOptions: { [key: string]: string };
 
-  @Output('daf-settings-click')
+  @Output('daf-app-saved')
+  public DAFAppSaved: EventEmitter<DataDAFAppDetails>;
+
+  @Output('delete')
+  public DAFDeleteClicked: EventEmitter<DataDAFAppDelete>;
+
+  @Output('settings')
   public DAFSettingsClicked: EventEmitter<DataDAFAppDetails>;
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   public IsCreating: boolean;
 
@@ -65,6 +91,10 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.ApplicationTabClicked = new EventEmitter<number>();
 
     this.BackClicked = new EventEmitter<DataAppDetails>();
+
+    this.DAFAppSaved = new EventEmitter<DataDAFAppDetails>();
+
+    this.DAFDeleteClicked = new EventEmitter<DataDAFAppDelete>();
 
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
   }
@@ -81,6 +111,10 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.BackClicked.emit(this.Application);
   }
 
+  public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
+    this.DAFDeleteClicked.emit(dafAppDelete);
+  }
+
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
     this.DAFSettingsClicked.emit(dafApp);
   }
@@ -89,8 +123,16 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     return this.ActiveDAFApplicationID === dafAppId;
   }
 
+  public SaveDAFApp(dafApp: DataDAFAppDetails) {
+    this.DAFAppSaved.emit(dafApp);
+  }
+
   public SetApplicationTab(index: number) {
     this.ApplicationTabClicked.emit(index);
+  }
+
+  public ToggleCreatingNewApp() {
+    this.IsCreating = !this.IsCreating;
   }
 
   //  Helpers
@@ -105,7 +147,7 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
         if (appCfgEl) {
           appCfgEl.scrollIntoView({
-            block: 'center'
+            block: 'center',
           });
         }
       }

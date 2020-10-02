@@ -14,6 +14,16 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
   }
 
   //  API Methods
+  public DeleteDataDAFApp(appId: string, lookups: string[]) {
+    this.Execute({
+      Arguments: {
+        ApplicationID: appId,
+        Lookups: lookups
+      },
+      Type: 'DeleteDataDAFApp'
+    });
+  }
+
   public SaveDataDAFApp(dafApp: DataDAFAppDetails) {
     this.Execute({
       Arguments: {

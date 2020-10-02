@@ -1,21 +1,4 @@
 import { NgModule } from '@angular/core';
-// import {
-//   MatButtonModule,
-//   MatListModule,
-//   MatToolbarModule,
-//   MatProgressSpinnerModule,
-//   MatProgressBarModule,
-//   MatSidenavModule,
-//   MatIconModule,
-//   MatCardModule,
-//   MatFormFieldModule,
-//   MatInputModule,
-//   MatChipsModule,
-//   MatTabsModule,
-//   MatExpansionModule,
-//   MatAutocompleteModule,
-//   MatTooltipModule
-// } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FathymSharedModule, MaterialModule } from '@lcu/common';
 import { DataAppsConfigManagerElementComponent } from './elements/ide/config-manager/config-manager-element.component';
@@ -33,6 +16,13 @@ import { DafAppRedirectConfigComponent } from './elements/management/controls/da
 import { DafAppPointerConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-pointer-config/daf-app-pointer-config.component';
 import { DataAppConfigComponent } from './elements/management/controls/data-app-config/data-app-config.component';
 import { DafAppConfigsComponent } from './elements/management/controls/daf-app-configs/daf-app-configs.component';
+import { ConfirmationComponent } from './elements/modals/confirmation/confirmation.component';
+import { GenericModalComponent } from './elements/modals/generic-modal/generic-modal.component';
+import { DataAppSecurityConfigsComponent } from './elements/management/controls/data-app-security-configs/data-app-security-configs.component';
+import { SettingsComponent } from './elements/modals/settings/settings.component';
+import { DataDafAppTypeComponent } from './elements/management/controls/data-daf-app-type/data-daf-app-type.component';
+import { DafAppLCUConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-lcu-config/daf-app-lcu-config.component';
+import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-package-select.component';
 
 @NgModule({
   declarations: [
@@ -45,11 +35,18 @@ import { DafAppConfigsComponent } from './elements/management/controls/daf-app-c
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
     DataAppConfigComponent,
     DafAppConfigsComponent,
+    ConfirmationComponent,
+    GenericModalComponent,
+    DataAppSecurityConfigsComponent,
+    SettingsComponent,
+    DataDafAppTypeComponent,
+    NpmPackageSelectComponent
   ],
   imports: [
     FathymSharedModule,
@@ -68,12 +65,25 @@ import { DafAppConfigsComponent } from './elements/management/controls/daf-app-c
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
     DataAppConfigComponent,
     DafAppConfigsComponent,
+    ConfirmationComponent,
+    GenericModalComponent,
+    DataAppSecurityConfigsComponent,
+    SettingsComponent,
+    DataDafAppTypeComponent,
+    NpmPackageSelectComponent,
   ],
-entryComponents: [DataAppsConfigManagerElementComponent, LcuDataAppsManagementElementComponent]
+entryComponents: [
+  DataAppViewComponent,
+  GenericModalComponent,
+  DataAppsConfigManagerElementComponent,
+  LcuDataAppsManagementElementComponent,
+  ConfirmationComponent,
+  SettingsComponent]
 })
 export class LcuDataAppsModule {}
