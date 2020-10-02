@@ -12,6 +12,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { DataDAFAppTypes } from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-app-config',
@@ -25,11 +26,17 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
   @Input('app-paths')
   public ApplicationPaths: string[];
 
+  @Input('data-daf-app-type')
+  public DataDafAppType: DataDAFAppTypes;
+
   @Input('description')
   public Description: string;
 
   @Input('form-group')
   public FormGroup: FormGroup;
+
+  @Input('hide-priority')
+  public HidePriority: boolean;
 
   @Input('name')
   public Name: string;
@@ -42,6 +49,13 @@ export class DataAppConfigComponent implements OnDestroy, OnInit {
 
   @Input('priority')
   public Priority: string;
+
+  public get SelectedDAFAppType(): DataDAFAppTypes {
+    return this.FormGroup.controls.dataAppType.value;
+  }
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   //  Constructors
   constructor() {

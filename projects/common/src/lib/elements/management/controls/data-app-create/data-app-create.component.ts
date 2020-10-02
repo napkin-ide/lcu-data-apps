@@ -38,6 +38,19 @@ export class DataAppCreateComponent implements OnInit {
   @Output('canceled')
   public Canceled: EventEmitter<{}>;
 
+  public get ComputedAppRootBase(): string {
+    switch (this.SelectedDAFAppType) {
+      case DataDAFAppTypes.API:
+        return '/api/';
+
+      case DataDAFAppTypes.LCU:
+        return '/_lcu/';
+
+      default:
+        return this.AppRootBase || '';
+    }
+  }
+
   @ViewChild(DafAppConfigsComponent)
   public DAFAppConfigs: DafAppConfigsComponent;
 
@@ -83,7 +96,7 @@ export class DataAppCreateComponent implements OnInit {
   }
 
   public Save() {
-    const appRootBase = this.AppRootBase || '';
+    const appRootBase = this.ComputedAppRootBase;
 
     const toSave = {
       Configs: this.DAFAppConfigs.Configs,
