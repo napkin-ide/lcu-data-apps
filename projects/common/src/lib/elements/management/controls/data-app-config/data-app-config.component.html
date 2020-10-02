@@ -45,16 +45,16 @@
   </mat-form-field>
 
   <mat-form-field class="mat-full-width">
-    <textarea
+    <input
       matInput
       placeholder="Priority"
       formControlName="priority"
       required
-    ></textarea>
+    />
 
     <mat-icon
       matSuffix
-      matTooltip="This field is used to determine the overall priority of the application and the order in which matching logic will process it.  THe higher the order, the sooner it will be processed."
+      matTooltip="This field is used to determine the overall priority of the application and the order in which matching logic will process it.  THe higher the order, the sooner it will be processed.  Leave at 0 to be system processed."
     >
       info_outline
     </mat-icon>
