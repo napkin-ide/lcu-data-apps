@@ -17,15 +17,17 @@
         mat-tab-link
         (click)="SetApplicationTab(0)"
         [active]="CurrentApplicationTab == 0"
-        >Insights</a
       >
+        Application Flow
+      </a>
 
       <a
         mat-tab-link
         (click)="SetApplicationTab(1)"
         [active]="CurrentApplicationTab == 1"
-        >ApplicationFlow</a
       >
+        Insights
+      </a>
     </nav>
   </div>
 
@@ -35,19 +37,16 @@
 
   <ng-container *ngIf="!Loading">
     <div class="tabs-content">
-      <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 0">
-        <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
-      </div>
-
-      <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 1">
+      <div class="tabs-content-app-Flow" *ngIf="CurrentApplicationTab == 0">
         <div class="application-flow">
-          <div class="application-flow-header spread">
-            <div fxFlex></div>
+          <ng-container *ngIf="!IsCreating">
+            <div class="application-flow-header spread">
+              <div fxFlex></div>
 
-            <button mat-raised-button>
-              <mat-icon color="primary">add</mat-icon> Create New
-            </button>
-          </div>
+              <button mat-raised-button (click)="ToggleCreatingNewApp()">
+                <mat-icon color="primary">add</mat-icon> Create New
+              </button>
+            </div>
 
           <div class="application-configs">
             <div
@@ -84,8 +83,24 @@
                 ></lcu-daf-app-card>
               </ng-container>
             </div>
-          </div>
+          </ng-container>
+
+          <ng-container *ngIf="IsCreating">
+            <lcu-data-app-create
+              [access-right-options]="AccessRightOptions"
+              [app-paths]="ApplicationPaths"
+              [app-root-base]="AppRootBase"
+              [daf-app-options]="DAFAppOptions"
+              [supported-daf-app-types]="SupportedDAFAppTypes"
+              (canceled)="ToggleCreatingNewApp()"
+              (saved)="SaveDAFApp($event)"
+            ></lcu-data-app-create>
+          </ng-container>
         </div>
+      </div>
+
+      <div class="tabs-content-insights" *ngIf="CurrentApplicationTab == 1">
+        <div class="insight"><h2>Coming to a Sprint near you!</h2></div>
       </div>
     </div>
   </ng-container>

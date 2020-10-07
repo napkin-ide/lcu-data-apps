@@ -21,6 +21,7 @@ import {
   DataAppDetails,
   DataDAFAppDetails,
   DataDAFAppDelete,
+  DataDAFAppTypes,
 } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
@@ -67,6 +68,14 @@ export class LcuDataAppsManagementElementComponent
       : null;
   }
 
+  public get ActiveFixedApp(): DataAppDetails {
+    return this.State.ActiveAppPathGroup
+      ? this.State.FixedApplications.find(
+          (app) => app.PathGroup === this.State.ActiveAppPathGroup
+        )
+      : null;
+  }
+
   public get ApplicationPaths(): string[] {
     return this.State.Applications
       ? this.State.Applications.map((app) => app.PathGroup)
@@ -78,6 +87,37 @@ export class LcuDataAppsManagementElementComponent
   }
 
   public State: DataAppsManagementState;
+
+  public get SupportedDAFAppTypes(): DataDAFAppTypes[] {
+    if (this.ActiveFixedApp != null) {
+      const activeAppType = this.State.DAFApplications[0].DAFAppType;
+
+      if (
+        activeAppType === DataDAFAppTypes.API ||
+        activeAppType === DataDAFAppTypes.LCU
+      ) {
+        return [activeAppType];
+      } else if (
+        activeAppType === DataDAFAppTypes.Redirect ||
+        activeAppType === DataDAFAppTypes.View ||
+        activeAppType === DataDAFAppTypes.ViewZip ||
+        activeAppType === DataDAFAppTypes.ViewGit
+      ) {
+        return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
+      }
+    }
+
+    if (this.ActiveApp != null) {
+      return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
+    }
+
+    return [
+      DataDAFAppTypes.View,
+      DataDAFAppTypes.Redirect,
+      DataDAFAppTypes.API,
+      DataDAFAppTypes.LCU,
+    ];
+  }
 
   //  Constructors
   constructor(

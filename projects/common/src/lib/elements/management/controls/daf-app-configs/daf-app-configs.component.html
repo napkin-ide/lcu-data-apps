@@ -17,6 +17,13 @@
   [daf-app-root]="DAFConfig.DAFAppPointer.Root"
   [daf-app-root-base]="PathGroup + '/'" -->
 
+  <ng-container *ngSwitchCase="DataDAFAppTypes.LCU">
+    <lcu-daf-app-lcu-config
+      [form-group]="FormGroup"
+      [details]="DAFConfig.LCU"
+    ></lcu-daf-app-lcu-config>
+  </ng-container>
+
   <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
     <lcu-daf-app-redirect-config
       [form-group]="FormGroup"

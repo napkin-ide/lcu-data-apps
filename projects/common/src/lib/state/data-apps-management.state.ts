@@ -83,4 +83,7 @@ export enum DataDAFAppTypes {
   API = 'API',
   Redirect = 'Redirect',
   DAFAppPointer = 'DAFAppPointer',
+  LCU = 'LCU',
+  ViewZip = 'ViewZip',
+  ViewGit = 'ViewGit',
 }

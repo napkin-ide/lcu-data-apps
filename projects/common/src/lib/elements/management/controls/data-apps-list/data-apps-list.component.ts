@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DataAppDetails } from '../../../../state/data-apps-management.state';
-import { DataDAFAppDetails } from './../../../../state/data-apps-management.state';
+import { DataAppDetails, DataDAFAppDetails, DataDAFAppTypes } from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-apps-list',
@@ -34,6 +33,9 @@ export class DataAppsListComponent implements OnInit {
 
   @Output('settings')
   public SettingsClicked: EventEmitter<DataAppDetails>;
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   //  Constructors
   constructor() {

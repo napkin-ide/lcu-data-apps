@@ -20,6 +20,9 @@ import { ConfirmationComponent } from './elements/modals/confirmation/confirmati
 import { GenericModalComponent } from './elements/modals/generic-modal/generic-modal.component';
 import { DataAppSecurityConfigsComponent } from './elements/management/controls/data-app-security-configs/data-app-security-configs.component';
 import { SettingsComponent } from './elements/modals/settings/settings.component';
+import { DataDafAppTypeComponent } from './elements/management/controls/data-daf-app-type/data-daf-app-type.component';
+import { DafAppLCUConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-lcu-config/daf-app-lcu-config.component';
+import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-package-select.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
@@ -40,7 +44,9 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     ConfirmationComponent,
     GenericModalComponent,
     DataAppSecurityConfigsComponent,
-    SettingsComponent
+    SettingsComponent,
+    DataDafAppTypeComponent,
+    NpmPackageSelectComponent
   ],
   imports: [
     FathymSharedModule,
@@ -59,6 +65,7 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     DataAppStatiComponent,
     DataAppCreateComponent,
     DafAppViewConfigComponent,
+    DafAppLCUConfigComponent,
     DafAppApiConfigComponent,
     DafAppRedirectConfigComponent,
     DafAppPointerConfigComponent,
@@ -68,6 +75,8 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
     GenericModalComponent,
     DataAppSecurityConfigsComponent,
     SettingsComponent,
+    DataDafAppTypeComponent,
+    NpmPackageSelectComponent,
   ],
 entryComponents: [
   DataAppViewComponent,

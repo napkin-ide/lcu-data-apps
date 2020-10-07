@@ -84,6 +84,13 @@ export class DafAppCardComponent implements OnInit {
         ID: this.DAFApplication.Configs['']['DAFApplicationID'],
         Root: this.DAFApplication.Configs['']['DAFApplicationRoot'],
       },
+      LCU: {
+        Lookup: this.DAFApplication.Configs[''].Lookup || '',
+        BaseHref: this.DAFApplication.Configs[''].BaseHref,
+        NPMPackage: this.DAFApplication.Configs[''].NPMPackage,
+        PackageVersion: this.DAFApplication.Configs[''].PackageVersion,
+        StateConfig: this.DAFApplication.Configs[''].StateConfig
+      },
       Redirect: {
         Redirect: this.DAFApplication.Configs[''].Redirect,
       },
@@ -132,6 +139,9 @@ export class DafAppCardComponent implements OnInit {
 
   @Output('saved')
   public Saved: EventEmitter<DataDAFAppDetails>;
+
+  @Input('supported-daf-app-types')
+  public SupportedDAFAppTypes: DataDAFAppTypes[];
 
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
@@ -195,6 +205,7 @@ export class DafAppCardComponent implements OnInit {
       Description: this.EditDataAppFormGroup.controls.desc.value,
       Name: this.EditDataAppFormGroup.controls.name.value,
       Path: `${this.PathGroup}/${this.EditDataAppFormGroup.controls.path.value}`,
+      Priority: this.EditDataAppFormGroup.controls.priority.value,
       Security: {
         AccessRights: this.EditDataAppFormGroup.controls.accRights.value,
         IsPrivate: this.EditDataAppFormGroup.controls.isPrivate.value || false,

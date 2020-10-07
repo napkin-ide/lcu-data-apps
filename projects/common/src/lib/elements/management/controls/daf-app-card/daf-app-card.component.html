@@ -16,7 +16,7 @@
       </mat-card-title>
 
       <mat-card-subtitle class="mat-subheading-1">
-        {{ DAFApplication.Path }}
+        {{ DAFApplication.Path }} ({{ DAFApplication.Priority }})
       </mat-card-subtitle>
     </mat-card-header>
 
@@ -29,6 +29,16 @@
             <h4>
               {{ DAFConfig.View.NPMPackage }}@{{
                 DAFConfig.View.PackageVersion
+              }}
+            </h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU"
+          >
+            <h4>
+              {{ DAFConfig.LCU.Lookup }} - {{ DAFConfig.LCU.NPMPackage }}@{{
+                DAFConfig.LCU.PackageVersion
               }}
             </h4>
           </ng-container>
@@ -67,12 +77,23 @@
                   [description]="DAFApplication.Description"
                   [path]="CleanPath()"
                   [path-root]="PathGroup + '/'"
+                  [priority]="DAFApplication.Priority"
                 ></lcu-data-app-config>
               </div>
             </mat-tab>
 
             <mat-tab label="Config">
               <div class="spread">
+                <!--
+                  TODO:  Maybe support changing an application type?
+
+                  <lcu-data-daf-app-type
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
+                  [data-daf-app-type-options]="SupportedDAFAppTypes"
+                  [form-group]="EditDataAppFormGroup"
+                ></lcu-data-daf-app-type>
+                 -->
+
                 <lcu-daf-app-configs
                   [form-group]="EditDataAppFormGroup"
                   [daf-app-type]="DAFApplication.DAFAppType"

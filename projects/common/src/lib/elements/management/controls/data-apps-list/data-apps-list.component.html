@@ -64,7 +64,9 @@
     <lcu-data-app-create
       [access-right-options]="AccessRightOptions"
       [app-paths]="ApplicationPaths"
+      app-root-base="/"
       [daf-app-options]="DAFAppOptions"
+      [supported-daf-app-types]="SupportedDAFAppTypes"
       (canceled)="ToggleCreatingNewApp()"
       (saved)="SaveDAFApp($event)"
     ></lcu-data-app-create>

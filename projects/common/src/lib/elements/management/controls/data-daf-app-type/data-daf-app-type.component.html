@@ -1,0 +1,13 @@
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <mat-select placeholder="Application Type" formControlName="dataAppType">
+      <mat-option [value]="option" *ngFor="let option of DataDafAppTypeOptions">
+        {{ OptionDisplayNames[option] }}
+      </mat-option>
+    </mat-select>
+
+    <mat-icon matSuffix matTooltip="The type of Application to create.">
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+</div>
