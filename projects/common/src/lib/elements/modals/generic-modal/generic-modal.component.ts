@@ -9,8 +9,10 @@ import {
   ViewContainerRef,
   OnDestroy,
   ViewChild,
-  HostListener, Input } from '@angular/core';
+  HostListener, Input, Type, Injector } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ComponentProperties } from '../../../models/generic-modal-properties.model';
+import { ComponentInputProperties } from '../../../models/generic-modal-input-properties.model';
 
 @Component({
   selector: 'lcu-generic-modal',
@@ -21,9 +23,6 @@ export class GenericModalComponent implements OnInit, OnDestroy {
 
  // Properties
  protected componentRef: ComponentRef<any>;
-
-@Input('test')
-public Test: string;
 
  /**
   * Access the component passed into the modal
@@ -40,7 +39,14 @@ public Test: string;
   constructor(
     protected dialogRef: MatDialogRef<GenericModalComponent>,
     protected resolver: ComponentFactoryResolver,
-    @Inject(MAT_DIALOG_DATA) public Data: GenericModalModel) {}
+    @Inject(MAT_DIALOG_DATA) public Data: GenericModalModel) {
+
+      console.log('DIALOGREF', dialogRef);
+
+      setTimeout(() => {
+        this.renderModalComponent();
+      }, 1);
+    }
 
   // Lifecycle hooks
   public ngOnInit(): void {
@@ -75,9 +81,33 @@ public Test: string;
   /**
    * Render the component to use within the modal (this.Data.Component)
    */
-//   protected renderModalComponent(): void {
-//     debugger;
-//     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
-//     this.componentRef = this.vcRef.createComponent(factory);
-//   }
+  protected renderModalComponent(): void {
+
+    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
+
+    this.componentRef = this.vcRef.createComponent(factory);
+    this.updateComponentProperties(factory);
+  }
+
+  /**
+   * Update component properties
+   *
+   * @param factory current modal component
+   */
+  protected updateComponentProperties(factory: ComponentFactory<any>): void {
+
+    // @Input() properties from the component class
+    factory.inputs.map((input: ComponentInputProperties) => {
+      const result = this.Data.Properties.filter(
+        // check for similar properties
+        (dataProperties: ComponentProperties) => dataProperties.PropName === input.propName);
+
+      if (result.length > 0) {
+        // update component @Input() properties with data property values
+        this.componentRef.instance[input.propName] = result[0].Value;
+      }
+
+      // return input;
+    });
+  }
  }

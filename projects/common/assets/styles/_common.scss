@@ -1,6 +1,10 @@
 @import '../../../../node_modules/@lcu/common/assets/theming/common-theme';
 @import '../../../../node_modules/@lcu//common/assets/styles/utils/margins-padding';
 
+$global-theme: fathym-ivy-theme(true);
+
+@include theme-setup($global-theme, false);
+
 $primary: map-get($global-theme, primary);
 $accent: map-get($global-theme, accent);
 $warn: map-get($global-theme, warn);
@@ -11,3 +15,7 @@ $background2: map-get($global-theme, background);
 $background-fill: map_get($mat-grey, 900);
 $foreground: map-get(map-get($global-theme, 'foreground'), 'base');
 $secondary-text: map-get(map-get($global-theme, 'foreground'), 'secondary-text');
+
+body {
+    background-color: $background;
+}

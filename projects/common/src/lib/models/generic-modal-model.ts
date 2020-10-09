@@ -1,3 +1,5 @@
+import { ComponentProperties } from './generic-modal-properties.model';
+
 /**
  * Define a custom data type with restricted values
  *
@@ -48,6 +50,14 @@ export class GenericModalModel {
      */
     public Title?: string;
 
+    /**
+     * Component properties
+     */
+    public Properties?: ComponentProperties[];
+
+    /**
+     * Modal width
+     */
     public Width?: string;
 
     constructor(opts: GenericModalModel) {

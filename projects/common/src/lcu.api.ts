@@ -25,3 +25,7 @@ export * from './lib/services/generic-modal.service';
 export * from './lib/lcu-data-apps.module';
 export * from './lib/elements/management/controls/data-app-stati/data-app-stati.component';
 export * from './lib/elements/management/controls/data-app-security-configs/data-app-security-configs.component';
+export * from './lib/controls/npm-package-select/npm-package-select.component';
+export * from './lib/elements/management/controls/data-daf-app-type/data-daf-app-type.component';
+export * from './lib/models/generic-modal-input-properties.model';
+export * from './lib/models/generic-modal-properties.model';

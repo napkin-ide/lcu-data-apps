@@ -182,16 +182,21 @@ export class LcuDataAppsManagementElementComponent
     setTimeout(() => {
       const modalConfig: GenericModalModel = new GenericModalModel({
         ModalType: 'confirm', // type of modal we want (data, confirm, info)
-        CallbackAction: null, // function exposed to the modal
-        Component: confirm, // set component to be used inside the modal
+        CallbackAction: this.deleteCallback, // function exposed to the modal
+        Component: confirm.constructor, // set component to be used inside the modal
         LabelCancel: 'Cancel',
         LabelAction: 'OK',
         Title: 'Delete Confirmation',
-        Width: '100%',
+        Properties: [{ PropName: 'ConfirmMessage', Value: 'Oh yeah! Here\'s a confirm message' }],
+        Width: '50%',
       });
 
       this.genericModalService.Open(modalConfig);
     }, 100);
+  }
+
+  protected deleteCallback(val: any): void {
+    alert(val);
   }
 
   /**
@@ -273,7 +278,7 @@ export class LcuDataAppsManagementElementComponent
    * Callback function passed into the modal configuration
    */
   protected confirmCallback(val: any): void {
-    debugger;
+    // debugger;
   }
 
   public SaveDAFApp(dafApp: DataDAFAppDetails) {
