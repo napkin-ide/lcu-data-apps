@@ -90,7 +90,7 @@ export class GenericModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Update component properties
+   * Update component @Input() properties with new values
    *
    * @param factory current modal component
    */
