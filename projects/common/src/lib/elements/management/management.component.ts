@@ -165,15 +165,15 @@ export class LcuDataAppsManagementElementComponent
    */
   public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
     // this.openDeleteModal();
-    // if (confirm(`Are you sure you want to sdsdf ${dafAppDelete.DisplayName}?`)) {
-    //   this.State.Loading = true;
+    if (confirm(`Are you sure you want to sdsdf ${dafAppDelete.DisplayName}?`)) {
+      this.State.Loading = true;
 
-    //   this.dataAppsCtxt.DeleteDataDAFApp(
-    //     dafAppDelete.ApplicationID,
-    //     dafAppDelete.Lookups
-    //   );
-    // }
-    this.openDeleteModal();
+      this.dataAppsCtxt.DeleteDataDAFApp(
+        dafAppDelete.ApplicationID,
+        dafAppDelete.Lookups
+      );
+    }
+    // this.openDeleteModal();
   }
 
   protected openDeleteModal(): void {

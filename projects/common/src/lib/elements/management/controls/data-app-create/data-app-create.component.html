@@ -1,18 +1,24 @@
 <div class="spread">
-  <h1>
-    <mat-icon>apps</mat-icon>
-
-    Create New Application
-  </h1>
-
-  <p class="mat-subheading-2">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat.
-  </p>
-
   <form class="spread" [formGroup]="CreateDataAppFormGroup" (ngSubmit)="Save()">
+    <mat-card>
+      <mat-card-header>
+        
+        <mat-card-title
+          class="mat-subheading-2"
+        >
+          <mat-icon>apps</mat-icon>
+          Create New Application
+        </mat-card-title>
+  
+        <mat-card-subtitle 
+        class="mat-subheading-1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
     <lcu-data-app-config
       [app-paths]="ApplicationPaths"
       [form-group]="CreateDataAppFormGroup"
@@ -56,5 +62,7 @@
         Save
       </button>
     </div>
+    </mat-card-content>
+  </mat-card>
   </form>
 </div>

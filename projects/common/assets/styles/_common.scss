@@ -19,3 +19,15 @@ $secondary-text: map-get(map-get($global-theme, 'foreground'), 'secondary-text')
 body {
     background-color: $background;
 }
+
+.global-primary-text {
+    color: mat-color($primary) !important;
+}
+
+.global-accent-text {
+    color: mat-color($accent) !important;
+}
+
+.secondary-text {
+    color: $secondary-text;
+}

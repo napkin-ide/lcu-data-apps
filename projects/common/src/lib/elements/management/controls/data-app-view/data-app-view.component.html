@@ -1,15 +1,25 @@
 <div class="spread">
   <div class="data-app-header">
-    <h1 class="mat-headline">
-      <lcu-data-app-stati
-        [application-stati]="Application.AppStati"
-      ></lcu-data-app-stati>
-
-      <button mat-icon-button (click)="BackClick()">
-        <mat-icon>keyboard_backspace</mat-icon>
-      </button>
-
-      Application Management for: {{ Application.PathGroup }}
+    <h1 class="mat-headline title">
+      <div fxLayout="row"  fxLayoutGap="10px">
+        <div fxLayoutAlign="start center">
+          <button mat-icon-button (click)="BackClick()">
+            <mat-icon 
+              class="rotate-180 back-button secondary-text"
+              matTooltip="Back to application list">
+              exit_to_app
+            </mat-icon>
+           
+          </button>
+          <div class="global-primary-text">
+            Application Management for: {{ Application.PathGroup }}
+          </div>
+        </div>
+        <lcu-data-app-stati
+          [application-stati]="Application.AppStati">
+        </lcu-data-app-stati>
+    </div>
+    
     </h1>
 
     <nav mat-tab-nav-bar mat-stretch-tabs class="tabs-header">

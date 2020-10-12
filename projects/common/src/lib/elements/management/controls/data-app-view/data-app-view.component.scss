@@ -1,6 +1,10 @@
 @import '../../../../../../assets/styles/common';
 
 :host ::ng-deep {
+  .back-button {
+    font-size: 36px;
+  }
+
   .data-app-header {
     margin-bottom: 2em;
     // position: sticky;
@@ -30,4 +34,8 @@
     .insights {
     }
   }
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
 }

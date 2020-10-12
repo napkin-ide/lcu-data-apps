@@ -196,6 +196,11 @@ export class DafAppCardComponent implements OnInit {
     this.DAFSettingsClicked.emit(null);
   }
 
+  public EnableSaveButton(): boolean {
+    debugger;
+    return this.EditDataAppFormGroup.valid && this.EditDataAppFormGroup.dirty;
+  }
+
   private Save() {
     debugger;
     const toSave = {
