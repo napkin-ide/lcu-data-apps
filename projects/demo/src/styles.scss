@@ -18,9 +18,7 @@ body {
     width: 100%;
   }
 
-  .mat-list-item {
-    &.active {
-      background-color: transparentize($color: #000000, $amount: .95)
-    }
+  .spread {
+    margin: 2em;
   }
 }

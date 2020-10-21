@@ -1,0 +1,17 @@
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input matInput placeholder="LCU Lookup" formControlName="lcuLookup" required />
+    <mat-icon
+      matSuffix
+      matTooltip="Enter the lookup for the LCU to be used by the IDE configuration system."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <lcu-npm-package-select
+    [npm-package]="Details?.NPMPackage"
+    [npm-package-version]="Details?.PackageVersion"
+    [form-group]="FormGroup"
+  ></lcu-npm-package-select>
+</div>

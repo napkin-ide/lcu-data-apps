@@ -1,0 +1,60 @@
+<div class="spread">
+  <h1>
+    <mat-icon>apps</mat-icon>
+
+    Create New Application
+  </h1>
+
+  <p class="mat-subheading-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.
+  </p>
+
+  <form class="spread" [formGroup]="CreateDataAppFormGroup" (ngSubmit)="Save()">
+    <lcu-data-app-config
+      [app-paths]="ApplicationPaths"
+      [form-group]="CreateDataAppFormGroup"
+      [path-root]="AppRootBase"
+    ></lcu-data-app-config>
+
+    <lcu-data-daf-app-type
+      [data-daf-app-type-options]="SupportedDAFAppTypes"
+      [form-group]="CreateDataAppFormGroup"
+    ></lcu-data-daf-app-type>
+
+    <lcu-daf-app-configs
+      [form-group]="CreateDataAppFormGroup"
+      [daf-app-type]="SelectedDAFAppType"
+      [daf-app-options]="DAFAppOptions"
+      [daf-app-root-base]="AppRootBase"
+    ></lcu-daf-app-configs>
+
+    <lcu-data-app-security-configs
+      [access-right-options]="AccessRightOptions"
+      [form-group]="CreateDataAppFormGroup"
+    ></lcu-data-app-security-configs>
+
+    <div class="create-actions spread">
+      <div fxFlex></div>
+
+      <button type="button" mat-button color="warn" (click)="Cancel()">
+        <mat-icon>cancel</mat-icon>
+
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!CreateDataAppFormGroup.valid"
+      >
+        <mat-icon>save</mat-icon>
+
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,21 @@
+<div [formGroup]="FormGroup">
+  <lcu-npm-package-select
+    [npm-package]="Details?.NPMPackage"
+    [npm-package-version]="Details?.PackageVersion"
+    [form-group]="FormGroup"
+  ></lcu-npm-package-select>
+
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="State Config (json)"
+      formControlName="stateCfg"
+    />
+    <mat-icon
+      matSuffix
+      matTooltip=" This needs to be an empty JSON object to start for many apps."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+</div>

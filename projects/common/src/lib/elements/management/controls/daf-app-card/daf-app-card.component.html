@@ -1,0 +1,180 @@
+<form [formGroup]="EditDataAppFormGroup" (ngSubmit)="Save()">
+  <mat-card [class.expanded]="IsExpanded">
+    <mat-card-header>
+      <lcu-data-app-stati
+        [application-stati]="[DAFApplication.AppStatus]"
+      ></lcu-data-app-stati>
+
+      <mat-card-title
+        class="mat-subheading-2"
+        [matTooltip]="DAFApplication.Name"
+      >
+        <mat-icon>{{ DAFApplicationIcon }}</mat-icon>
+
+        {{ DAFApplication.Name }}
+      </mat-card-title>
+
+      <mat-card-subtitle class="mat-subheading-1">
+        {{ DAFApplication.Path }} ({{ DAFApplication.Priority }})
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="spread">
+        <ng-container *ngIf="!IsEdit">
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View"
+          >
+            <h4>
+              {{ DAFConfig.View.NPMPackage }}@{{
+                DAFConfig.View.PackageVersion
+              }}
+            </h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU"
+          >
+            <h4>
+              {{ DAFConfig.LCU.Lookup }} - {{ DAFConfig.LCU.NPMPackage }}@{{
+                DAFConfig.LCU.PackageVersion
+              }}
+            </h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect"
+          >
+            <h4>{{ DAFConfig.Redirect.Redirect }}</h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.DAFAppPointer"
+          >
+            <h4>{{ DAFAppOptions[DAFConfig.DAFAppPointer.ID] }}</h4>
+          </ng-container>
+
+          <ng-container
+            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API"
+          >
+            <ng-container *ngFor="let apiConfig of DAFConfig.API">
+              <h4>
+                {{ apiConfig.Lookup || "~default~" }} - {{ apiConfig.APIRoot }}
+              </h4>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="IsEdit">
+          <mat-tab-group mat-stretch-tabs>
+            <mat-tab label="Details">
+              <div class="spread">
+                <lcu-data-app-config
+                  [app-paths]="ApplicationPaths"
+                  [form-group]="EditDataAppFormGroup"
+                  [name]="DAFApplication.Name"
+                  [description]="DAFApplication.Description"
+                  [path]="CleanPath()"
+                  [path-root]="PathGroup + '/'"
+                  [priority]="DAFApplication.Priority"
+                ></lcu-data-app-config>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Config">
+              <div class="spread">
+                <!--
+                  TODO:  Maybe support changing an application type?
+
+                  <lcu-data-daf-app-type
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
+                  [data-daf-app-type-options]="SupportedDAFAppTypes"
+                  [form-group]="EditDataAppFormGroup"
+                ></lcu-data-daf-app-type>
+                 -->
+
+                <lcu-daf-app-configs
+                  [form-group]="EditDataAppFormGroup"
+                  [daf-app-type]="DAFApplication.DAFAppType"
+                  [daf-application]="DAFApplication"
+                  [daf-app-options]="DAFAppOptions"
+                  [daf-app-root-base]="PathGroup + '/'"
+                ></lcu-daf-app-configs>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Security">
+              <div class="spread">
+                <lcu-data-app-security-configs
+                  [access-right-options]="AccessRightOptions"
+                  [form-group]="EditDataAppFormGroup"
+                  [security]="DAFApplication.Security"
+                ></lcu-data-app-security-configs>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </ng-container>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <ng-container *ngIf="!IsEdit">
+        <div class="data-app-actions">
+          <div fxFlex></div>
+
+          <a
+            mat-icon-button
+            [href]="LaunchPath"
+            target="_blank"
+            *ngIf="LaunchPath"
+            ><mat-icon>launch</mat-icon></a
+          >
+
+          <button mat-icon-button (click)="DAFAppSettingsClick()">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button (click)="DAFAppDeleteClick()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div class="data-app-fakes">
+          <div fxFlex></div>
+
+          <button mat-icon-button disabled *ngIf="LaunchPath">
+            <mat-icon>fiber_manual_record</mat-icon>
+          </button>
+
+          <button mat-icon-button disabled>
+            <mat-icon>fiber_manual_record</mat-icon>
+          </button>
+
+          <button mat-icon-button disabled>
+            <mat-icon>fiber_manual_record</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="IsEdit">
+        <div>
+          <div fxFlex></div>
+
+          <button mat-icon-button color="primary">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="DAFAppSettingsCanceled()"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+    </mat-card-actions>
+
+    <div class="overlay" *ngIf="IsBlocked"></div>
+  </mat-card>
+</form>
