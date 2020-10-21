@@ -2,7 +2,7 @@
   <ng-container *ngSwitchCase="DataDAFAppTypes.API">
     <lcu-daf-app-api-config
       [form-group]="FormGroup"
-      [details]="DAFConfig.API"
+      [details]="DAFConfig"
       ></lcu-daf-app-api-config>
   </ng-container>
 
@@ -10,7 +10,7 @@
     <lcu-daf-app-pointer-config
       [daf-app-options]="DAFAppOptions"
       [form-group]="FormGroup"
-      [details]="DAFConfig.DAFAppPointer"
+      [details]="DAFConfig"
     ></lcu-daf-app-pointer-config>
   </ng-container> -->
   <!-- [daf-app-id]="DAFConfig.DAFAppPointer.ID"
@@ -20,21 +20,30 @@
   <ng-container *ngSwitchCase="DataDAFAppTypes.LCU">
     <lcu-daf-app-lcu-config
       [form-group]="FormGroup"
-      [details]="DAFConfig.LCU"
+      [details]="DAFConfig"
     ></lcu-daf-app-lcu-config>
   </ng-container>
 
   <ng-container *ngSwitchCase="DataDAFAppTypes.Redirect">
     <lcu-daf-app-redirect-config
       [form-group]="FormGroup"
-      [details]="DAFConfig.Redirect"
+      [details]="DAFConfig"
     ></lcu-daf-app-redirect-config>
   </ng-container>
 
   <ng-container *ngSwitchCase="DataDAFAppTypes.View">
     <lcu-daf-app-view-config
       [form-group]="FormGroup"
-      [details]="DAFConfig.View"
+      [details]="DAFConfig"
     ></lcu-daf-app-view-config>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataDAFAppTypes.ViewZip">
+    <lcu-daf-app-view-zip-config
+      [form-group]="FormGroup"
+      [details]="DAFConfig"
+      [zip-app-options]="ZipAppOptions"
+      (upload-zip-files)="UploadZips($event)"
+    ></lcu-daf-app-view-zip-config>
   </ng-container>
 </div>

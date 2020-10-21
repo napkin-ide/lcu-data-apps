@@ -45,7 +45,6 @@
         gdGap="2em"
         gdGap.lt-sm="1em"
       >
-
         <ng-container *ngFor="let app of FixedApplications">
           <lcu-data-app-card
             class="app-card"
@@ -65,8 +64,10 @@
       app-root-base="/"
       [daf-app-options]="DAFAppOptions"
       [supported-daf-app-types]="SupportedDAFAppTypes"
+      [zip-app-options]="ZipAppOptions"
       (canceled)="ToggleCreatingNewApp()"
       (saved)="SaveDAFApp($event)"
+      (upload-zip-files)="UploadZips($event)"
     ></lcu-data-app-create>
   </ng-container>
 </div>

@@ -18,6 +18,10 @@ export class DataAppsManagementState {
   public FixedApplications: DataAppDetails[];
 
   public Loading?: boolean;
+
+  public ZipAppOptions?: ZipAppOption[];
+
+  public ZipLoading?: boolean;
 }
 
 export class DataAppDetails {
@@ -76,6 +80,14 @@ export class DataDAFAppDelete {
   public DisplayName: string;
 
   public Lookups: string[];
+}
+
+export class ZipAppOption {
+  public Data: string;
+
+  public DisplayName: string;
+
+  public File: string;
 }
 
 export enum DataDAFAppTypes {

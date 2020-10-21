@@ -10,10 +10,12 @@ import {
   DataDAFAppDelete,
   DataDAFAppDetails,
   DataDAFAppTypes,
+  ZipAppOption,
 } from '../../../../state/data-apps-management.state';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DafAppConfigsComponent } from '../daf-app-configs/daf-app-configs.component';
 import { debug } from 'console';
+import { DAFConfigService } from 'projects/common/src/lib/core/daf-config.service';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -61,46 +63,6 @@ export class DafAppCardComponent implements OnInit {
   @Input('daf-app-options')
   public DAFAppOptions: { [key: string]: string };
 
-  public get DAFConfig() {
-    if (!this.DAFApplication) {
-      return {};
-    }
-
-    const cfgKeys = Object.keys(this.DAFApplication.Configs);
-
-    const apiCfgs = cfgKeys.map((configKey) => {
-      return {
-        APIRoot: this.DAFApplication.Configs[configKey]['APIRoot'],
-        InboundPath: this.DAFApplication.Configs[configKey]['InboundPath'],
-        Lookup: configKey,
-        Methods: this.DAFApplication.Configs[configKey]['Methods'],
-        Security: this.DAFApplication.Configs[configKey]['Security'],
-      };
-    });
-
-    return {
-      API: apiCfgs,
-      DAFAppPointer: {
-        ID: this.DAFApplication.Configs['']['DAFApplicationID'],
-        Root: this.DAFApplication.Configs['']['DAFApplicationRoot'],
-      },
-      LCU: {
-        Lookup: this.DAFApplication.Configs[''].Lookup || '',
-        BaseHref: this.DAFApplication.Configs[''].BaseHref,
-        NPMPackage: this.DAFApplication.Configs[''].NPMPackage,
-        PackageVersion: this.DAFApplication.Configs[''].PackageVersion,
-        StateConfig: this.DAFApplication.Configs[''].StateConfig
-      },
-      Redirect: {
-        Redirect: this.DAFApplication.Configs[''].Redirect,
-      },
-      View: {
-        NPMPackage: this.DAFApplication.Configs[''].NPMPackage,
-        PackageVersion: this.DAFApplication.Configs[''].PackageVersion,
-      },
-    };
-  }
-
   @Output('delete')
   public DAFDeleteClicked: EventEmitter<DataDAFAppDelete>;
 
@@ -143,6 +105,12 @@ export class DafAppCardComponent implements OnInit {
   @Input('supported-daf-app-types')
   public SupportedDAFAppTypes: DataDAFAppTypes[];
 
+  @Output('upload-zip-files')
+  public UploadZipFiles: EventEmitter<FileList>;
+
+  @Input('zip-app-options')
+  public ZipAppOptions: ZipAppOption[];
+
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
     this.DAFDeleteClicked = new EventEmitter<DataDAFAppDelete>();
@@ -150,6 +118,8 @@ export class DafAppCardComponent implements OnInit {
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
 
     this.Saved = new EventEmitter<DataDAFAppDetails>();
+
+    this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
@@ -220,6 +190,10 @@ export class DafAppCardComponent implements OnInit {
     } as DataDAFAppDetails;
 
     this.Saved.emit(toSave);
+  }
+
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
   }
 
   //  Helpers

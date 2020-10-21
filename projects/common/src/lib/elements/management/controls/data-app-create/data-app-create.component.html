@@ -19,7 +19,7 @@
       [hide-priority]="true"
       [path-root]="ComputedAppRootBase"
       [supported-daf-app-types]="SupportedDAFAppTypes"
-      ></lcu-data-app-config>
+    ></lcu-data-app-config>
 
     <ng-container *ngIf="SelectedDAFAppType">
       <lcu-daf-app-configs
@@ -27,6 +27,8 @@
         [daf-app-type]="SelectedDAFAppType"
         [daf-app-options]="DAFAppOptions"
         [daf-app-root-base]="ComputedAppRootBase"
+        [zip-app-options]="ZipAppOptions"
+        (upload-zip-files)="UploadZips($event)"
       ></lcu-daf-app-configs>
 
       <lcu-data-app-security-configs

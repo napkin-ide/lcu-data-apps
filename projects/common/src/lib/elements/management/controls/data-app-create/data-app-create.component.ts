@@ -9,6 +9,7 @@ import {
 import {
   DataDAFAppDetails,
   DataDAFAppTypes,
+  ZipAppOption,
 } from './../../../../state/data-apps-management.state';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DafAppRedirectConfigComponent } from './../daf-app-configs/daf-app-redirect-config/daf-app-redirect-config.component';
@@ -71,11 +72,19 @@ export class DataAppCreateComponent implements OnInit {
   @Input('supported-daf-app-types')
   public SupportedDAFAppTypes: DataDAFAppTypes[];
 
+  @Output('upload-zip-files')
+  public UploadZipFiles: EventEmitter<FileList>;
+
+  @Input('zip-app-options')
+  public ZipAppOptions: ZipAppOption[];
+
   //  Constructors
   constructor(protected formBldr: FormBuilder) {
     this.Canceled = new EventEmitter<{}>();
 
     this.Saved = new EventEmitter<DataDAFAppDetails>();
+
+    this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
@@ -119,6 +128,10 @@ export class DataAppCreateComponent implements OnInit {
     } as DataDAFAppDetails;
 
     this.Saved.emit(toSave);
+  }
+
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
   }
 
   //  Helpers

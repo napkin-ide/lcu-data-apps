@@ -23,6 +23,9 @@ import { SettingsComponent } from './elements/modals/settings/settings.component
 import { DataDafAppTypeComponent } from './elements/management/controls/data-daf-app-type/data-daf-app-type.component';
 import { DafAppLCUConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-lcu-config/daf-app-lcu-config.component';
 import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-package-select.component';
+import { DafAppViewZipConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-view-zip-config/daf-app-view-zip-config.component';
+import { DafAppCardQuickViewComponent } from './elements/management/controls/daf-app-card-quick-view/daf-app-card-quick-view.component';
+import { DndDirective } from './controls/dnd.directive';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-pac
     DataAppSecurityConfigsComponent,
     SettingsComponent,
     DataDafAppTypeComponent,
-    NpmPackageSelectComponent
+    NpmPackageSelectComponent,
+    DafAppViewZipConfigComponent,
+    DafAppCardQuickViewComponent,
+    DndDirective,
   ],
   imports: [
     FathymSharedModule,
@@ -77,13 +83,17 @@ import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-pac
     SettingsComponent,
     DataDafAppTypeComponent,
     NpmPackageSelectComponent,
+    DafAppViewZipConfigComponent,
+    DafAppCardQuickViewComponent,
+    DndDirective,
   ],
-entryComponents: [
-  DataAppViewComponent,
-  GenericModalComponent,
-  DataAppsConfigManagerElementComponent,
-  LcuDataAppsManagementElementComponent,
-  ConfirmationComponent,
-  SettingsComponent]
+  entryComponents: [
+    DataAppViewComponent,
+    GenericModalComponent,
+    DataAppsConfigManagerElementComponent,
+    LcuDataAppsManagementElementComponent,
+    ConfirmationComponent,
+    SettingsComponent,
+  ],
 })
 export class LcuDataAppsModule {}
