@@ -12,6 +12,7 @@ import {
   DataDAFAppDelete,
   DataDAFAppDetails,
   DataDAFAppTypes,
+  ZipAppOption,
 } from '../../../../state/data-apps-management.state';
 
 @Component({
@@ -86,6 +87,12 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   @Input('loading')
   public Loading: boolean;
 
+  @Output('upload-zip-files')
+  public UploadZipFiles: EventEmitter<FileList>;
+
+  @Input('zip-app-options')
+  public ZipAppOptions: ZipAppOption[];
+
   //  Constructors
   constructor(protected el: ElementRef) {
     this.ApplicationTabClicked = new EventEmitter<number>();
@@ -97,6 +104,8 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.DAFDeleteClicked = new EventEmitter<DataDAFAppDelete>();
 
     this.DAFSettingsClicked = new EventEmitter<DataDAFAppDetails>();
+
+    this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
@@ -133,6 +142,10 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
   public ToggleCreatingNewApp() {
     this.IsCreating = !this.IsCreating;
+  }
+
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
   }
 
   //  Helpers

@@ -22,47 +22,9 @@
     <mat-card-content>
       <div class="spread">
         <ng-container *ngIf="!IsEdit">
-          <ng-container
-            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View"
-          >
-            <h4>
-              {{ DAFConfig.View.NPMPackage }}@{{
-                DAFConfig.View.PackageVersion
-              }}
-            </h4>
-          </ng-container>
-
-          <ng-container
-            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU"
-          >
-            <h4>
-              {{ DAFConfig.LCU.Lookup }} - {{ DAFConfig.LCU.NPMPackage }}@{{
-                DAFConfig.LCU.PackageVersion
-              }}
-            </h4>
-          </ng-container>
-
-          <ng-container
-            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect"
-          >
-            <h4>{{ DAFConfig.Redirect.Redirect }}</h4>
-          </ng-container>
-
-          <ng-container
-            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.DAFAppPointer"
-          >
-            <h4>{{ DAFAppOptions[DAFConfig.DAFAppPointer.ID] }}</h4>
-          </ng-container>
-
-          <ng-container
-            *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API"
-          >
-            <ng-container *ngFor="let apiConfig of DAFConfig.API">
-              <h4>
-                {{ apiConfig.Lookup || "~default~" }} - {{ apiConfig.APIRoot }}
-              </h4>
-            </ng-container>
-          </ng-container>
+          <lcu-daf-app-card-quick-view
+            [daf-application]="DAFApplication"
+          ></lcu-daf-app-card-quick-view>
         </ng-container>
 
         <ng-container *ngIf="IsEdit">
@@ -71,9 +33,11 @@
               <div class="spread">
                 <lcu-data-app-config
                   [app-paths]="ApplicationPaths"
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
                   [form-group]="EditDataAppFormGroup"
                   [name]="DAFApplication.Name"
                   [description]="DAFApplication.Description"
+                  [hide-app-type]="true"
                   [path]="CleanPath()"
                   [path-root]="PathGroup + '/'"
                   [priority]="DAFApplication.Priority"
@@ -99,6 +63,8 @@
                   [daf-application]="DAFApplication"
                   [daf-app-options]="DAFAppOptions"
                   [daf-app-root-base]="PathGroup + '/'"
+                  [zip-app-options]="ZipAppOptions"
+                  (upload-zip-files)="UploadZips($event)"
                 ></lcu-daf-app-configs>
               </div>
             </mat-tab>

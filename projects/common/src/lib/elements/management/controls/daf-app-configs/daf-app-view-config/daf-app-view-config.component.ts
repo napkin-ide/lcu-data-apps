@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { DAFViewApplicationDetails } from '@lcu/common';
+import { ZipAppOption } from '../../../../../state/data-apps-management.state';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 import { NPMService } from '../../../../../core/npm.service';
 

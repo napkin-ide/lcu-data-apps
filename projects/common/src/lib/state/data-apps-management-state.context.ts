@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { StateContext } from '@lcu/common';
-import { DataAppsManagementState, DataDAFAppDetails } from './data-apps-management.state';
+import { DataAppsManagementState, DataDAFAppDetails, ZipAppOption } from './data-apps-management.state';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,15 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
         ApplicationTab: appTab
       },
       Type: 'SetApplicationTab'
+    });
+  }
+
+  public UploadZips(zipApps: ZipAppOption[]) {
+    this.Execute({
+      Arguments: {
+        ZipApps: zipApps
+      },
+      Type: 'UploadZips'
     });
   }
 
