@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DataAppDetails, DataDAFAppDetails, DataDAFAppTypes } from '../../../../state/data-apps-management.state';
+import { DataAppDetails, DataDAFAppDetails, DataDAFAppTypes, ZipAppOption } from '../../../../state/data-apps-management.state';
 
 @Component({
   selector: 'lcu-data-apps-list',
@@ -37,11 +37,19 @@ export class DataAppsListComponent implements OnInit {
   @Input('supported-daf-app-types')
   public SupportedDAFAppTypes: DataDAFAppTypes[];
 
+  @Output('upload-zip-files')
+  public UploadZipFiles: EventEmitter<FileList>;
+
+  @Input('zip-app-options')
+  public ZipAppOptions: ZipAppOption[];
+
   //  Constructors
   constructor() {
     this.DAFAppSaved = new EventEmitter<DataDAFAppDetails>();
 
     this.SettingsClicked = new EventEmitter<DataAppDetails>();
+
+    this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
@@ -58,6 +66,10 @@ export class DataAppsListComponent implements OnInit {
 
   public ToggleCreatingNewApp() {
     this.IsCreating = !this.IsCreating;
+  }
+
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
   }
 
   //  Helpers

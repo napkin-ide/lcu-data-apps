@@ -86,9 +86,11 @@
                     "
                     [daf-application]="dafApp"
                     [supported-daf-app-types]="SupportedDAFAppTypes"
+                    [zip-app-options]="ZipAppOptions"
                     (delete)="DAFAppDeleteClick($event)"
                     (settings)="DAFAppSettingsClick($event)"
                     (saved)="SaveDAFApp($event)"
+                    (upload-zip-files)="UploadZips($event)"
                   ></lcu-daf-app-card>
                 </ng-container>
               </div>
@@ -102,8 +104,10 @@
               [app-root-base]="AppRootBase"
               [daf-app-options]="DAFAppOptions"
               [supported-daf-app-types]="SupportedDAFAppTypes"
+              [zip-app-options]="ZipAppOptions"
               (canceled)="ToggleCreatingNewApp()"
               (saved)="SaveDAFApp($event)"
+              (upload-zip-files)="UploadZips($event)"
             ></lcu-data-app-create>
           </ng-container>
         </div>

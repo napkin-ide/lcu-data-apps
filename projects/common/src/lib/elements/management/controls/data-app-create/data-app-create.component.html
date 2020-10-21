@@ -16,25 +16,26 @@
     <lcu-data-app-config
       [app-paths]="ApplicationPaths"
       [form-group]="CreateDataAppFormGroup"
-      [path-root]="AppRootBase"
+      [hide-priority]="true"
+      [path-root]="ComputedAppRootBase"
+      [supported-daf-app-types]="SupportedDAFAppTypes"
     ></lcu-data-app-config>
 
-    <lcu-data-daf-app-type
-      [data-daf-app-type-options]="SupportedDAFAppTypes"
-      [form-group]="CreateDataAppFormGroup"
-    ></lcu-data-daf-app-type>
+    <ng-container *ngIf="SelectedDAFAppType">
+      <lcu-daf-app-configs
+        [form-group]="CreateDataAppFormGroup"
+        [daf-app-type]="SelectedDAFAppType"
+        [daf-app-options]="DAFAppOptions"
+        [daf-app-root-base]="ComputedAppRootBase"
+        [zip-app-options]="ZipAppOptions"
+        (upload-zip-files)="UploadZips($event)"
+      ></lcu-daf-app-configs>
 
-    <lcu-daf-app-configs
-      [form-group]="CreateDataAppFormGroup"
-      [daf-app-type]="SelectedDAFAppType"
-      [daf-app-options]="DAFAppOptions"
-      [daf-app-root-base]="AppRootBase"
-    ></lcu-daf-app-configs>
-
-    <lcu-data-app-security-configs
-      [access-right-options]="AccessRightOptions"
-      [form-group]="CreateDataAppFormGroup"
-    ></lcu-data-app-security-configs>
+      <lcu-data-app-security-configs
+        [access-right-options]="AccessRightOptions"
+        [form-group]="CreateDataAppFormGroup"
+      ></lcu-data-app-security-configs>
+    </ng-container>
 
     <div class="create-actions spread">
       <div fxFlex></div>
@@ -49,7 +50,7 @@
         type="submit"
         mat-raised-button
         color="primary"
-        [disabled]="!CreateDataAppFormGroup.valid"
+        [disabled]="!CreateDataAppFormGroup.valid || !SelectedDAFAppType"
       >
         <mat-icon>save</mat-icon>
 

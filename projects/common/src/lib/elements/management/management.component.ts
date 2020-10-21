@@ -10,6 +10,7 @@ import {
   ViewContainerRef,
   Inject,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LCUElementContext, LcuElementComponent } from '@lcu/common';
@@ -22,6 +23,7 @@ import {
   DataDAFAppDetails,
   DataDAFAppDelete,
   DataDAFAppTypes,
+  ZipAppOption,
 } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
@@ -82,7 +84,7 @@ export class LcuDataAppsManagementElementComponent
   }
 
   public get Loading(): boolean {
-    return this.State.Loading && !this.State.ActiveAppPathGroup;
+    return (this.State.Loading || this.State.ZipLoading) && !this.State.ActiveAppPathGroup;
   }
 
   public State: DataAppsManagementState;
@@ -102,12 +104,20 @@ export class LcuDataAppsManagementElementComponent
         activeAppType === DataDAFAppTypes.ViewZip ||
         activeAppType === DataDAFAppTypes.ViewGit
       ) {
-        return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
+        return [
+          DataDAFAppTypes.View,
+          DataDAFAppTypes.Redirect,
+          DataDAFAppTypes.ViewZip,
+        ];
       }
     }
 
     if (this.ActiveApp != null) {
-      return [DataDAFAppTypes.View, DataDAFAppTypes.Redirect];
+      return [
+        DataDAFAppTypes.View,
+        DataDAFAppTypes.Redirect,
+        DataDAFAppTypes.ViewZip,
+      ];
     }
 
     return [
@@ -115,6 +125,7 @@ export class LcuDataAppsManagementElementComponent
       DataDAFAppTypes.Redirect,
       DataDAFAppTypes.API,
       DataDAFAppTypes.LCU,
+      DataDAFAppTypes.ViewZip,
     ];
   }
 
@@ -124,7 +135,8 @@ export class LcuDataAppsManagementElementComponent
     protected dataAppsCtxt: DataAppsManagementStateContext,
     protected dialog: MatDialog,
     protected genericModalService: GenericModalService,
-    protected resolver: ComponentFactoryResolver
+    protected resolver: ComponentFactoryResolver,
+    protected cd: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -191,6 +203,47 @@ export class LcuDataAppsManagementElementComponent
     // this.configureModal();
   }
 
+  public SaveDAFApp(dafApp: DataDAFAppDetails) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SaveDataDAFApp(dafApp);
+  }
+
+  public SetApplicationTab(appTab: number) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SetApplicationTab(appTab);
+  }
+
+  public UploadZips(files: FileList) {
+    const fileKeys = Object.keys(files);
+
+    const zipApps: ZipAppOption[] = [];
+
+    fileKeys.forEach((fileKey, i) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        console.log(`Reader result: ${reader.result}`);
+
+        zipApps.push({
+          Data: <string>reader.result,
+          DisplayName: files[0].name,
+          File: files[0].name,
+        });
+
+        if (zipApps.length === files.length) {
+          this.dataAppsCtxt.UploadZips(zipApps);
+
+          this.cd.markForCheck();
+        }
+      };
+
+      reader.readAsDataURL(files[0]);
+    });
+  }
+
+  //  Helpers
   /**
    * Modal configuration
    */
@@ -258,19 +311,6 @@ export class LcuDataAppsManagementElementComponent
     debugger;
   }
 
-  public SaveDAFApp(dafApp: DataDAFAppDetails) {
-    this.State.Loading = true;
-
-    this.dataAppsCtxt.SaveDataDAFApp(dafApp);
-  }
-
-  public SetApplicationTab(appTab: number) {
-    this.State.Loading = true;
-
-    this.dataAppsCtxt.SetApplicationTab(appTab);
-  }
-
-  //  Helpers
   protected handleStateChanged() {
     console.log('State: ', this.State);
   }
