@@ -9,9 +9,6 @@
 			"wc/lcu-data-apps.lcu.js"
 		],
 		"solutions": {
-			"config-manager": {
-				"element": "lcu-data-apps-config-manager-element"
-			},
 			"management": {
 				"element": "lcu-data-apps-management-element"
 			}
