@@ -84,14 +84,20 @@ export class LcuDataAppsManagementElementComponent
   }
 
   public get Loading(): boolean {
-    return (this.State.Loading || this.State.ZipLoading) && !this.State.ActiveAppPathGroup;
+    return (
+      (this.State.Loading || this.State.ZipLoading) &&
+      !this.State.ActiveAppPathGroup
+    );
   }
 
   public State: DataAppsManagementState;
 
   public get SupportedDAFAppTypes(): DataDAFAppTypes[] {
     if (this.ActiveFixedApp != null) {
-      const activeAppType = this.State.DAFApplications[0].DAFAppType;
+      const activeAppType =
+        this.State.DAFApplications && this.State.DAFApplications.length > 0
+          ? this.State.DAFApplications[0].DAFAppType
+          : null;
 
       if (
         activeAppType === DataDAFAppTypes.API ||
@@ -102,7 +108,8 @@ export class LcuDataAppsManagementElementComponent
         activeAppType === DataDAFAppTypes.Redirect ||
         activeAppType === DataDAFAppTypes.View ||
         activeAppType === DataDAFAppTypes.ViewZip ||
-        activeAppType === DataDAFAppTypes.ViewGit
+        activeAppType === DataDAFAppTypes.ViewGit ||
+        activeAppType === null
       ) {
         return [
           DataDAFAppTypes.View,

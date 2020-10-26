@@ -113,7 +113,9 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
     this.handleActiveDafAppVisibility();
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.IsCreating = !this.DAFApplications || this.DAFApplications.length <= 0;
+  }
 
   //  API Methods
   public BackClick() {
