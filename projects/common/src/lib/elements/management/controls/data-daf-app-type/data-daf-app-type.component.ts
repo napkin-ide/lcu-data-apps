@@ -46,10 +46,6 @@ export class DataDafAppTypeComponent implements OnInit {
 
     this.OptionDisplayNames[DataDAFAppTypes.LCU] = 'Low Code Unit';
 
-    this.OptionDisplayNames[DataDAFAppTypes.ViewZip] = 'Zip View';
-
-    this.OptionDisplayNames[DataDAFAppTypes.ViewGit] = 'Git View';
-
     this.FormGroup.addControl(
       'dataAppType',
       new FormControl(this.DataDafAppType, [Validators.required])

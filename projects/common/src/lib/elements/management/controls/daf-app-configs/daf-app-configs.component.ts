@@ -47,9 +47,6 @@ export class DafAppConfigsComponent implements OnInit {
 
       case DataDAFAppTypes.View:
         return { '': this.DAFAppViewConfig.Config };
-
-      case DataDAFAppTypes.ViewZip:
-        return { '': this.DAFAppViewZipConfig.Config };
     }
 
     return {};
