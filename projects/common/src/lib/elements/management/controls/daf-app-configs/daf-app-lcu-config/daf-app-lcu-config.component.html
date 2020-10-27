@@ -10,8 +10,8 @@
   </mat-form-field>
 
   <lcu-npm-package-select
-    [npm-package]="Details?.NPMPackage"
-    [npm-package-version]="Details?.PackageVersion"
+    [npm-package]="Details?.Package?.Name"
+    [npm-package-version]="Details?.Package?.Version"
     [form-group]="FormGroup"
   ></lcu-npm-package-select>
 </div>

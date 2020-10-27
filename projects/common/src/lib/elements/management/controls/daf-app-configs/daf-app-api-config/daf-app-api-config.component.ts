@@ -17,7 +17,7 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
-  public get Configs(): { [key: string]: { [key: string]: string } } {
+  public get Configs(): { [key: string]: { [key: string]: any } } {
     return {
       '': {
         APIRoot: this.FormGroup.controls.apiRoot.value,

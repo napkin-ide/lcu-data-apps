@@ -19,9 +19,11 @@ export class DafAppViewZipConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
-  public get Config(): { [key: string]: string } {
+  public get Config(): { [key: string]: any } {
     return {
-      ZipFile: this.FormGroup.controls.zipFile.value,
+      Package: {
+        ZipFile: this.FormGroup.controls.zipFile.value,
+      },
       StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
     };
   }
@@ -55,7 +57,9 @@ export class DafAppViewZipConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'zipFile',
-      new FormControl(!this.Details ? {} : this.Details.ZipFile || '', [Validators.required])
+      new FormControl(!this.Details ? {} : this.Details.ZipFile || '', [
+        Validators.required,
+      ])
     );
 
     this.FormGroup.addControl(

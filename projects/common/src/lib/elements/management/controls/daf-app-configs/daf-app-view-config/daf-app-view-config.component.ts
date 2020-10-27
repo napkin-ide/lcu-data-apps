@@ -15,10 +15,12 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
-  public get Config(): { [key: string]: string } {
+  public get Config(): { [key: string]: any } {
     return {
-      NPMPackage: this.FormGroup.controls.npmPkg.value,
-      PackageVersion: this.FormGroup.controls.pkgVer.value,
+      Package: {
+        Name: this.FormGroup.controls.npmPkg.value,
+        Version: this.FormGroup.controls.pkgVer.value,
+      },
       StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
     };
   }

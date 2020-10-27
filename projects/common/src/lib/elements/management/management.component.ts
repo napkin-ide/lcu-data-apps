@@ -92,50 +92,6 @@ export class LcuDataAppsManagementElementComponent
 
   public State: DataAppsManagementState;
 
-  public get SupportedDAFAppTypes(): DataDAFAppTypes[] {
-    if (this.ActiveFixedApp != null) {
-      const activeAppType =
-        this.State.DAFApplications && this.State.DAFApplications.length > 0
-          ? this.State.DAFApplications[0].DAFAppType
-          : null;
-
-      if (
-        activeAppType === DataDAFAppTypes.API ||
-        activeAppType === DataDAFAppTypes.LCU
-      ) {
-        return [activeAppType];
-      } else if (
-        activeAppType === DataDAFAppTypes.Redirect ||
-        activeAppType === DataDAFAppTypes.View ||
-        activeAppType === DataDAFAppTypes.ViewZip ||
-        activeAppType === DataDAFAppTypes.ViewGit ||
-        activeAppType === null
-      ) {
-        return [
-          DataDAFAppTypes.View,
-          DataDAFAppTypes.Redirect,
-          DataDAFAppTypes.ViewZip,
-        ];
-      }
-    }
-
-    if (this.ActiveApp != null) {
-      return [
-        DataDAFAppTypes.View,
-        DataDAFAppTypes.Redirect,
-        DataDAFAppTypes.ViewZip,
-      ];
-    }
-
-    return [
-      DataDAFAppTypes.View,
-      DataDAFAppTypes.Redirect,
-      DataDAFAppTypes.API,
-      DataDAFAppTypes.LCU,
-      DataDAFAppTypes.ViewZip,
-    ];
-  }
-
   //  Constructors
   constructor(
     protected injector: Injector,

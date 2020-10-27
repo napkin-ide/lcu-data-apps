@@ -14,14 +14,15 @@ export class DafAppLCUConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
-  public get Config(): { [key: string]: string } {
-    return {
+  public get Config(): { [key: string]: any } {
+    return <{}>(<DAFLCUApplicationDetails>{
       Lookup: this.FormGroup.controls.lcuLookup.value,
-      BaseHref: this.Details ? this.Details.BaseHref : '',
-      NPMPackage: this.FormGroup.controls.npmPkg.value,
-      PackageVersion: this.FormGroup.controls.pkgVer.value,
+      Package: {
+        Name: this.FormGroup.controls.npmPkg.value,
+        Version: this.FormGroup.controls.pkgVer.value,
+      },
       StateConfig: this.Details ? this.Details.StateConfig : {},
-    };
+    });
   }
 
   @Input('details')
@@ -43,7 +44,9 @@ export class DafAppLCUConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'lcuLookup',
-      new FormControl(!this.Details ? '' : this.Details.Lookup || '', [Validators.required])
+      new FormControl(!this.Details ? '' : this.Details.Lookup || '', [
+        Validators.required,
+      ])
     );
   }
 
