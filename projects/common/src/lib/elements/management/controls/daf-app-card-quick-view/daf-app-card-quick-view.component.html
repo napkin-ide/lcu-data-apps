@@ -1,15 +1,11 @@
-<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View">
-  <h4>{{ DAFConfig.Package.Name }}@{{ DAFConfig.Package.Version }}</h4>
-</ng-container>
-
-<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU">
-  <h4 *ngIf="DAFConfig.NPMPackage">
-    {{ DAFConfig.Lookup }} - {{ DAFConfig.Package.Name }}@{{
+<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View || DAFApplication.DAFAppType == DataDAFAppTypes.LCU">
+  <h4 *ngIf="DAFConfig.Package.Name">
+    {{ DAFConfig.Lookup }} {{ DAFConfig.Package.Name }}@{{
       DAFConfig.Package.Version
     }}
   </h4>
 
-  <h4 *ngIf="DAFConfig.ZipFile">{{ DAFConfig.ZipFile }}</h4>
+  <h4 *ngIf="DAFConfig.Package.ZipFile">{{ DAFConfig.Package.ZipFile }}</h4>
 </ng-container>
 
 <ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect">

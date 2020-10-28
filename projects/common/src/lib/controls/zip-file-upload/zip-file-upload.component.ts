@@ -11,18 +11,6 @@ export class ZipFileUploadComponent implements OnInit {
   //  Fields
 
   //  Properties
-  public get Config(): { [key: string]: any } {
-    return {
-      Package: {
-        ZipFile: this.FormGroup.controls.zipFile.value,
-      },
-      StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
-    };
-  }
-
-  @Input('zip-file')
-  public ZipFile: string;
-
   @Input('form-group')
   public FormGroup: FormGroup;
 
@@ -31,6 +19,9 @@ export class ZipFileUploadComponent implements OnInit {
 
   @Input('zip-app-options')
   public ZipAppOptions: ZipAppOption[];
+
+  @Input('zip-file')
+  public ZipFile: string;
 
   //  Constructors
   constructor() {
@@ -53,26 +44,22 @@ export class ZipFileUploadComponent implements OnInit {
 
   //  API Methods
   public OnFileChange(event: any) {
-    // if (event.target.files && event.target.files.length) {
-    //   const [file] = event.target.files;
-    //   reader.onload = () => {
-    //     reader.readAsDataURL(file);
-    //     console.log(`Reader result: ${reader.result}`);
-    //   this.FormGroup.patchValue({
-    //     zipFile: reader.result,
-    //   });
-    //   this.cd.markForCheck();
-    // }
-    // }
+    const files = event.target.files;
+
+    this.emitUploadZipFiles(files);
   }
 
   public OnFileDrop(event: DragEvent) {
     const files = event.dataTransfer.files;
 
-    if (files.length > 0) {
-      this.UploadZipFiles.emit(event.dataTransfer.files);
-    }
+    this.emitUploadZipFiles(files);
   }
 
   //  Helpers
+
+  public emitUploadZipFiles(files: FileList) {
+    if (files.length > 0) {
+      this.UploadZipFiles.emit(files);
+    }
+  }
 }

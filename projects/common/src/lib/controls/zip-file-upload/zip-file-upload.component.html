@@ -9,8 +9,8 @@
               #fileDropRef
               id="fileDropRef"
               accept=".zip"
-
-            /><!--multiple (change)="fileBrowseHandler($event.target.files)"-->
+              (change)="OnFileChange($event)"
+            /><!--multiple-->
 
             <mat-icon [inline]="true">publish</mat-icon>
 
