@@ -46,7 +46,12 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="DAFApplicationPackageTypes.Zip">
-
+        <lcu-zip-file-upload
+          [form-group]="FormGroup"
+          [zip-file]="Details?.Package?.ZipFile"
+          [zip-app-options]="ZipAppOptions"
+          (upload-zip-files)="UploadZips($event)"
+        ></lcu-zip-file-upload>
       </ng-container>
     </div>
 

@@ -1,21 +1,13 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ZipAppOption } from '../../../../../state/data-apps-management.state';
+import { ZipAppOption } from '../../state/data-apps-management.state';
 
 @Component({
-  selector: 'lcu-daf-app-view-zip-config',
-  templateUrl: './daf-app-view-zip-config.component.html',
-  styleUrls: ['./daf-app-view-zip-config.component.scss'],
+  selector: 'lcu-zip-file-upload',
+  templateUrl: './zip-file-upload.component.html',
+  styleUrls: ['./zip-file-upload.component.scss'],
 })
-export class DafAppViewZipConfigComponent implements OnDestroy, OnInit {
+export class ZipFileUploadComponent implements OnInit {
   //  Fields
 
   //  Properties
@@ -28,8 +20,8 @@ export class DafAppViewZipConfigComponent implements OnDestroy, OnInit {
     };
   }
 
-  @Input('details')
-  public Details: any; // DAFViewZipApplicationDetails;
+  @Input('zip-file')
+  public ZipFile: string;
 
   @Input('form-group')
   public FormGroup: FormGroup;
@@ -42,32 +34,20 @@ export class DafAppViewZipConfigComponent implements OnDestroy, OnInit {
 
   //  Constructors
   constructor() {
-    this.Details = {};
-
     this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
   public ngOnDestroy(): void {
     this.FormGroup.removeControl('zipFile');
-
-    this.FormGroup.removeControl('stateCfg');
   }
 
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'zipFile',
-      new FormControl(!this.Details ? {} : this.Details.ZipFile || '', [
+      new FormControl(this.ZipFile || '', [
         Validators.required,
       ])
-    );
-
-    this.FormGroup.addControl(
-      'stateCfg',
-      new FormControl(
-        JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}),
-        []
-      )
     );
   }
 

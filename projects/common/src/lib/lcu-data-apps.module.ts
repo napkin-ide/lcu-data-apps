@@ -22,9 +22,9 @@ import { DataAppSecurityConfigsComponent } from './elements/management/controls/
 import { SettingsComponent } from './elements/modals/settings/settings.component';
 import { DataDafAppTypeComponent } from './elements/management/controls/data-daf-app-type/data-daf-app-type.component';
 import { NpmPackageSelectComponent } from './controls/npm-package-select/npm-package-select.component';
-import { DafAppViewZipConfigComponent } from './elements/management/controls/daf-app-configs/daf-app-view-zip-config/daf-app-view-zip-config.component';
 import { DafAppCardQuickViewComponent } from './elements/management/controls/daf-app-card-quick-view/daf-app-card-quick-view.component';
 import { DndDirective } from './controls/dnd.directive';
+import { ZipFileUploadComponent } from './controls/zip-file-upload/zip-file-upload.component';
 
 @NgModule({
   declarations: [
@@ -48,9 +48,9 @@ import { DndDirective } from './controls/dnd.directive';
     SettingsComponent,
     DataDafAppTypeComponent,
     NpmPackageSelectComponent,
-    DafAppViewZipConfigComponent,
     DafAppCardQuickViewComponent,
     DndDirective,
+    ZipFileUploadComponent,
   ],
   imports: [
     FathymSharedModule,
@@ -80,9 +80,9 @@ import { DndDirective } from './controls/dnd.directive';
     SettingsComponent,
     DataDafAppTypeComponent,
     NpmPackageSelectComponent,
-    DafAppViewZipConfigComponent,
     DafAppCardQuickViewComponent,
     DndDirective,
+    ZipFileUploadComponent,
   ],
   entryComponents: [
     DataAppViewComponent,

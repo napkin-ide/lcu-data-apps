@@ -17,7 +17,6 @@ import {
 } from '../../../../state/data-apps-management.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DAFConfigService } from '../../../../core/daf-config.service';
-import { DafAppViewZipConfigComponent } from './daf-app-view-zip-config/daf-app-view-zip-config.component';
 
 @Component({
   selector: 'lcu-daf-app-configs',
@@ -80,9 +79,6 @@ export class DafAppConfigsComponent implements OnInit {
 
   @ViewChild(DafAppViewConfigComponent)
   public DAFAppViewConfig: DafAppViewConfigComponent;
-
-  @ViewChild(DafAppViewZipConfigComponent)
-  public DAFAppViewZipConfig: DafAppViewZipConfigComponent;
 
   public DataDAFAppTypes = DataDAFAppTypes;
 

@@ -37,6 +37,8 @@
       [form-group]="FormGroup"
       [details]="DAFConfig"
       [include-lookup]="true"
+      [zip-app-options]="ZipAppOptions"
+      (upload-zip-files)="UploadZips($event)"
     ></lcu-daf-app-view-config>
   </ng-container>
 
@@ -44,8 +46,6 @@
     <lcu-daf-app-view-zip-config
       [form-group]="FormGroup"
       [details]="DAFConfig"
-      [zip-app-options]="ZipAppOptions"
-      (upload-zip-files)="UploadZips($event)"
     ></lcu-daf-app-view-zip-config>
   </ng-container> -->
 </div>

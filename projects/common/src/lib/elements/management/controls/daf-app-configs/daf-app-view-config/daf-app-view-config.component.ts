@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import {
@@ -54,9 +61,17 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
       : this.Details.PackageType;
   }
 
+  @Output('upload-zip-files')
+  public UploadZipFiles: EventEmitter<FileList>;
+
+  @Input('zip-app-options')
+  public ZipAppOptions: ZipAppOption[];
+
   //  Constructors
   constructor(protected npm: NPMService) {
     this.Details = {};
+
+    this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
   //  Life Cycle
@@ -97,6 +112,9 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   }
 
   //  API Methods
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
+  }
 
   //  Helpers
 }
