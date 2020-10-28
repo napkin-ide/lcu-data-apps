@@ -16,7 +16,6 @@ import {
   ZipAppOption,
 } from '../../../../state/data-apps-management.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DafAppLCUConfigComponent } from './daf-app-lcu-config/daf-app-lcu-config.component';
 import { DAFConfigService } from '../../../../core/daf-config.service';
 import { DafAppViewZipConfigComponent } from './daf-app-view-zip-config/daf-app-view-zip-config.component';
 
@@ -43,8 +42,6 @@ export class DafAppConfigsComponent implements OnInit {
         return { '': this.DAFAppRedirectConfig.Config };
 
       case DataDAFAppTypes.LCU:
-        return { '': this.DAFAppLCUConfig.Config };
-
       case DataDAFAppTypes.View:
         return { '': this.DAFAppViewConfig.Config };
     }
@@ -68,9 +65,6 @@ export class DafAppConfigsComponent implements OnInit {
 
   @Input('daf-app-options')
   public DAFAppOptions: { [key: string]: string };
-
-  @ViewChild(DafAppLCUConfigComponent)
-  public DAFAppLCUConfig: DafAppLCUConfigComponent;
 
   @ViewChild(DafAppPointerConfigComponent)
   public DAFAppPointerConfig: DafAppPointerConfigComponent;

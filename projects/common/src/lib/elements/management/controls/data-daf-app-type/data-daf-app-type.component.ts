@@ -42,7 +42,7 @@ export class DataDafAppTypeComponent implements OnInit {
 
     this.OptionDisplayNames[DataDAFAppTypes.Redirect] = 'Redirect';
 
-    this.OptionDisplayNames[DataDAFAppTypes.View] = 'NPM Package View';
+    this.OptionDisplayNames[DataDAFAppTypes.View] = 'View';
 
     this.OptionDisplayNames[DataDAFAppTypes.LCU] = 'Low Code Unit';
 

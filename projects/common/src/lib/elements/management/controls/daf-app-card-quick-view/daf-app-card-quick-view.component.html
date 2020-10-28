@@ -1,11 +1,11 @@
 <ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View">
-  <h4>{{ DAFConfig.NPMPackage }}@{{ DAFConfig.PackageVersion }}</h4>
+  <h4>{{ DAFConfig.Package.Name }}@{{ DAFConfig.Package.Version }}</h4>
 </ng-container>
 
 <ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.LCU">
   <h4 *ngIf="DAFConfig.NPMPackage">
-    {{ DAFConfig.Lookup }} - {{ DAFConfig.NPMPackage }}@{{
-      DAFConfig.PackageVersion
+    {{ DAFConfig.Lookup }} - {{ DAFConfig.Package.Name }}@{{
+      DAFConfig.Package.Version
     }}
   </h4>
 

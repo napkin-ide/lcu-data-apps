@@ -1,21 +1,67 @@
 <div [formGroup]="FormGroup">
-  <lcu-npm-package-select
-    [npm-package]="Details?.Package?.Name"
-    [npm-package-version]="Details?.Package?.Version"
-    [form-group]="FormGroup"
-  ></lcu-npm-package-select>
-
-  <mat-form-field class="mat-full-width">
+  <mat-form-field class="mat-full-width" *ngIf="IncludeLookup">
     <input
       matInput
-      placeholder="State Config (json)"
-      formControlName="stateCfg"
+      placeholder="LCU Lookup"
+      formControlName="lcuLookup"
+      required
     />
     <mat-icon
       matSuffix
-      matTooltip=" This needs to be an empty JSON object to start for many apps."
+      matTooltip="Enter the lookup for the LCU to be used by the IDE configuration system."
     >
       info_outline
     </mat-icon>
   </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <mat-select placeholder="Package Type" formControlName="pkgType" required>
+      <!-- <mat-option value="Git">Git Build</mat-option> -->
+
+      <mat-option value="NPM">NPM Package</mat-option>
+
+      <mat-option value="Zip">Zip Package</mat-option>
+    </mat-select>
+
+    <mat-icon
+      matSuffix
+      matTooltip="The type of deployment package to use for the application."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <ng-container *ngIf="SelectedDAFAppPackageType">
+    <div [ngSwitch]="SelectedDAFAppPackageType">
+      <ng-container *ngSwitchCase="DAFApplicationPackageTypes.Git">
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DAFApplicationPackageTypes.NPM">
+        <lcu-npm-package-select
+          [npm-package]="Details?.Package?.Name"
+          [npm-package-version]="Details?.Package?.Version"
+          [form-group]="FormGroup"
+        ></lcu-npm-package-select>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DAFApplicationPackageTypes.Zip">
+
+      </ng-container>
+    </div>
+
+    <mat-form-field class="mat-full-width">
+      <input
+        matInput
+        placeholder="State Config (json)"
+        formControlName="stateCfg"
+      />
+      <mat-icon
+        matSuffix
+        matTooltip=" This needs to be an empty JSON object to start for many apps."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+  </ng-container>
 </div>
