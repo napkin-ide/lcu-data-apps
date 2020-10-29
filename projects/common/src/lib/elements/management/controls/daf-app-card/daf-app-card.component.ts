@@ -169,10 +169,14 @@ export class DafAppCardComponent implements OnInit {
   public Save() {
     const appRootBase = this.PathGroup;
 
-    const path =
+    let path =
       this.DAFApplication.DAFAppType === DataDAFAppTypes.LCU
         ? this.EditDataAppFormGroup.controls.lcuLookup.value
         : this.EditDataAppFormGroup.controls.path.value;
+
+    if (!path) {
+      path = '';
+    }
 
     const toSave = {
       ID: this.DAFApplication.ID,
@@ -180,7 +184,7 @@ export class DafAppCardComponent implements OnInit {
       DAFAppType: this.DAFApplication.DAFAppType,
       Description: this.EditDataAppFormGroup.controls.desc.value,
       Name: this.EditDataAppFormGroup.controls.name.value,
-      Path: `${this.PathGroup}/${this.EditDataAppFormGroup.controls.path.value}`,
+      Path: `${appRootBase}/${path}`,
       Priority: this.EditDataAppFormGroup.controls.priority.value,
       Security: {
         AccessRights: this.EditDataAppFormGroup.controls.accRights.value,

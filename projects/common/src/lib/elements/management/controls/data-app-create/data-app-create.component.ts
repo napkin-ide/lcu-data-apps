@@ -107,10 +107,14 @@ export class DataAppCreateComponent implements OnInit {
   public Save() {
     const appRootBase = this.ComputedAppRootBase;
 
-    const path =
+    let path =
       this.SelectedDAFAppType === DataDAFAppTypes.LCU
         ? this.CreateDataAppFormGroup.controls.lcuLookup.value
         : this.CreateDataAppFormGroup.controls.path.value;
+
+    if (!path) {
+      path = '';
+    }
 
     const toSave = {
       Configs: this.DAFAppConfigs.Configs,
