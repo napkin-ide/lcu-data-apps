@@ -89,7 +89,7 @@ export class DafAppCardComponent implements OnInit {
       case DataDAFAppTypes.DAFAppPointer:
       case DataDAFAppTypes.Redirect:
       case DataDAFAppTypes.View:
-        launchPath = this.DAFApplication.Path;
+        launchPath = this.DAFApplication.Path || '/';
         break;
     }
 
