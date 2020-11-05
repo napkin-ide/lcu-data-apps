@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DafAppConfigsComponent } from '../daf-app-configs/daf-app-configs.component';
 import { debug } from 'console';
 import { DAFConfigService } from 'projects/common/src/lib/core/daf-config.service';
+import { DAFAPIApplicationDetails } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-card',
@@ -128,6 +129,20 @@ export class DafAppCardComponent implements OnInit {
   }
 
   //  API Methods
+  public AddAPIConfigEnvironment(
+    apiConfig: DAFAPIApplicationDetails & { Lookup?: string }
+  ) {
+    const toSave = this.buildSaveModel();
+
+    const lookups = Object.keys(toSave.Configs);
+
+    if (!lookups.some((l) => l === apiConfig.Lookup)) {
+      toSave.Configs[apiConfig.Lookup] = <{}>apiConfig;
+
+      this.Saved.emit(toSave);
+    }
+  }
+
   public CleanPath() {
     let path = this.DAFApplication.Path;
 
@@ -167,6 +182,17 @@ export class DafAppCardComponent implements OnInit {
   }
 
   public Save() {
+    const toSave = this.buildSaveModel();
+
+    this.Saved.emit(toSave);
+  }
+
+  public UploadZips(files: FileList) {
+    this.UploadZipFiles.emit(files);
+  }
+
+  //  Helpers
+  protected buildSaveModel() {
     const appRootBase = this.PathGroup;
 
     let path =
@@ -178,7 +204,7 @@ export class DafAppCardComponent implements OnInit {
       path = '';
     }
 
-    const toSave = {
+    return {
       ID: this.DAFApplication.ID,
       Configs: this.DAFAppConfigs.Configs,
       DAFAppType: this.DAFApplication.DAFAppType,
@@ -192,13 +218,5 @@ export class DafAppCardComponent implements OnInit {
         Licenses: this.EditDataAppFormGroup.controls.licenses.value,
       },
     } as DataDAFAppDetails;
-
-    this.Saved.emit(toSave);
   }
-
-  public UploadZips(files: FileList) {
-    this.UploadZipFiles.emit(files);
-  }
-
-  //  Helpers
 }

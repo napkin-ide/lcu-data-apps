@@ -58,12 +58,14 @@
                  -->
 
                 <lcu-daf-app-configs
+                  [allow-add-api-config]="true"
                   [form-group]="EditDataAppFormGroup"
                   [daf-app-type]="DAFApplication.DAFAppType"
                   [daf-application]="DAFApplication"
                   [daf-app-options]="DAFAppOptions"
                   [daf-app-root-base]="PathGroup + '/'"
                   [zip-app-options]="ZipAppOptions"
+                  (add-api-config)="AddAPIConfigEnvironment($event)"
                   (upload-zip-files)="UploadZips($event)"
                 ></lcu-daf-app-configs>
               </div>

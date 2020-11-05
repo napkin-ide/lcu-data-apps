@@ -23,7 +23,7 @@ export class DAFConfigService {
   //  API Methods
   public Config(dafApp: DataDAFAppDetails): any {
     if (!dafApp) {
-      return {};
+      return null;
     }
 
     if (dafApp.DAFAppType === DataDAFAppTypes.API) {

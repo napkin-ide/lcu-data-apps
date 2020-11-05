@@ -1,8 +1,10 @@
 <div [ngSwitch]="DAFAppType">
   <ng-container *ngSwitchCase="DataDAFAppTypes.API">
     <lcu-daf-app-api-config
+      [allow-add-api-config]="AllowAddAPIConfig"
       [form-group]="FormGroup"
       [details]="DAFConfig"
+      (add-api-config)="AddAPIConfigEnvironment($event)"
       ></lcu-daf-app-api-config>
   </ng-container>
 

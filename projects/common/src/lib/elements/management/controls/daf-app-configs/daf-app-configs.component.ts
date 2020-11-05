@@ -17,6 +17,7 @@ import {
 } from '../../../../state/data-apps-management.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DAFConfigService } from '../../../../core/daf-config.service';
+import { DAFAPIApplicationDetails } from '@lcu/common';
 
 @Component({
   selector: 'lcu-daf-app-configs',
@@ -28,6 +29,14 @@ export class DafAppConfigsComponent implements OnInit {
   protected configs: { [key: string]: { [key: string]: string } };
 
   //  Properties
+  @Output('add-api-config')
+  public AddAPIConfig: EventEmitter<
+    DAFAPIApplicationDetails & { Lookup?: string }
+  >;
+
+  @Input('allow-add-api-config')
+  public AllowAddAPIConfig: boolean;
+
   @Input('configs')
   public get Configs(): { [key: string]: { [key: string]: string } } {
     switch (this.DAFAppType) {
@@ -96,6 +105,10 @@ export class DafAppConfigsComponent implements OnInit {
     protected formBldr: FormBuilder,
     protected dafCfgSvc: DAFConfigService
   ) {
+    this.AddAPIConfig = new EventEmitter();
+
+    this.AllowAddAPIConfig = true;
+
     this.UploadZipFiles = new EventEmitter<FileList>();
   }
 
@@ -103,6 +116,10 @@ export class DafAppConfigsComponent implements OnInit {
   public ngOnInit(): void {}
 
   //  API Methods
+  public AddAPIConfigEnvironment(apiConfig: DAFAPIApplicationDetails & { Lookup?: string }) {
+    this.AddAPIConfig.emit(apiConfig);
+  }
+
   public UploadZips(files: FileList) {
     this.UploadZipFiles.emit(files);
   }

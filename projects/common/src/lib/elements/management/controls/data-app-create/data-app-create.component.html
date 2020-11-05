@@ -23,6 +23,7 @@
 
     <ng-container *ngIf="SelectedDAFAppType">
       <lcu-daf-app-configs
+        [allow-add-api-config]="false"
         [form-group]="CreateDataAppFormGroup"
         [daf-app-type]="SelectedDAFAppType"
         [daf-app-options]="DAFAppOptions"

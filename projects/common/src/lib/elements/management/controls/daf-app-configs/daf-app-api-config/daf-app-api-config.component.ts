@@ -4,8 +4,11 @@ import {
   OnDestroy,
   Input,
   ApplicationRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 import { DAFAPIApplicationDetails } from '@lcu/common';
 
 @Component({
@@ -17,69 +20,148 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
+  public get ActiveDetails(): DAFAPIApplicationDetails & { Lookup?: string } {
+    return this.Details
+      ? this.Details.find((d) => d.Lookup === this.ActiveDetailsLookup)
+      : null;
+  }
+
+  public ActiveDetailsLookup: string;
+
+  @Output('add-api-config')
+  public AddAPIConfig: EventEmitter<
+    DAFAPIApplicationDetails & { Lookup?: string }
+  >;
+
+  @Input('allow-add-api-config')
+  public AllowAddAPIConfig: boolean;
+
   public get Configs(): { [key: string]: { [key: string]: any } } {
-    return {
-      '': {
-        APIRoot: this.FormGroup.controls.apiRoot.value,
-        InboundPath: this.FormGroup.controls.inboundPath.value,
-        Methods: this.FormGroup.controls.methods.value,
-        Security: this.FormGroup.controls.security.value,
-      },
+    const configs = {};
+
+    if (this.Details) {
+      this.Details.forEach((dets) => {
+        configs[dets.Lookup] = dets;
+      });
+    }
+
+    configs[this.ActiveDetailsLookup || this.FormGroup.controls.lookup.value || ''] = {
+      APIRoot: this.FormGroup.controls.apiRoot.value,
+      InboundPath: this.FormGroup.controls.inboundPath.value,
+      Lookup: this.FormGroup.controls.lookup.value,
+      Methods: this.FormGroup.controls.methods.value,
+      Security: this.FormGroup.controls.security.value,
     };
+
+    return configs;
   }
 
   @Input('details')
-  public Details: DAFAPIApplicationDetails & { Lookup?: string };
+  public Details: (DAFAPIApplicationDetails & { Lookup?: string })[];
 
   @Input('form-group')
   public FormGroup: FormGroup;
 
   //  Constructors
   constructor(protected appRef: ApplicationRef) {
-    this.Details = {};
+    this.ActiveDetailsLookup = null;
+
+    this.AddAPIConfig = new EventEmitter();
+
+    this.AllowAddAPIConfig = true;
+
+    this.Details = [];
   }
 
   //  Life Cycle
   public ngOnDestroy(): void {
-    this.FormGroup.removeControl('apiRoot');
-
-    this.FormGroup.removeControl('inboundPath');
-
-    this.FormGroup.removeControl('methods');
-
-    this.FormGroup.removeControl('security');
-
-    this.FormGroup.removeControl('lookup');
+    this.destroyControls();
   }
 
   public ngOnInit(): void {
+    this.setApiDetailsForm();
+  }
+
+  //  API Methods
+  public ActiveDAFAPIChanged(event: MatSelectChange) {
+    if (!this.ActiveDetailsLookup || event.value !== this.ActiveDetailsLookup) {
+      this.ActiveDetailsLookup = event.value;
+
+      this.setApiDetailsForm();
+    }
+  }
+
+  public AddAPIConfigEnvironment() {
+    const newApiConfig = {
+      ...this.ActiveDetails || {},
+      Lookup: `${this.ActiveDetailsLookup || ''}-copy`,
+    };
+
+    this.AddAPIConfig.emit(newApiConfig);
+  }
+
+  //  Helpers
+  protected destroyControls() {
+    if (this.FormGroup.controls.apiRoot) {
+      this.FormGroup.removeControl('apiRoot');
+    }
+
+    if (this.FormGroup.controls.inboundPath) {
+      this.FormGroup.removeControl('inboundPath');
+    }
+
+    if (this.FormGroup.controls.methods) {
+      this.FormGroup.removeControl('methods');
+    }
+
+    if (this.FormGroup.controls.security) {
+      this.FormGroup.removeControl('security');
+    }
+
+    if (this.FormGroup.controls.lookup) {
+      this.FormGroup.removeControl('lookup');
+    }
+  }
+
+  protected setApiDetailsForm() {
+    this.destroyControls();
+
+    if (this.Details && this.Details.length === 1) {
+      this.ActiveDetailsLookup = this.Details[0].Lookup;
+    }
+
     this.FormGroup.addControl(
       'apiRoot',
-      new FormControl(!this.Details ? '' : this.Details.APIRoot, [Validators.required])
+      new FormControl(!this.ActiveDetails ? '' : this.ActiveDetails.APIRoot, [
+        Validators.required,
+      ])
     );
 
     this.FormGroup.addControl(
       'inboundPath',
-      new FormControl(!this.Details ? '' : this.Details.InboundPath, [Validators.required])
+      new FormControl(
+        !this.ActiveDetails ? '' : this.ActiveDetails.InboundPath,
+        [Validators.required]
+      )
     );
 
     this.FormGroup.addControl(
       'methods',
-      new FormControl(!this.Details ? '' : this.Details.Methods, [Validators.required])
+      new FormControl(!this.ActiveDetails ? '' : this.ActiveDetails.Methods, [
+        Validators.required,
+      ])
     );
 
     this.FormGroup.addControl(
       'security',
-      new FormControl(!this.Details ? '' : this.Details.Security, [Validators.required])
+      new FormControl(!this.ActiveDetails ? '' : this.ActiveDetails.Security, [
+        Validators.required,
+      ])
     );
 
     this.FormGroup.addControl(
       'lookup',
-      new FormControl(!this.Details ? '' : this.Details.Lookup, [Validators.required])
+      new FormControl(!this.ActiveDetails ? '' : this.ActiveDetails.Lookup, [])
     );
   }
-
-  //  API Methods
-
-  //  Helpers
 }
