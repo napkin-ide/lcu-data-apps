@@ -1,0 +1,76 @@
+<div [formGroup]="FormGroup">
+  <mat-form-field class="mat-full-width">
+    <input
+      matInput
+      placeholder="Application Name"
+      formControlName="name"
+      required
+    />
+
+    <mat-icon
+      matSuffix
+      matTooltip="This is the name of the Application that will show in the drop-down list of Data Applications."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <textarea
+      matInput
+      placeholder="Description"
+      formControlName="desc"
+      required
+    ></textarea>
+
+    <mat-icon
+      matSuffix
+      matTooltip="This field, along with Application Name, is to help maintain understanding and context of what an application container is there for."
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <lcu-data-daf-app-type
+    *ngIf="!HideAppType"
+    [data-daf-app-type]="DataDafAppType"
+    [data-daf-app-type-options]="SupportedDAFAppTypes"
+    [form-group]="FormGroup"
+  ></lcu-data-daf-app-type>
+
+  <ng-container *ngIf="SelectedDAFAppType">
+    <mat-form-field
+      class="mat-full-width"
+      [fxHide]="SelectedDAFAppType == DataDAFAppTypes.LCU"
+    >
+      <span matPrefix>{{ PathRoot }}</span>
+
+      <input matInput placeholder="Path" formControlName="path" />
+
+      <mat-icon
+        matSuffix
+        matTooltip="The path is the URL where your application is hosted. It must be a valid URL structure."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="mat-full-width" [fxHide]="HidePriority">
+      <input
+        matInput
+        placeholder="Priority"
+        formControlName="priority"
+        required
+      />
+
+      <mat-icon
+        matSuffix
+        matTooltip="This field is used to determine the overall priority of the application and the order in which matching logic will process it.  THe higher the order, the sooner it will be processed.  Leave at 0 to be system processed."
+      >
+        info_outline
+      </mat-icon>
+    </mat-form-field>
+
+    <!--  TODO:  Tags go here  -->
+  </ng-container>
+</div>

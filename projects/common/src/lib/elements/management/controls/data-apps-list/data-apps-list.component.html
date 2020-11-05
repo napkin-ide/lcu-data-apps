@@ -1,0 +1,73 @@
+<div class="spread">
+  <ng-container *ngIf="!IsCreating">
+    <span class="data-apps-actions">
+      <button mat-raised-button (click)="ToggleCreatingNewApp()">
+        <mat-icon color="primary">add</mat-icon> Create New
+      </button>
+    </span>
+
+    <h1 class="mat-headline">Application Management</h1>
+
+    <!-- <p class="mat-subheading-2">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.
+    </p> -->
+
+    <div class="data-app-filters"></div>
+
+    <div class="data-app-list">
+      <h2>My Application Paths</h2>
+
+      <div
+        gdColumns="33% 33% 33%"
+        gdColumns.lt-md="45% 45%"
+        gdColumns.lt-sm="100%"
+        gdGap="2em"
+        gdGap.lt-sm="1em"
+      >
+        <ng-container *ngFor="let app of Applications">
+          <lcu-data-app-card
+            class="app-card"
+            [application]="app"
+            (settings)="AppSettingsClick($event)"
+          ></lcu-data-app-card>
+        </ng-container>
+      </div>
+
+      <h2>System Application Paths</h2>
+
+      <div
+        gdColumns="33% 33% 33%"
+        gdColumns.lt-md="45% 45%"
+        gdColumns.lt-sm="100%"
+        gdGap="2em"
+        gdGap.lt-sm="1em"
+      >
+        <ng-container *ngFor="let app of FixedApplications">
+          <lcu-data-app-card
+            class="app-card"
+            [application]="app"
+            (settings)="AppSettingsClick($event)"
+            (saved)="SaveDAFApp($event)"
+          ></lcu-data-app-card>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="IsCreating">
+    <lcu-data-app-create
+      [access-right-options]="AccessRightOptions"
+      [app-paths]="ApplicationPaths"
+      app-root-base="/"
+      [daf-app-options]="DAFAppOptions"
+      [supported-daf-app-types]="SupportedDAFAppTypes"
+      [zip-app-options]="ZipAppOptions"
+      (canceled)="ToggleCreatingNewApp()"
+      (saved)="SaveDAFApp($event)"
+      (upload-zip-files)="UploadZips($event)"
+    ></lcu-data-app-create>
+  </ng-container>
+</div>

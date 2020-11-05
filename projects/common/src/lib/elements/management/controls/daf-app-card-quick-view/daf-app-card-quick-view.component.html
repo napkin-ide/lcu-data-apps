@@ -1,0 +1,26 @@
+<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.View || DAFApplication.DAFAppType == DataDAFAppTypes.LCU">
+  <h4 *ngIf="DAFConfig.Package.Name">
+    {{ DAFConfig.Lookup }} {{ DAFConfig.Package.Name }}@{{
+      DAFConfig.Package.Version
+    }}
+  </h4>
+
+  <h4 *ngIf="DAFConfig.Package.ZipFile">{{ DAFConfig.Package.ZipFile }}</h4>
+</ng-container>
+
+<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.Redirect">
+  <h4>{{ DAFConfig.Redirect }}</h4>
+</ng-container>
+
+<!-- <ng-container
+  *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.DAFAppPointer"
+>
+  <h4>{{ DAFAppOptions[DAFConfig.DAFAppPointerID] }}</h4>
+</ng-container> -->
+
+<ng-container *ngIf="DAFApplication.DAFAppType == DataDAFAppTypes.API">
+  <ng-container *ngFor="let apiConfig of DAFConfig">
+    <h4>{{ apiConfig.Lookup || "~default~" }} - {{ apiConfig.APIRoot }}</h4>
+  </ng-container>
+</ng-container>
+

@@ -1,0 +1,68 @@
+:host ::ng-deep {
+  .mat-card {
+    overflow: hidden;
+    position: relative;
+
+    .overlay {
+      position: absolute !important;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(5, 5, 5, 0.8) !important;
+    }
+
+    .mat-card-header {
+      border-bottom: 1px solid black;
+
+      .mat-card-header-text {
+        margin: 0;
+        padding-right: 1em;
+        max-width: calc(100% - 100px);
+        min-width: calc(100% - 100px);
+
+        .mat-card-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .mat-card-content {
+      overflow: auto;
+      margin: 0;
+      height: calc(100% - 41px - 48px);
+
+      .spread {
+        margin: 1em;
+      }
+    }
+
+    .mat-card-actions {
+      .data-app-actions {
+        display: none !important;
+      }
+
+      .data-app-fakes {
+        display: flex !important;
+
+        .mat-icon {
+          font-size: 8px;
+        }
+      }
+    }
+
+    &:hover {
+      .mat-card-actions {
+        .data-app-actions {
+          display: flex !important;
+        }
+
+        .data-app-fakes {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
