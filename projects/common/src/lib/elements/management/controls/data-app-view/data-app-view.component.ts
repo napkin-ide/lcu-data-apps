@@ -59,7 +59,7 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   }
 
   @Output('back-click')
-  public BackClicked: EventEmitter<{}>;
+  public BackClicked: EventEmitter<any>;
 
   @Input('current-application-tab')
   public CurrentApplicationTab: number;
@@ -127,6 +127,7 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   }
 
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
+    console.log("cancel clicked: ", dafApp)
     this.DAFSettingsClicked.emit(dafApp);
   }
 

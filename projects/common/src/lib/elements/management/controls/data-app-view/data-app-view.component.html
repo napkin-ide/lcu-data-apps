@@ -5,9 +5,20 @@
         [application-stati]="Application.AppStati"
       ></lcu-data-app-stati>
 
-      <button mat-icon-button (click)="BackClick()">
+      <button 
+        *ngIf="!ActiveDAFApplicationID"
+        mat-button 
+        (click)="BackClick()">
         <mat-icon>keyboard_backspace</mat-icon>
       </button>
+
+      <button 
+        *ngIf="ActiveDAFApplicationID"
+        mat-button 
+        (click)="DAFAppSettingsClick(null)">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      
 
       Application Management for: {{ Application.PathGroup }}
     </h1>
