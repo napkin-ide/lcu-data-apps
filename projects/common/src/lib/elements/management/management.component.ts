@@ -126,7 +126,6 @@ export class LcuDataAppsManagementElementComponent
 
   public BackClick() {
     this.State.Loading = true;
-
     this.dataAppsCtxt.SetActiveDataApp(null);
   }
 
