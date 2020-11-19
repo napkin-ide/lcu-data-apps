@@ -119,7 +119,12 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
 
   //  API Methods
   public BackClick() {
-    this.BackClicked.emit(this.Application);
+    if(!this.ActiveDAFApplicationID){
+      this.BackClicked.emit(this.Application);
+    }
+    else{
+      this.DAFSettingsClicked.emit(null);
+    }
   }
 
   public DAFAppDeleteClick(dafAppDelete: DataDAFAppDelete) {
@@ -127,7 +132,6 @@ export class DataAppViewComponent implements AfterViewInit, OnInit {
   }
 
   public DAFAppSettingsClick(dafApp: DataDAFAppDetails) {
-    console.log("cancel clicked: ", dafApp)
     this.DAFSettingsClicked.emit(dafApp);
   }
 
