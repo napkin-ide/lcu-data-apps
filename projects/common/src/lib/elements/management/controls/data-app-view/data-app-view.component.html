@@ -5,9 +5,11 @@
         [application-stati]="Application.AppStati"
       ></lcu-data-app-stati>
 
-      <button mat-icon-button (click)="BackClick()">
+      <button 
+        mat-button 
+        (click)="BackClick()">
         <mat-icon>keyboard_backspace</mat-icon>
-      </button>
+      </button>      
 
       Application Management for: {{ Application.PathGroup }}
     </h1>
