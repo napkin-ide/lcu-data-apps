@@ -20,7 +20,7 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   //  Fields
 
   //  Properties
-  public get ActiveDetails(): DAFAPIApplicationDetails & { Lookup?: string } {
+  public get ActiveDetails(): DAFAPIApplicationDetails {
     return this.Details
       ? this.Details.find((d) => d.Lookup === this.ActiveDetailsLookup)
       : null;
@@ -29,9 +29,7 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   public ActiveDetailsLookup: string;
 
   @Output('add-api-config')
-  public AddAPIConfig: EventEmitter<
-    DAFAPIApplicationDetails & { Lookup?: string }
-  >;
+  public AddAPIConfig: EventEmitter<DAFAPIApplicationDetails>;
 
   @Input('allow-add-api-config')
   public AllowAddAPIConfig: boolean;
@@ -45,7 +43,9 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
       });
     }
 
-    configs[this.ActiveDetailsLookup || this.FormGroup.controls.lookup.value || ''] = {
+    configs[
+      this.ActiveDetailsLookup || this.FormGroup.controls.lookup.value || ''
+    ] = {
       APIRoot: this.FormGroup.controls.apiRoot.value,
       InboundPath: this.FormGroup.controls.inboundPath.value,
       Lookup: this.FormGroup.controls.lookup.value,
@@ -57,7 +57,9 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
   }
 
   @Input('details')
-  public Details: (DAFAPIApplicationDetails & { Lookup?: string })[];
+  public Details: DAFAPIApplicationDetails[];
+
+  public DetailsLookups: string[];
 
   @Input('form-group')
   public FormGroup: FormGroup;
@@ -80,6 +82,8 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
 
   public ngOnInit(): void {
     this.setApiDetailsForm();
+
+    this.DetailsLookups = this.Details.map((d) => d.Lookup);
   }
 
   //  API Methods
@@ -93,11 +97,15 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
 
   public AddAPIConfigEnvironment() {
     const newApiConfig = {
-      ...this.ActiveDetails || {},
+      ...(this.ActiveDetails || {}),
       Lookup: `${this.ActiveDetailsLookup || ''}-copy`,
     };
 
     this.AddAPIConfig.emit(newApiConfig);
+  }
+
+  public GetDetails(lookup: string) {
+    return this.Details.find((d) => d.Lookup === lookup);
   }
 
   //  Helpers

@@ -1,25 +1,30 @@
 <div [formGroup]="FormGroup">
   <ng-container *ngIf="Details?.length > 1">
-    <mat-card>
-      <div class="spread">
-        <mat-form-field>
-          <mat-label>API Config Environment</mat-label>
-          <mat-select
-            (selectionChange)="ActiveDAFAPIChanged($event)"
-            [value]="ActiveDetailsLookup"
-          >
-            <mat-option *ngFor="let detail of Details" [value]="detail.Lookup">
+    <div class="spread">
+      <mat-form-field>
+        <mat-label>API Config Environment</mat-label>
+
+        <mat-select
+          (selectionChange)="ActiveDAFAPIChanged($event)"
+          [value]="ActiveDetailsLookup"
+        >
+          <!-- <mat-option *ngFor="let detail of Details" [value]="detail.Lookup">
               {{ detail.Lookup || "~default~" }} - {{ detail.InboundPath }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </mat-card>
+            </mat-option> -->
+
+          <mat-option
+            *ngFor="let detailLookup of DetailsLookups"
+            [value]="detailLookup"
+          >
+            {{ detailLookup || "~default~" }} -
+            {{ GetDetails(detailLookup)?.InboundPath }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </ng-container>
 
-  {{ Details | json }}
-
-  <ng-container *ngIf="Details?.length <= 1 || ActiveDetailsLookup">
+  <ng-container *ngIf="Details?.length <= 1 || ActiveDetailsLookup != null">
     <mat-form-field class="mat-full-width">
       <input
         matInput
