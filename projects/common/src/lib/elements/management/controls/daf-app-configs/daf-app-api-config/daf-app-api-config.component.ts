@@ -39,14 +39,14 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
 
     if (this.Details) {
       this.Details.forEach((dets) => {
-        configs[dets.Lookup] = dets;
+        configs[dets.Lookup.trim()] = dets;
       });
     }
 
     if (this.ActiveDetailsLookup) {
       delete configs[this.ActiveDetailsLookup];
 
-      const lookup = this.FormGroup.controls.lookup.value || '';
+      const lookup = (this.FormGroup.controls.lookup.value || '').trim();
 
       configs[lookup] = {
         APIRoot: this.FormGroup.controls.apiRoot.value,
