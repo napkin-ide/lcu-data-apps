@@ -43,15 +43,19 @@ export class DafAppApiConfigComponent implements OnDestroy, OnInit {
       });
     }
 
-    configs[
-      this.ActiveDetailsLookup || this.FormGroup.controls.lookup.value || ''
-    ] = {
-      APIRoot: this.FormGroup.controls.apiRoot.value,
-      InboundPath: this.FormGroup.controls.inboundPath.value,
-      Lookup: this.FormGroup.controls.lookup.value,
-      Methods: this.FormGroup.controls.methods.value,
-      Security: this.FormGroup.controls.security.value,
-    };
+    if (this.ActiveDetailsLookup) {
+      delete configs[this.ActiveDetailsLookup];
+
+      const lookup = this.FormGroup.controls.lookup.value || '';
+
+      configs[lookup] = {
+        APIRoot: this.FormGroup.controls.apiRoot.value,
+        InboundPath: this.FormGroup.controls.inboundPath.value,
+        Lookup: lookup,
+        Methods: this.FormGroup.controls.methods.value,
+        Security: this.FormGroup.controls.security.value,
+      };
+    }
 
     return configs;
   }
