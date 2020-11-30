@@ -17,6 +17,8 @@ export class DataAppsManagementState {
 
   public FixedApplications: DataAppDetails[];
 
+  public GlobalAppSettings: GlobalApplicationSettings;
+
   public Loading?: boolean;
 
   public SupportedDAFAppTypes: DataDAFAppTypes[];
@@ -84,6 +86,10 @@ export class DataDAFAppDelete {
   public Lookups: string[];
 }
 
+export class GlobalApplicationSettings {
+  [key: string]: string;
+}
+
 export class ZipAppOption {
   public Data: string;
 
@@ -97,5 +103,5 @@ export enum DataDAFAppTypes {
   API = 'API',
   Redirect = 'Redirect',
   DAFAppPointer = 'DAFAppPointer',
-  LCU = 'LCU'
+  LCU = 'LCU',
 }

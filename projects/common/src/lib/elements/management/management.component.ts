@@ -24,6 +24,7 @@ import {
   DataDAFAppDelete,
   DataDAFAppTypes,
   ZipAppOption,
+  GlobalApplicationSettings,
 } from './../../state/data-apps-management.state';
 import { DataAppsManagementStateContext } from './../../state/data-apps-management-state.context';
 
@@ -163,6 +164,12 @@ export class LcuDataAppsManagementElementComponent
     this.dataAppsCtxt.SetActiveDAFApp(dafApp != null ? dafApp.ID : null);
 
     // this.configureModal();
+  }
+
+  public GlobalAppSettingsSaved(settings: GlobalApplicationSettings) {
+    this.State.Loading = true;
+
+    this.dataAppsCtxt.SaveGlobalAppSettings(settings);
   }
 
   public SaveDAFApp(dafApp: DataDAFAppDetails) {

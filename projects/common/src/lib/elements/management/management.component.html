@@ -6,9 +6,11 @@
         [applications]="State.Applications"
         [daf-app-options]="State.DAFAppOptions"
         [fixed-applications]="State.FixedApplications"
+        [global-app-settings]="State.GlobalAppSettings"
         [supported-daf-app-types]="State.SupportedDAFAppTypes"
         [zip-app-options]="State.ZipAppOptions"
         (daf-app-saved)="SaveDAFApp($event)"
+        (global-app-settings-saved)="GlobalAppSettingsSaved($event)"
         (settings)="AppSettingsClick($event)"
         (upload-zip-files)="UploadZips($event)"
       ></lcu-data-apps-list>
