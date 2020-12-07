@@ -55,6 +55,28 @@
         </ng-container>
       </div>
     </div>
+
+    <mat-accordion class="spread">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Global Application Settings </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>
+          <form [formGroup]="GlobalAppSettingsForm" (ngSubmit)="GlobalAppSettingsSubmit()">
+            <mat-form-field class="mat-full-width">
+              <input matInput placeholder="Google Analytics Measurement ID" formControlName="gaMId" />
+            </mat-form-field>
+
+            <div>
+              <div fxFlex></div>
+
+              <button mat-raised-button type="submit" color="primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </ng-container>
 
   <ng-container *ngIf="IsCreating">

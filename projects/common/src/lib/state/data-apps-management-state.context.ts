@@ -1,9 +1,14 @@
 import { Injectable, Injector } from '@angular/core';
 import { StateContext } from '@lcu/common';
-import { DataAppsManagementState, DataDAFAppDetails, ZipAppOption } from './data-apps-management.state';
+import {
+  DataAppsManagementState,
+  DataDAFAppDetails,
+  GlobalApplicationSettings,
+  ZipAppOption,
+} from './data-apps-management.state';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataAppsManagementStateContext extends StateContext<DataAppsManagementState> {
   //  Properties
@@ -18,54 +23,64 @@ export class DataAppsManagementStateContext extends StateContext<DataAppsManagem
     this.Execute({
       Arguments: {
         ApplicationID: appId,
-        Lookups: lookups
+        Lookups: lookups,
       },
-      Type: 'DeleteDataDAFApp'
+      Type: 'DeleteDataDAFApp',
     });
   }
 
   public SaveDataDAFApp(dafApp: DataDAFAppDetails) {
     this.Execute({
       Arguments: {
-        DAFApp: dafApp
+        DAFApp: dafApp,
       },
-      Type: 'SaveDataDAFApp'
+      Type: 'SaveDataDAFApp',
+    });
+  }
+
+  public SaveGlobalAppSettings(settings: GlobalApplicationSettings) {
+    this.Execute({
+      Arguments: {
+        // Host: host,
+        Settings: settings,
+      },
+      Type: 'SaveGlobalAppSettings',
     });
   }
 
   public SetActiveDAFApp(dafAppId: string) {
     this.Execute({
       Arguments: {
-        DAFAppID: dafAppId
+        DAFAppID: dafAppId,
       },
-      Type: 'SetActiveDAFApp'
+      Type: 'SetActiveDAFApp',
     });
   }
 
   public SetActiveDataApp(appPathGroup: string) {
     this.Execute({
       Arguments: {
-        AppPathGroup: appPathGroup
+        AppPathGroup: appPathGroup,
       },
-      Type: 'SetActiveDataApp'
+      Type: 'SetActiveDataApp',
     });
   }
 
   public SetApplicationTab(appTab: number) {
     this.Execute({
       Arguments: {
-        ApplicationTab: appTab
+        ApplicationTab: appTab,
       },
-      Type: 'SetApplicationTab'
+      Type: 'SetApplicationTab',
     });
   }
 
   public UploadZips(zipApps: ZipAppOption[]) {
     this.Execute({
       Arguments: {
-        ZipApps: zipApps
+        ZipApps: zipApps,
       },
-      Type: 'UploadZips'
+      Type: 'UploadZips',
     });
   }
 

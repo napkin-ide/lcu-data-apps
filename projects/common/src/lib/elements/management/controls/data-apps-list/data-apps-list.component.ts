@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DataAppDetails, DataDAFAppDetails, DataDAFAppTypes, ZipAppOption } from '../../../../state/data-apps-management.state';
+import {
+  DataAppDetails,
+  DataDAFAppDetails,
+  DataDAFAppTypes,
+  GlobalApplicationSettings,
+  ZipAppOption,
+} from '../../../../state/data-apps-management.state';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lcu-data-apps-list',
@@ -7,6 +14,8 @@ import { DataAppDetails, DataDAFAppDetails, DataDAFAppTypes, ZipAppOption } from
   styleUrls: ['./data-apps-list.component.scss'],
 })
 export class DataAppsListComponent implements OnInit {
+  //  Constants
+  GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY = 'GOOGLE-ANALYTICS-MEASUREMENT-ID';
   //  Fields
 
   //  Properties
@@ -17,7 +26,9 @@ export class DataAppsListComponent implements OnInit {
   public Applications: DataAppDetails[];
 
   public get ApplicationPaths(): string[] {
-    return this.Applications ? this.Applications.map(app => app.PathGroup) : [];
+    return this.Applications
+      ? this.Applications.map((app) => app.PathGroup)
+      : [];
   }
 
   @Input('daf-app-options')
@@ -28,6 +39,14 @@ export class DataAppsListComponent implements OnInit {
 
   @Input('fixed-applications')
   public FixedApplications: DataAppDetails[];
+
+  @Input('global-app-settings')
+  public GlobalAppSettings: GlobalApplicationSettings;
+
+  public GlobalAppSettingsForm: FormGroup;
+
+  @Output('global-app-settings-saved')
+  public GlobalAppSettingsSaved: EventEmitter<GlobalApplicationSettings>;
 
   public IsCreating: boolean;
 
@@ -44,8 +63,10 @@ export class DataAppsListComponent implements OnInit {
   public ZipAppOptions: ZipAppOption[];
 
   //  Constructors
-  constructor() {
+  constructor(protected formBldr: FormBuilder) {
     this.DAFAppSaved = new EventEmitter<DataDAFAppDetails>();
+
+    this.GlobalAppSettingsSaved = new EventEmitter<GlobalApplicationSettings>();
 
     this.SettingsClicked = new EventEmitter<DataAppDetails>();
 
@@ -53,11 +74,23 @@ export class DataAppsListComponent implements OnInit {
   }
 
   //  Life Cycle
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.setupGlobalAppSettingsForm();
+  }
 
   //  API Methods
   public AppSettingsClick(appDetails: DataAppDetails) {
     this.SettingsClicked.emit(appDetails);
+  }
+
+  public GlobalAppSettingsSubmit() {
+    const gaMId = this.GlobalAppSettingsForm.controls.gaMId.value;
+
+    const settings = {};
+
+    settings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY] = gaMId;
+
+    this.GlobalAppSettingsSaved.emit(settings);
   }
 
   public SaveDAFApp(dafApp: DataDAFAppDetails) {
@@ -73,4 +106,12 @@ export class DataAppsListComponent implements OnInit {
   }
 
   //  Helpers
+  protected setupGlobalAppSettingsForm() {
+    this.GlobalAppSettingsForm = this.formBldr.group({
+      gaMId: [
+        this.GlobalAppSettings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY],
+        Validators.required,
+      ],
+    });
+  }
 }
