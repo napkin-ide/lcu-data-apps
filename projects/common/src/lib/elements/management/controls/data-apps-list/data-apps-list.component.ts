@@ -15,7 +15,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class DataAppsListComponent implements OnInit {
   //  Constants
-  GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY = 'GOOGLE-ANALYTICS-MEASUREMENT-ID';
+  protected GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY =
+    'GOOGLE-ANALYTICS-MEASUREMENT-ID';
+
+  protected ORIBI_ANALYTICS_TRACKING_ID_KEY = 'ORIBI-ANALYTICS-TRACKING-ID';
+
   //  Fields
 
   //  Properties
@@ -86,9 +90,13 @@ export class DataAppsListComponent implements OnInit {
   public GlobalAppSettingsSubmit() {
     const gaMId = this.GlobalAppSettingsForm.controls.gaMId.value;
 
+    const orTId = this.GlobalAppSettingsForm.controls.orTId.value;
+
     const settings = {};
 
     settings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY] = gaMId;
+
+    settings[this.ORIBI_ANALYTICS_TRACKING_ID_KEY] = orTId;
 
     this.GlobalAppSettingsSaved.emit(settings);
   }
@@ -110,6 +118,10 @@ export class DataAppsListComponent implements OnInit {
     this.GlobalAppSettingsForm = this.formBldr.group({
       gaMId: [
         this.GlobalAppSettings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY],
+        Validators.required,
+      ],
+      orTId: [
+        this.GlobalAppSettings[this.ORIBI_ANALYTICS_TRACKING_ID_KEY],
         Validators.required,
       ],
     });
