@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StateConfigManagerElementComponent } from './identity-config-manager-element.component';
 
@@ -6,7 +6,7 @@ describe('StateConfigManagerElementComponent', () => {
   let component: StateConfigManagerElementComponent;
   let fixture: ComponentFixture<StateConfigManagerElementComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StateConfigManagerElementComponent ]
     })
