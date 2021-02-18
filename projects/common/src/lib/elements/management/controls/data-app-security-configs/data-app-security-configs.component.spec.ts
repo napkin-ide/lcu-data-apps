@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DataAppSecurityConfigsComponent } from './data-app-security-configs.component';
 
@@ -6,7 +6,7 @@ describe('DataAppSecurityConfigsComponent', () => {
   let component: DataAppSecurityConfigsComponent;
   let fixture: ComponentFixture<DataAppSecurityConfigsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DataAppSecurityConfigsComponent ]
     })
