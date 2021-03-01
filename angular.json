@@ -206,6 +206,11 @@
                 "glob": "package.json",
                 "input": "./projects/demo/",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/monaco-editor/dev/",
+                "output": "/assets/monaco-editor/"
               }
             ],
             "styles": [
