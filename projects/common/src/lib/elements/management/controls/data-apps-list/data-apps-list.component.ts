@@ -18,6 +18,8 @@ export class DataAppsListComponent implements OnInit {
   protected GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY =
     'GOOGLE-ANALYTICS-MEASUREMENT-ID';
 
+  protected GOOGLE_TAG_MANAGER_ID_KEY = 'GOOGLE-TAG-MANAGER-ID';
+
   protected ORIBI_ANALYTICS_TRACKING_ID_KEY = 'ORIBI-ANALYTICS-TRACKING-ID';
 
   //  Fields
@@ -90,11 +92,15 @@ export class DataAppsListComponent implements OnInit {
   public GlobalAppSettingsSubmit() {
     const gaMId = this.GlobalAppSettingsForm.controls.gaMId.value;
 
+    const gaTMId = this.GlobalAppSettingsForm.controls.gaTMId.value;
+
     const orTId = this.GlobalAppSettingsForm.controls.orTId.value;
 
     const settings = {};
 
     settings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY] = gaMId;
+
+    settings[this.GOOGLE_TAG_MANAGER_ID_KEY] = gaTMId;
 
     settings[this.ORIBI_ANALYTICS_TRACKING_ID_KEY] = orTId;
 
@@ -118,6 +124,10 @@ export class DataAppsListComponent implements OnInit {
     this.GlobalAppSettingsForm = this.formBldr.group({
       gaMId: [
         this.GlobalAppSettings[this.GOOGLE_ANALYTICS_MEASUREMENT_ID_KEY],
+        Validators.required,
+      ],
+      gaTMId: [
+        this.GlobalAppSettings[this.GOOGLE_TAG_MANAGER_ID_KEY],
         Validators.required,
       ],
       orTId: [
