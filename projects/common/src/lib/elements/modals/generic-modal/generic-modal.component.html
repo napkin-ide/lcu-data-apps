@@ -2,7 +2,7 @@
 <mat-dialog-content>
     <ng-template #content></ng-template>
 </mat-dialog-content>
-<mat-dialog-actions *ngIf="Data.ModalType === 'confirm'" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
-  <button mat-button color="warn" (click)="OnCancel()">{{ Data.LabelCancel }}</button>
-  <button mat-raised-button color="primary" cdkFocusInitial (click)="OnAction()">{{ Data.LabelAction }}</button>
+<mat-dialog-actions *ngIf="Data.ModalType === 'confirm'" fxLayout="row" fxLayoutAlign="end">
+  <button class="margin-x-1" mat-button color="warn" (click)="OnCancel()">{{ Data.LabelCancel }}</button>
+  <button class="margin-x-1" mat-raised-button color="primary" cdkFocusInitial (click)="OnAction()">{{ Data.LabelAction }}</button>
 </mat-dialog-actions>
