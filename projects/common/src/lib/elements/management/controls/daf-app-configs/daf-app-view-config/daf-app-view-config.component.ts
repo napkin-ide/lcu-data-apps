@@ -5,23 +5,23 @@ import {
   Input,
   Output,
   EventEmitter,
-} from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import {
   DAFViewApplicationDetails,
   DAFLCUApplicationDetails,
   DAFApplicationPackageTypes,
-} from "@lcu/common";
-import { ZipAppOption } from "../../../../../state/data-apps-management.state";
-import { debounceTime, switchMap, map } from "rxjs/operators";
-import { NPMService } from "../../../../../core/npm.service";
-import { exception } from "console";
+} from '@lcu/common';
+import { ZipAppOption } from '../../../../../state/data-apps-management.state';
+import { debounceTime, switchMap, map } from 'rxjs/operators';
+import { NPMService } from '../../../../../core/npm.service';
+import { exception } from 'console';
 
 @Component({
-  selector: "lcu-daf-app-view-config",
-  templateUrl: "./daf-app-view-config.component.html",
-  styleUrls: ["./daf-app-view-config.component.scss"],
+  selector: 'lcu-daf-app-view-config',
+  templateUrl: './daf-app-view-config.component.html',
+  styleUrls: ['./daf-app-view-config.component.scss'],
 })
 export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   //  Fields
@@ -34,24 +34,25 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
         : undefined,
       Package: this.buildPackage(),
       PackageType: this.SelectedDAFAppPackageType,
+      RegScripts: this.FormGroup.controls.regScripts.value,
       StateConfig: JSON.parse(this.FormGroup.controls.stateCfg.value),
     };
   }
 
-  @Input("details")
+  public DAFApplicationPackageTypes = DAFApplicationPackageTypes;
+
+  @Input('details')
   public Details: DAFViewApplicationDetails | DAFLCUApplicationDetails;
 
-  @Input("form-group")
+  @Input('form-group')
   public FormGroup: FormGroup;
 
-  @Input("include-lookup")
+  @Input('include-lookup')
   public IncludeLookup: boolean;
 
   public NPMPackages: { Name: string; NPMLink: string; Version: string }[];
 
   public NPMPackageVersions: string[];
-
-  public DAFApplicationPackageTypes = DAFApplicationPackageTypes;
 
   public get SelectedDAFAppPackageType(): DAFApplicationPackageTypes {
     return this.FormGroup.controls.pkgType
@@ -59,10 +60,12 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
       : this.Details.PackageType;
   }
 
-  @Output("upload-zip-files")
+  @Output('upload-zip-files')
   public UploadZipFiles: EventEmitter<FileList>;
 
-  @Input("zip-app-options")
+  public ViewHack: boolean;
+
+  @Input('zip-app-options')
   public ZipAppOptions: ZipAppOption[];
 
   //  Constructors
@@ -74,25 +77,32 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
   //  Life Cycle
   public ngOnDestroy(): void {
-    this.FormGroup.removeControl("pkgType");
+    this.FormGroup.removeControl('pkgType');
 
-    this.FormGroup.removeControl("stateCfg");
+    this.FormGroup.removeControl('stateCfg');
+
+    this.FormGroup.removeControl('regScripts');
 
     if (this.IncludeLookup) {
-      this.FormGroup.removeControl("lcuLookup");
+      this.FormGroup.removeControl('lcuLookup');
     }
   }
 
   public ngOnInit(): void {
     this.FormGroup.addControl(
-      "pkgType",
-      new FormControl(!this.Details ? {} : this.Details.PackageType || "", [])
+      'pkgType',
+      new FormControl(!this.Details ? {} : this.Details.PackageType || '', [])
     );
 
     this.FormGroup.addControl(
-      "stateCfg",
+      'regScripts',
+      new FormControl(!this.Details ? {} : this.Details.RegScripts || '', [])
+    );
+
+    this.FormGroup.addControl(
+      'stateCfg',
       new FormControl(
-        JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}),
+        JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}, null, 4),
         []
       )
     );
@@ -101,8 +111,8 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
       const lcuDets = <DAFLCUApplicationDetails>this.Details;
 
       this.FormGroup.addControl(
-        "lcuLookup",
-        new FormControl(!lcuDets ? "" : lcuDets.Lookup || "", [
+        'lcuLookup',
+        new FormControl(!lcuDets ? '' : lcuDets.Lookup || '', [
           Validators.required,
         ])
       );
