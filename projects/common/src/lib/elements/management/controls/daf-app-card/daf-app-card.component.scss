@@ -2,10 +2,6 @@
   .mat-card {
     height: 250px;
 
-    &.expanded {
-      height: 550px;
-    }
-
     .mat-card-header {
       .mat-card-header-text {
         max-width: calc(100% - 50px);
@@ -14,10 +10,20 @@
     }
 
     .mat-card-content {
+      width: 100%;
       height: calc(100% - 76px - 48px);
 
       .spread {
         margin: 1em;
+      }
+    }
+
+
+    &.expanded {
+      height: auto;
+
+      .mat-card-content {
+        height: auto;
       }
     }
   }

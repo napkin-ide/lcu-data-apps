@@ -1,0 +1,15 @@
+:host ::ng-deep {
+  .code-editor {
+    width: 100%;
+    height: 300px;
+  }
+
+  ngx-monaco-editor {
+    height: 98%;
+
+    .editor-container {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

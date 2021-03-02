@@ -25,7 +25,11 @@
           <mat-icon *ngIf="!app.IsPrivate" matListIcon>public</mat-icon>
         </mat-list-item>
 
-        <mat-list-item *ngIf="!State.AddingApp" id="dataAppsAddNewAppBtn" (click)="ToggleAddingApp()">
+        <mat-list-item
+          *ngIf="!State.AddingApp"
+          id="dataAppsAddNewAppBtn"
+          (click)="ToggleAddingApp()"
+        >
           <a matLine>
             <span>Add New Data App</span>
           </a>
@@ -35,7 +39,11 @@
           </button>
         </mat-list-item>
 
-        <mat-list-item *ngIf="State.AddingApp" id="dataAppsCancelAddNewAppBtn" (click)="ToggleAddingApp()">
+        <mat-list-item
+          *ngIf="State.AddingApp"
+          id="dataAppsCancelAddNewAppBtn"
+          (click)="ToggleAddingApp()"
+        >
           <a matLine>
             <span>Cancel Add New</span>
           </a>
@@ -102,7 +110,9 @@
 
             <div
               class="spread"
-              *ngIf="State.DefaultAppsEnabled && State.DefaultAppsEnabled.Code == 0"
+              *ngIf="
+                State.DefaultAppsEnabled && State.DefaultAppsEnabled.Code == 0
+              "
               fxLayoutAlign="start center"
             >
               <!-- Checkbox disabled until Enterprise White Labeling concept is in place -->
@@ -196,12 +206,18 @@
                     </mat-form-field>
 
                     <mat-form-field class="mat-full-width">
-                      <input
+                      <!-- <input
                         matInput
                         placeholder="State Config (json)"
                         formControlName="stateCfg"
                         [value]="DAFViewAppFormGroup.controls.stateCfg.value"
-                      />
+                      /> -->
+
+                      <lcu-code-editor
+                        [options]="{ theme: 'vs-dark' }"
+                        [(code)]="StateConfig"
+                      ></lcu-code-editor>
+
                       <mat-icon
                         matSuffix
                         matTooltip=" This needs to be an empty JSON object to start for many apps."
@@ -639,16 +655,15 @@
                         placeholder="Licenses"
                         formControlName="licenses"
                       >
-                        <mat-option value="lcu">
-                          Low-Code Unit™
-                        </mat-option>
+                        <mat-option value="lcu"> Low-Code Unit™ </mat-option>
 
-                        <mat-option value="forecast">
-                          Forecast
-                        </mat-option>
+                        <mat-option value="forecast"> Forecast </mat-option>
                       </mat-select>
 
-                      <mat-icon matSuffix matTooltip="This restricts access to the application to your specified license.  An LCU license provides access to data apps, flows, and LCUs. A Forecast license provides access to Point Queries.">
+                      <mat-icon
+                        matSuffix
+                        matTooltip="This restricts access to the application to your specified license.  An LCU license provides access to data apps, flows, and LCUs. A Forecast license provides access to Point Queries."
+                      >
                         info_outline
                       </mat-icon>
                     </mat-form-field>
@@ -772,13 +787,9 @@
                       placeholder="Licenses"
                       formControlName="licenses"
                     >
-                      <mat-option value="lcu">
-                        Low-Code Unit™
-                      </mat-option>
+                      <mat-option value="lcu"> Low-Code Unit™ </mat-option>
 
-                      <mat-option value="forecast">
-                        forecast
-                      </mat-option>
+                      <mat-option value="forecast"> forecast </mat-option>
                     </mat-select>
 
                     <mat-icon matSuffix matTooltip="...">
