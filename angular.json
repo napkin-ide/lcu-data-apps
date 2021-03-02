@@ -31,9 +31,7 @@
               "projects/common/tsconfig.lib.json",
               "projects/common/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -70,9 +68,7 @@
                 "output": "/"
               }
             ],
-            "styles": [
-              "projects/lcu/src/styles.scss"
-            ],
+            "styles": ["projects/lcu/src/styles.scss"],
             "scripts": [
               "node_modules/@webcomponents/custom-elements/src/native-shim.js"
             ]
@@ -128,9 +124,7 @@
             "polyfills": "projects/lcu/src/polyfills.ts",
             "tsConfig": "projects/lcu/tsconfig.spec.json",
             "karmaConfig": "projects/lcu/karma.conf.js",
-            "styles": [
-              "projects/lcu/src/styles.scss"
-            ],
+            "styles": ["projects/lcu/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/lcu/src/favicon.ico",
@@ -145,9 +139,7 @@
               "projects/lcu/tsconfig.app.json",
               "projects/lcu/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -173,9 +165,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/lcu-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -209,8 +199,8 @@
               },
               {
                 "glob": "**/*",
-                "input": "./node_modules/monaco-editor/dev/",
-                "output": "/assets/monaco-editor/"
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "./assets/monaco/"
               }
             ],
             "styles": [
@@ -268,9 +258,7 @@
             "polyfills": "projects/demo/src/polyfills.ts",
             "tsConfig": "projects/demo/tsconfig.spec.json",
             "karmaConfig": "projects/demo/karma.conf.js",
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ],
+            "styles": ["projects/demo/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/demo/src/favicon.ico",
@@ -285,9 +273,7 @@
               "projects/demo/tsconfig.app.json",
               "projects/demo/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -313,9 +299,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/demo-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
