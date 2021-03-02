@@ -27,9 +27,7 @@ import { NPMService } from '../../../core/npm.service';
 
 export class DataAppsConfigManagerElementState {}
 
-export class DataAppsConfigManagerContext extends LCUElementContext<
-  DataAppsConfigManagerElementState
-> {}
+export class DataAppsConfigManagerContext extends LCUElementContext<DataAppsConfigManagerElementState> {}
 
 export const SELECTOR_DATA_APPS_CONFIG_MANAGER_ELEMENT =
   'lcu-data-apps-config-manager-element';
@@ -84,6 +82,10 @@ export class DataAppsConfigManagerElementComponent
     );
   }
 
+  public RegScripts: string;
+
+  public StateConfig: string;
+
   public State: ConfigManagerState;
 
   //  Constructors
@@ -94,6 +96,10 @@ export class DataAppsConfigManagerElementComponent
     protected npm: NPMService
   ) {
     super(injector);
+
+    this.RegScripts = '';
+
+    this.StateConfig = '{}';
   }
 
   //  Life Cycle
@@ -129,7 +135,6 @@ export class DataAppsConfigManagerElementComponent
     this.DAFViewAppFormGroup = this.formBldr.group({
       npmPkg: ['', Validators.required],
       pkgVer: ['', Validators.required],
-      stateCfg: ['{}'],
     });
 
     this.DAFViewAppFormGroup.controls.npmPkg.valueChanges
@@ -279,9 +284,8 @@ export class DataAppsConfigManagerElementComponent
       Details: {
         NPMPackage: this.DAFViewAppFormGroup.controls.npmPkg.value,
         PackageVersion: this.DAFViewAppFormGroup.controls.pkgVer.value,
-        StateConfig: JSON.parse(
-          this.DAFViewAppFormGroup.controls.stateCfg.value || '{}'
-        ),
+        RegScripts: this.RegScripts,
+        StateConfig: JSON.parse(this.StateConfig),
       },
     });
   }
@@ -367,12 +371,17 @@ export class DataAppsConfigManagerElementComponent
           this.State.ActiveDAFApp.Details['PackageVersion']
         );
 
-        this.DAFViewAppFormGroup.controls.stateCfg.setValue(
-          JSON.stringify(this.State.ActiveDAFApp.Details['StateConfig'] || {})
+        this.RegScripts = this.State.ActiveDAFApp.Details['RegScripts'] || '';
+
+        this.StateConfig = JSON.stringify(
+          this.State.ActiveDAFApp.Details['StateConfig'] || {}
         );
       } else {
         this.DAFViewAppFormGroup.reset();
-        this.DAFViewAppFormGroup.controls.stateCfg.setValue('{}');
+
+        this.RegScripts = '';
+
+        this.StateConfig = '{}';
       }
     }
 
@@ -410,7 +419,9 @@ export class DataAppsConfigManagerElementComponent
   }
 
   protected setDAFAPIForm(dafApp: DAFApplication) {
-    this.DAFAPIAppFormGroup.controls.apiRoot.setValue(dafApp.Details['APIRoot']);
+    this.DAFAPIAppFormGroup.controls.apiRoot.setValue(
+      dafApp.Details['APIRoot']
+    );
 
     this.DAFAPIAppFormGroup.controls.inboundPath.setValue(
       dafApp.Details['InboundPath']
@@ -418,8 +429,12 @@ export class DataAppsConfigManagerElementComponent
 
     this.DAFAPIAppFormGroup.controls.lookup.setValue(dafApp.Details['Lookup']);
 
-    this.DAFAPIAppFormGroup.controls.methods.setValue(dafApp.Details['Methods']);
+    this.DAFAPIAppFormGroup.controls.methods.setValue(
+      dafApp.Details['Methods']
+    );
 
-    this.DAFAPIAppFormGroup.controls.security.setValue(dafApp.Details['Security']);
+    this.DAFAPIAppFormGroup.controls.security.setValue(
+      dafApp.Details['Security']
+    );
   }
 }

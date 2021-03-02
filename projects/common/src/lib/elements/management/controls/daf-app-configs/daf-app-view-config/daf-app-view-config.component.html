@@ -34,7 +34,6 @@
   <ng-container *ngIf="SelectedDAFAppPackageType">
     <div [ngSwitch]="SelectedDAFAppPackageType">
       <ng-container *ngSwitchCase="DAFApplicationPackageTypes.Git">
-
       </ng-container>
 
       <ng-container *ngSwitchCase="DAFApplicationPackageTypes.NPM">
@@ -55,18 +54,43 @@
       </ng-container>
     </div>
 
-    <mat-form-field class="mat-full-width">
-      <input
-        matInput
-        placeholder="State Config (json)"
-        formControlName="stateCfg"
-      />
-      <mat-icon
-        matSuffix
-        matTooltip=" This needs to be an empty JSON object to start for many apps."
-      >
-        info_outline
-      </mat-icon>
-    </mat-form-field>
+    <ng-container>
+      <div class="code-editor mat-form-field mat-full-width">
+        <div fxLayout="row">
+          <label>State Config (json)</label>
+
+          <div fxFlex></div>
+
+          <mat-icon
+            matSuffix
+            matTooltip=" This needs to be an empty JSON object to start for many apps."
+          >
+            info_outline
+          </mat-icon>
+        </div>
+
+        <ngx-monaco-editor
+          formControlName="stateCfg"
+          [options]="{ theme: 'vs-dark' }"
+        ></ngx-monaco-editor>
+      </div>
+
+      <div class="code-editor mat-form-field mat-full-width margin-top-2">
+        <div fxLayout="row">
+          <label>Reg Scripts (js)</label>
+
+          <div fxFlex></div>
+
+          <mat-icon matSuffix matTooltip=" This needs to be functional JS.">
+            info_outline
+          </mat-icon>
+        </div>
+
+        <ngx-monaco-editor
+          formControlName="regScripts"
+          [options]="{ theme: 'vs-dark' }"
+        ></ngx-monaco-editor>
+      </div>
+    </ng-container>
   </ng-container>
 </div>
