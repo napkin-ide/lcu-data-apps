@@ -29,6 +29,33 @@
 
         <ng-container *ngIf="IsEdit">
           <mat-tab-group mat-stretch-tabs #detailTabs>
+
+            <mat-tab label="Config">
+              <div class="spread">
+                <!--
+                  TODO:  Maybe support changing an application type?
+
+                  <lcu-data-daf-app-type
+                  [data-daf-app-type]="DAFApplication.DAFAppType"
+                  [data-daf-app-type-options]="SupportedDAFAppTypes"
+                  [form-group]="EditDataAppFormGroup"
+                ></lcu-data-daf-app-type>
+                 -->
+
+                <lcu-daf-app-configs
+                  [allow-add-api-config]="true"
+                  [form-group]="EditDataAppFormGroup"
+                  [daf-app-type]="DAFApplication.DAFAppType"
+                  [daf-application]="DAFApplication"
+                  [daf-app-options]="DAFAppOptions"
+                  [daf-app-root-base]="PathGroup + '/'"
+                  [zip-app-options]="ZipAppOptions"
+                  (add-api-config)="AddAPIConfigEnvironment($event)"
+                  (upload-zip-files)="UploadZips($event)"
+                ></lcu-daf-app-configs>
+              </div>
+            </mat-tab>
+
             <mat-tab label="Details">
               <div class="spread">
                 <lcu-data-app-config
@@ -43,34 +70,6 @@
                   [priority]="DAFApplication.Priority"
                 ></lcu-data-app-config>
               </div>
-            </mat-tab>
-
-            <mat-tab label="Config">
-              <ng-template matTabContent>
-                <div class="spread">
-                  <!--
-                    TODO:  Maybe support changing an application type?
-
-                    <lcu-data-daf-app-type
-                    [data-daf-app-type]="DAFApplication.DAFAppType"
-                    [data-daf-app-type-options]="SupportedDAFAppTypes"
-                    [form-group]="EditDataAppFormGroup"
-                  ></lcu-data-daf-app-type>
-                   -->
-
-                  <lcu-daf-app-configs
-                    [allow-add-api-config]="true"
-                    [form-group]="EditDataAppFormGroup"
-                    [daf-app-type]="DAFApplication.DAFAppType"
-                    [daf-application]="DAFApplication"
-                    [daf-app-options]="DAFAppOptions"
-                    [daf-app-root-base]="PathGroup + '/'"
-                    [zip-app-options]="ZipAppOptions"
-                    (add-api-config)="AddAPIConfigEnvironment($event)"
-                    (upload-zip-files)="UploadZips($event)"
-                  ></lcu-daf-app-configs>
-                </div>
-              </ng-template>
             </mat-tab>
 
             <mat-tab label="Security">
