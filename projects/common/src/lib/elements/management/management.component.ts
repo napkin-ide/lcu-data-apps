@@ -234,7 +234,6 @@ export class LcuDataAppsManagementElementComponent
     ksdfe.DAFApplications = this.State.DAFApplications;
     ksdfe.Loading = this.State.Loading;
 
-    debugger;
     setTimeout(() => {
       const modalConfig: GenericModalModel = new GenericModalModel({
         ModalType: 'data', // type of modal we want (data, confirm, info)
@@ -277,7 +276,6 @@ export class LcuDataAppsManagementElementComponent
    * Callback function passed into the modal configuration
    */
   protected confirmCallback(val: any): void {
-    debugger;
   }
 
   protected handleStateChanged() {

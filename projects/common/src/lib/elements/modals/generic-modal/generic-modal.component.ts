@@ -83,8 +83,8 @@ public Test: string;
    * Render the component to use within the modal (this.Data.Component)
    */
   protected renderModalComponent(): void {
-    debugger;
     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.Data.Component);
+
     this.componentRef = this.vcRef.createComponent(factory);
   }
 }
