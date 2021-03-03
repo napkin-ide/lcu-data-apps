@@ -28,6 +28,7 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
   //  Properties
   public get Config(): { [key: string]: any } {
+    debugger;
     return {
       Lookup: this.IncludeLookup
         ? this.FormGroup.controls.lcuLookup.value
@@ -91,18 +92,18 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
   public ngOnInit(): void {
     this.FormGroup.addControl(
       'pkgType',
-      new FormControl(!this.Details ? {} : this.Details.PackageType || '', [])
+      new FormControl(this.Details?.PackageType || '', [])
     );
 
     this.FormGroup.addControl(
       'regScripts',
-      new FormControl(!this.Details ? {} : this.Details.RegScripts || '', [])
+      new FormControl(this.Details?.RegScripts || '', [])
     );
 
     this.FormGroup.addControl(
       'stateCfg',
       new FormControl(
-        JSON.stringify(!this.Details ? {} : this.Details.StateConfig || {}, null, 4),
+        JSON.stringify(this.Details?.StateConfig || {}, null, 4),
         []
       )
     );
