@@ -12,6 +12,7 @@ export class DafAppRedirectConfigComponent implements  OnDestroy, OnInit {
 
   //  Properties
   public get Config(): { [key: string]: any } {
+    debugger;
     return {
       Redirect: this.FormGroup.controls.redirect.value
     };
