@@ -28,7 +28,6 @@ export class DafAppViewConfigComponent implements OnDestroy, OnInit {
 
   //  Properties
   public get Config(): { [key: string]: any } {
-    debugger;
     return {
       Lookup: this.IncludeLookup
         ? this.FormGroup.controls.lcuLookup.value
