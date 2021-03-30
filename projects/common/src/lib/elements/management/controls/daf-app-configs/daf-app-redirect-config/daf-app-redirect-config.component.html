@@ -16,4 +16,46 @@
       info_outline
     </mat-icon>
   </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <mat-select placeholder="Permanent" formControlName="permanent" required>
+      <mat-option [value]="true">
+        Yes (301, 308)
+      </mat-option>
+
+      <mat-option [value]="false">
+        No (302, 307)
+      </mat-option>
+    </mat-select>
+    <mat-icon
+      matSuffix
+      matTooltip="Is the redirect a permanent (301/308) redirect or temporary (302/307)?"
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="mat-full-width">
+    <mat-select placeholder="Preserve Method" formControlName="preserveMethod" required>
+      <mat-option [value]="false">
+        No (301, 302)
+      </mat-option>
+
+      <mat-option [value]="true">
+        Yes (307, 308)
+      </mat-option>
+    </mat-select>
+    <mat-icon
+      matSuffix
+      matTooltip="Should the redirect preserve the method (307/308) redirect or allow changegs to method (301/307)?"
+    >
+      info_outline
+    </mat-icon>
+  </mat-form-field>
+
+  <div>
+    <h3>
+      Selected <strong>{{ RedirectType }}</strong> redirect
+    </h3>
+  </div>
 </div>
